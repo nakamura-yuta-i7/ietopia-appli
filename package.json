@@ -1,8 +1,8 @@
 {
   "name": "ietopia-appli",
   "version": "1.0.0",
-  "description": "",
   "scripts": {
+    "start": "cd www/ ; http-server -d False -a 0.0.0.0 -o ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,5 +14,11 @@
   "bugs": {
     "url": "https://github.com/nakamura-yuta-i7/ietopia-appli/issues"
   },
-  "homepage": "https://github.com/nakamura-yuta-i7/ietopia-appli#readme"
+  "homepage": "https://github.com/nakamura-yuta-i7/ietopia-appli#readme",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^0.7.4"
+  },
+  "description": ""
 }
