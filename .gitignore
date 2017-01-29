@@ -1,5 +1,9 @@
+
 test_*
+
 .buildpath
 .project
 .settings/
+
+node_modules
 
