@@ -4,13 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    
+    <!-- monaca:components:start -->
     <script src="components/loader.js"></script>
     <link rel="stylesheet" href="components/loader.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script>
-    </script>
+    <!-- monaca:components:end -->
+    
+    <!-- semantic-ui:start -->
+    <link rel="stylesheet" type="text/css" href="vendor/semantic-ui/semantic.min.css">
+    <script src="vendor/jquery/jquery-3.1.1.min.js"></script>
+    <script src="vendor/semantic-ui/semantic.min.js"></script>
+    <!-- semantic-ui:end -->
+    
 </head>
 <body>
-    
+    <div id="app">
+        <div class="loading-message">アプリケーションを読み込み中...</div>
+    </div>
+    <script src="dist/bundle.js"></script>
 </body>
 </html>
