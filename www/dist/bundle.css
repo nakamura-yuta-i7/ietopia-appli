@@ -1,0 +1,57 @@
+header {
+  background: #F47F00;
+  height: 52px;
+  color: white;
+  font-weight: 900;
+  text-align: center;
+  padding: 15px 0 15px 0;
+}
+
+header h1 {
+  font-size: 18px !important;
+}
+
+footer {
+  border-top: 2px solid #EA0000;
+  height: 56px;
+  box-sizing: border-box;
+}
+
+footer nav ul {
+  padding: 0;
+  margin: 0;
+}
+
+footer nav ul li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  float: left;
+}
+
+footer nav ul li img {
+  width: 69px;
+}
+html, body {
+  background: #fff;
+  color: #333;
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+#logo {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo img {
+  width: 70%;
+  max-width: 500px;
+}
+
+/*# sourceMappingURL=bundle.css.map*/
