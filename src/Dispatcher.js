@@ -8,6 +8,7 @@ export default class Dispatcher {
       const controller = router.getController();
       const action     = router.getAction();
       controller[ action + "Action" ]();
+      controller.render();
       
     } catch (err) {
       

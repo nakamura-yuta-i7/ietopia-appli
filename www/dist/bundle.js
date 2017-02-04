@@ -319,6 +319,7 @@ class Dispatcher {
       const controller = router.getController();
       const action     = router.getAction();
       controller[ action + "Action" ]();
+      controller.render();
       
     } catch (err) {
       
@@ -457,7 +458,15 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfYAAADKCAYAAABX
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_top_TopPage__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_special_SpecialPage__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_search_SearchPage__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_special_SpecialPage__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_news_NewsPage__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_favorite_FavoritePage__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_mypage_MyPagePage__ = __webpack_require__(22);
+
+
+
+
 
 
 
@@ -469,8 +478,12 @@ class Router {
   }
   getController() {
     switch (this.pageParam) {
-      case "top"    : return new __WEBPACK_IMPORTED_MODULE_0__pages_top_TopPage__["a" /* default */](this.requestParams);
-      case "special": return new __WEBPACK_IMPORTED_MODULE_1__pages_special_SpecialPage__["a" /* default */](this.requestParams);
+      case "top"     : return new __WEBPACK_IMPORTED_MODULE_0__pages_top_TopPage__["a" /* default */](this.requestParams);
+      case "search"  : return new __WEBPACK_IMPORTED_MODULE_1__pages_search_SearchPage__["a" /* default */](this.requestParams);
+      case "special" : return new __WEBPACK_IMPORTED_MODULE_2__pages_special_SpecialPage__["a" /* default */](this.requestParams);
+      case "news"    : return new __WEBPACK_IMPORTED_MODULE_3__pages_news_NewsPage__["a" /* default */](this.requestParams);
+      case "favorite": return new __WEBPACK_IMPORTED_MODULE_4__pages_favorite_FavoritePage__["a" /* default */](this.requestParams);
+      case "mypage"  : return new __WEBPACK_IMPORTED_MODULE_5__pages_mypage_MyPagePage__["a" /* default */](this.requestParams);
       default:
         throw Error("Not found.");
     }
@@ -494,10 +507,58 @@ class Router {
 class Page {
   constructor(requestParams) {
     this.requests = requestParams;
+    
+    // ヘッダー要否
+    this.displayHeader = true;
+    // ヘッダータイトル
+    this.headerTitle = "タイトル";
+    // フッター要否
+    this.displayFooter = true;
+    // コンテンツ
+    this.$contents = $(`
+      <div id="contents"></div>
+    `);
+    
     this.$app = $("#app");
     this.$app.show();
     this.$app.html(null);
     console.log( this.requests );
+  }
+  render() {
+    
+    if ( this.displayHeader ) {
+      
+      var $header = $(`
+        <header>
+          <h1>${this.headerTitle}</h1>
+        </header>
+        <div id="header-under-space"></div>
+      `);
+      this.$app.append($header);
+    }
+    
+    this.$app.append(this.$contents);
+    
+    if ( this.displayFooter ) {
+      var $footer = $(`
+        <footer>
+          <nav>
+            <ul>
+              <li class="search"><img src="img/common/footer/nav_search.png"></li>
+              <li class="special"><img src="img/common/footer/nav_special.png"></li>
+              <li class="news"><img src="img/common/footer/nav_news.png"></li>
+              <li class="favorite"><img src="img/common/footer/nav_favorite.png"></li>
+              <li class="mypage"><img src="img/common/footer/nav_mypage.png"></li>
+            </ul>
+          </nav>
+        </footer>
+      `);
+      $footer.find("li").on("click", function() {
+        var page = $(this).attr("class");
+        renderPage({ page: page });
+      });
+      this.$app.append($footer);
+    }
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Page;
@@ -516,31 +577,36 @@ class Page {
 
 class TopPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
   indexAction() {
+    this.displayHeader = false;
+    this.displayFooter = false;
+    
     var $img = $html("img", {
       src: __webpack_require__(6)
     });
     var $logo = $html("div", {
       id: "logo",
     });
-    $logo.on("click", () => {
-      this.gotoNextPage();
-    });
     $logo.append($img);
     this.$app.html( $logo );
     
-    setTimeout( () => {
+    // 自動で次のページへ遷移
+    var timer = setTimeout( () => {
       this.$app.fadeOut("slow", () => {
         this.gotoNextPage();
       });
     }, 2000);
+    
+    // タップしたらすぐにページ遷移
+    $logo.on("click", () => {
+      this.gotoNextPage();
+      clearTimeout( timer );
+    });
   }
   gotoNextPage() {
     renderPage({page: "special", action: "index"});
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = TopPage;
-
-
 
 
 /***/ }),
@@ -604,30 +670,18 @@ window.onpopstate = function(e) {
 
 class SpecialPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
   indexAction() {
-    var $header = $(`
-      <header>
-        <h1>特集</h1>
-      </header>
+    this.headerTitle = "特集";
+    var $banners = $(`
+      <div class="banner"><img src="img/special/banner_designers.png"></div>
+      <div class="banner"><img src="img/special/banner_shintiku.png"></div>
+      <div class="banner"><img src="img/special/banner_pet.png"></div>
+      <div class="banner"><img src="img/special/banner_shiki_rei_nashi.png"></div>
+      <div class="banner"><img src="img/special/banner_ekitika.png"></div>
+      <div class="banner"><img src="img/special/banner_jimusho.png"></div>
+      <div class="banner"><img src="img/special/banner_gakki.png"></div>
+      <div class="banner"><img src="img/special/banner_family.png"></div>
     `);
-    var $footer = $(`
-      <footer>
-        <nav>
-          <ul>
-            <li><img src="img/common/footer/nav_search.png"></li>
-            <li><img src="img/common/footer/nav_special.png"></li>
-            <li><img src="img/common/footer/nav_news.png"></li>
-            <li><img src="img/common/footer/nav_favorite.png"></li>
-            <li><img src="img/common/footer/nav_mypage.png"></li>
-          </ul>
-        </nav>
-      </footer>
-    `);
-    var $contents = $(`
-      <div id="contents"></div>
-    `);
-    this.$app.append($header);
-    this.$app.append($contents);
-    this.$app.append($footer);
+    this.$contents.html( $banners );
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SpecialPage;
@@ -638,6 +692,110 @@ class SpecialPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_scss__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search_scss__);
+
+
+
+class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    this.headerTitle = "検索";
+    var $searchForm = $(`<form>`);
+    
+    this.$contents.html( $searchForm );
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = SearchPage;
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__news_scss__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__news_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__news_scss__);
+
+
+
+class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = NewsPage;
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__favorite_scss__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__favorite_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__favorite_scss__);
+
+
+
+class FavoritePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = FavoritePage;
+
+
+/***/ }),
+/* 20 */,
+/* 21 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mypage_scss__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mypage_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__mypage_scss__);
+
+
+
+class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = MyPagePage;
+
 
 /***/ })
 /******/ ]);
