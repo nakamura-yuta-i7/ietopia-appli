@@ -21,8 +21,9 @@ header {
   box-sizing: border-box;
   height: calc( 100% - 52px - 56px );
   background: #FFF1E1;
-  overflow-x: auto;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
 }
 footer {
   position: fixed;
