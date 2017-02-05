@@ -2,6 +2,9 @@ var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = function(env) {
+  // env: $ ./node_modules/.bin/webpack --env production => production
+  console.log( "webpack --env:", env );
+  
   return {
     entry: './src/main.js',
     output: {

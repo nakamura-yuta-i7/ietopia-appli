@@ -1,0 +1,96 @@
+#contents.search-page {
+  padding: 0px 0px 16px 0px;
+}
+
+form {
+  
+  h2 {
+    font-size: 17px;
+    color: #F47F00;
+    font-weight: 900;
+    text-align: center;
+  }
+  
+  .ui input, .ui.dropdown {
+    box-sizing: border-box;
+    height: 48px;
+    border: 1px solid #fff !important;
+  }
+  
+  .description {
+    color: #7F7F7F;
+    font-size: 12px;
+  }
+  
+  section {
+    padding: 13px 10px 16px 10px;
+    border-bottom: 2px solid #fff;
+  }
+  
+  .ui.input.word {
+    width: 100%;
+  }
+  
+  .ui.input.station {
+    width: 100%;
+    
+    input {
+      padding-left: 52px !important;
+    }
+    
+    .icon_train {
+      position: absolute;
+      left:22px;
+      top:16px;
+      img {
+        width: 13px;
+      }
+    }
+  }
+  
+  select.ui.dropdown {
+    background: #fff;
+  }
+  
+  
+  .icon_remove {
+    position: absolute;
+    height: 52px;
+    top: 0px;
+    right: 0px;
+
+    img {
+      width: 16px;
+      position: absolute;
+      top: 16px;
+      right: 16px;
+    }
+  }
+  
+  .icon_list {
+    img {
+      width: 20px;
+    }
+  }
+  
+  #submit-btn-area {
+    
+    position: fixed;
+    bottom: 53px;
+    left: 0;
+    
+    width: 100%;
+    background: #fff;
+    padding: 17px;
+    
+    text-align: center;
+    
+    .btn_search {
+      cursor: pointer;
+      
+      img {
+        width: 199px;
+      }
+    }
+  }
+}

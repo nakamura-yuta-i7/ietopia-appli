@@ -3,6 +3,8 @@ import './common.scss';
 export default class Page {
   constructor(requestParams) {
     this.requests = requestParams;
+    this.page = this.requests.page
+    this.action = this.requests.action
     
     // ヘッダー要否
     this.displayHeader = true;
@@ -12,7 +14,7 @@ export default class Page {
     this.displayFooter = true;
     // コンテンツ
     this.$contents = $(`
-      <div id="contents"></div>
+      <div id="contents" class="${this.page}-page ${this.action}-action"></div>
     `);
     
     this.$app = $("#app");
@@ -23,10 +25,16 @@ export default class Page {
   render() {
     
     if ( this.displayHeader ) {
-      
+      this.displayHeaderLogoS = true;
+      var headerLogoS = this.displayHeaderLogoS
+        ? `<div id="logo_s">
+          <a href="./"><img src="img/common/header/logo_s.png"></a>
+        </div>` : ``;
+        
       var $header = $(`
         <header>
           <h1>${this.headerTitle}</h1>
+          ${headerLogoS}
         </header>
         <div id="header-under-space"></div>
       `);
