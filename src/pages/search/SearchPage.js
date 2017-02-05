@@ -29,11 +29,11 @@ export default class SearchPage extends Page {
         </div>
       </section>
       
-      <section>
+      <section id="yatin">
         <h2>￥ 家賃</h2>
         <div class="table">
           <div class="table-cell">
-            <select class="ui dropdown">
+            <select class="ui dropdown" id="yatin-min">
               <option value="">下限なし</option>
               <option value="3">3.0万</option>
               <option value="2">5.0万</option>
@@ -49,7 +49,7 @@ export default class SearchPage extends Page {
             <span class="between">〜</span>
           </div>
           <div class="table-cell">
-            <select class="ui dropdown">
+            <select class="ui dropdown" id="yatin-max">
               <option value="">下限なし</option>
               <option value="3">3.0万</option>
               <option value="2">5.0万</option>

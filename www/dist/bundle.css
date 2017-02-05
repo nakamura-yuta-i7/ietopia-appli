@@ -161,6 +161,33 @@ form select.ui.dropdown {
   background: #fff;
 }
 
+form #yatin .table {
+  width: 100%;
+}
+
+form #yatin .table .table-cell select {
+  width: 115px;
+  text-align: center;
+  text-align: -webkit-center;
+  color: #9A9A9A;
+}
+
+form #yatin .table .table-cell:nth-child(1) {
+  text-align: right;
+}
+
+form #yatin .table .table-cell:nth-child(2) {
+  padding: 0px 5px;
+  font-size: 17px;
+  color: #F47F00;
+  font-weight: 900;
+  text-align: center;
+}
+
+form #yatin .table .table-cell:nth-child(3) {
+  text-align: left;
+}
+
 form .icon_remove {
   position: absolute;
   height: 52px;

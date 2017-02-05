@@ -52,6 +52,30 @@ form {
     background: #fff;
   }
   
+  #yatin .table {
+    width: 100%;
+    .table-cell {
+      select {
+        width: 115px;
+        text-align: center;
+        text-align: -webkit-center;
+        color: #9A9A9A;
+      }
+      &:nth-child(1) {
+        text-align: right;
+      }
+      &:nth-child(2) {
+        padding: 0px 5px;
+        font-size: 17px;
+        color: #F47F00;
+        font-weight: 900;
+        text-align: center;
+      }
+      &:nth-child(3) {
+        text-align: left;
+      }
+    }
+  }
   
   .icon_remove {
     position: absolute;
