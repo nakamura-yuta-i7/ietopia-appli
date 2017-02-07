@@ -2,7 +2,9 @@
   "name": "ietopia-appli",
   "version": "1.0.0",
   "scripts": {
-    "start": "cd www && http-server -d False -a 0.0.0.0 -p 8080 -c1 -o ",
+    "build": "./node_modules/.bin/webpack --env production",
+    "server:up": "cd www && http-server -d False -a 0.0.0.0 -p 8080 -c1 -o ",
+    "webpack:watch": "./node_modules/.bin/webpack --watch ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

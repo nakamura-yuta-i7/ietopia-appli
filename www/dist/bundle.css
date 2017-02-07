@@ -8,11 +8,11 @@ header {
   color: white;
   font-weight: 900;
   text-align: center;
-  padding: 15px 0 15px 0;
 }
 
 header h1 {
   font-size: 18px !important;
+  padding: 15px 0 15px 0;
 }
 
 header #logo_s {
@@ -24,6 +24,27 @@ header #logo_s {
 
 header #logo_s img {
   width: 100%;
+}
+
+header #history-back {
+  z-index: 99;
+  height: 52px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding-top: 14px;
+  padding-left: 14px;
+  cursor: pointer;
+}
+
+header #history-back img {
+  width: 15px;
+  vertical-align: middle;
+}
+
+header #history-back span {
+  font-weight: 100;
+  vertical-align: middle;
 }
 
 #header-under-space {
@@ -123,11 +144,13 @@ form .ui input, form .ui.dropdown {
   box-sizing: border-box;
   height: 48px;
   border: 1px solid #fff !important;
+  font-size: 16px;
 }
 
 form .description {
   color: #7F7F7F;
   font-size: 12px;
+  margin-bottom: 3px;
 }
 
 form section {
@@ -145,6 +168,7 @@ form .ui.input.station {
 
 form .ui.input.station input {
   padding-left: 52px !important;
+  cursor: pointer;
 }
 
 form .ui.input.station .icon_train {
@@ -166,7 +190,8 @@ form #yatin .table {
 }
 
 form #yatin .table .table-cell select {
-  width: 115px;
+  width: 100px;
+  padding-left: 10px;
   text-align: center;
   text-align: -webkit-center;
   color: #9A9A9A;
@@ -190,7 +215,9 @@ form #yatin .table .table-cell:nth-child(3) {
 
 form .icon_remove {
   position: absolute;
+  cursor: pointer;
   height: 52px;
+  width: 48px;
   top: 0px;
   right: 0px;
 }
@@ -202,7 +229,22 @@ form .icon_remove img {
   right: 16px;
 }
 
-form .icon_list img {
+form .ui.input.kodawari {
+  width: 100%;
+}
+
+form .ui.input.kodawari input {
+  padding-left: 52px !important;
+  cursor: pointer;
+}
+
+form .ui.input.kodawari .icon_list {
+  position: absolute;
+  left: 18px;
+  top: 15px;
+}
+
+form .ui.input.kodawari .icon_list img {
   width: 20px;
 }
 
@@ -223,16 +265,141 @@ form #submit-btn-area .btn_search {
 form #submit-btn-area .btn_search img {
   width: 199px;
 }
-#contents.special-page {
+#search-result-panel {
+  height: 52px;
+  width: 100%;
+  display: table;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding-left: 80px;
+  line-height: 1;
+}
+
+#search-result-panel #count {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  border-right: 1px solid #fff;
+}
+
+#search-result-panel #count #val {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+#search-result-panel #count #ken {
+  font-size: 10px;
+  font-weight: 100;
+}
+
+#search-result-panel #sort-button {
+  width: 88px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+#search-result-panel #filter-button {
+  width: 88px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.room-list .room {
+  height: 247px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.room-list .room img.main {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
+.room-list .room .star {
+  cursor: pointer;
+  position: absolute;
+  bottom: 32px;
+  left: 14px;
+  width: 33px;
+  height: 32px;
+}
+
+.room-list .room .star img {
+  width: 33px;
+  height: 32px;
+}
+
+.room-list .room .kotu {
+  position: absolute;
+  bottom: 12px;
+  left: 57px;
+  color: #fff;
+  font-weight: 100;
+  white-space: nowrap;
+}
+
+.room-list .room .yatin-madori {
+  position: absolute;
+  bottom: 38px;
+  left: 57px;
+  color: #fff;
+  font-weight: 900;
+}
+
+.room-list .room .madori-menseki {
+  display: inline-block;
+  font-size: 18px;
+}
+
+.room-list .room .yatin {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.room-list .room .yatin .yatin-int {
+  font-size: 24px;
+  margin-right: 4px;
+}
+
+.room-list .room .yatin .manyen {
+  font-size: 18px;
+}
+
+.room-list .room .bg {
+  height: 124px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  background: #ccc;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100&0+0,0.66+100;Black+3D+%231 */
+  background: -moz-linear-gradient(top, rgba(69, 72, 77, 0) 0%, rgba(0, 0, 0, 0.66) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(69, 72, 77, 0) 0%, rgba(0, 0, 0, 0.66) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(69, 72, 77, 0) 0%, rgba(0, 0, 0, 0.66) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0045484d', endColorstr='#a8000000',GradientType=0 );
+  /* IE6-9 */
+}
+.special-page #contents {
   padding: 16px 13px;
 }
 
-#contents.special-page .banner {
+.special-page #contents .banner {
   margin-bottom: 5px;
   cursor: pointer;
 }
 
-#contents.special-page .banner img {
+.special-page #contents .banner img {
   width: 100%;
 }
 

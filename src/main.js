@@ -4,6 +4,7 @@ global.$html = function(tagname, params={}) {
   $html.attr(params);
   return $html;
 }
+global.config = require("./config");
 
 import Dispatcher from "./Dispatcher";
 import queryString from 'query-string';

@@ -4,9 +4,6 @@ import './search.scss';
 export default class SearchPage extends Page {
   indexAction() {
     this.headerTitle = "検索";
-    
-    var $icon
-    
     var $searchForm = $(`<form>
       
       <section>
@@ -67,8 +64,8 @@ export default class SearchPage extends Page {
       <section>
         <h2>条件・こだわり</h2>
         <div class="description">間取や面積、駅徒歩、設備などこだわりポイントを指定</div>
-        <div class="ui left icon input">
-          <input type="text" placeholder="指定なし">
+        <div class="ui left icon input kodawari">
+          <input type="text" name="kodawari" placeholder="指定なし">
           <div class="icon_list">
             <img src="img/common/form/icon_list.png">
           </div>
@@ -85,6 +82,17 @@ export default class SearchPage extends Page {
       </div>
       
     </form>`);
+    
+    var $stationInput = $searchForm.find("input[name=station]");
+    $stationInput.on("click", function() {
+      console.log( "koko1" );
+      return false;
+    });
+    
+    var $searchButton = $searchForm.find(".btn_search");
+    $searchButton.on("click", function() {
+      renderPage({page: "search_result", action: "index"});
+    });
     
     this.$contents.html( $searchForm );
   }

@@ -9,9 +9,9 @@ header {
   color: white;
   font-weight: 900;
   text-align: center;
-  padding: 15px 0 15px 0;
   h1 {
     font-size: 18px !important;
+    padding: 15px 0 15px 0;
   }
   #logo_s {
     img {
@@ -21,6 +21,24 @@ header {
     position: absolute;
     top:12px;
     left:12px;
+  }
+  #history-back {
+    z-index: 99;
+    height: 52px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding-top: 14px;
+    padding-left: 14px;
+    cursor: pointer;
+    img {
+      width:15px;
+      vertical-align: middle;
+    }
+    span {
+      font-weight: 100;
+      vertical-align: middle;
+    }
   }
 }
 #header-under-space {

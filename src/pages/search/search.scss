@@ -15,11 +15,13 @@ form {
     box-sizing: border-box;
     height: 48px;
     border: 1px solid #fff !important;
+    font-size: 16px;
   }
   
   .description {
     color: #7F7F7F;
     font-size: 12px;
+    margin-bottom: 3px;
   }
   
   section {
@@ -36,6 +38,7 @@ form {
     
     input {
       padding-left: 52px !important;
+      cursor: pointer;
     }
     
     .icon_train {
@@ -56,7 +59,8 @@ form {
     width: 100%;
     .table-cell {
       select {
-        width: 115px;
+        width: 100px;
+        padding-left: 10px;
         text-align: center;
         text-align: -webkit-center;
         color: #9A9A9A;
@@ -79,7 +83,9 @@ form {
   
   .icon_remove {
     position: absolute;
+    cursor: pointer;
     height: 52px;
+    width: 48px;
     top: 0px;
     right: 0px;
 
@@ -91,11 +97,23 @@ form {
     }
   }
   
-  .icon_list {
-    img {
-      width: 20px;
+  .ui.input.kodawari {
+    width: 100%;
+    
+    input {
+      padding-left: 52px !important;
+      cursor: pointer;
+    }
+    .icon_list {
+      position: absolute;
+      left: 18px;
+      top: 15px;
+      img {
+        width: 20px;
+      }
     }
   }
+  
   
   #submit-btn-area {
     

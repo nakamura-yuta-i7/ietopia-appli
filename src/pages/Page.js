@@ -8,16 +8,25 @@ export default class Page {
     
     // ヘッダー要否
     this.displayHeader = true;
+    // ヘッダータイトル要否
+    this.displayHeaderTitle = true;
     // ヘッダータイトル
     this.headerTitle = "タイトル";
+    // ヘッダー戻るボタン要否
+    this.displayHeaderBackButton = false;
+    // ヘッダー内ロゴ要否
+    this.displayHeaderLogoS = true;
+    // ヘッダーオリジナルコンテンツ
+    this.$headerOriginalContents = "";
     // フッター要否
     this.displayFooter = true;
     // コンテンツ
     this.$contents = $(`
-      <div id="contents" class="${this.page}-page ${this.action}-action"></div>
+      <div id="contents"></div>
     `);
     
     this.$app = $("#app");
+    this.$app.attr("class", `${this.page}-page ${this.action}-action`);
     this.$app.show();
     this.$app.html(null);
     console.log( this.requests );
@@ -25,20 +34,35 @@ export default class Page {
   render() {
     
     if ( this.displayHeader ) {
-      this.displayHeaderLogoS = true;
+      
       var headerLogoS = this.displayHeaderLogoS
         ? `<div id="logo_s">
-          <a href="./"><img src="img/common/header/logo_s.png"></a>
-        </div>` : ``;
-        
+            <a href="./"><img src="img/common/header/logo_s.png"></a>
+          </div>` : ``;
+      var headerTitle = this.displayHeaderTitle
+        ? `<h1>${this.headerTitle}</h1>` : ``
+      var headerBackButton = this.displayHeaderBackButton
+        ? `<div id="history-back">
+            <img src="img/common/header/icon_back.png">
+            <span>戻る</span>
+          </div>` : ``;
       var $header = $(`
         <header>
-          <h1>${this.headerTitle}</h1>
+          ${headerTitle}
           ${headerLogoS}
+          ${headerBackButton}
         </header>
-        <div id="header-under-space"></div>
       `);
+      
+      var $headerBackButton = $header.find("#history-back");
+      $headerBackButton.on("click", () => {
+        history.back();
+      });
+      if ( this.$headerOriginalContents.length ) {
+        $header.append( this.$headerOriginalContents );
+      }
       this.$app.append($header);
+      this.$app.append($(`<div id="header-under-space"></div>`));
     }
     
     this.$app.append(this.$contents);
