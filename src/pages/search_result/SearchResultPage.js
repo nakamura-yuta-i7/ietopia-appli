@@ -18,6 +18,11 @@ export default class SearchResultPage extends Page {
         </div>`);
     var $sortButton = $(`<div id="sort-button">並び替え</div>`);
     var $filterButton = $(`<div id="filter-button">絞り込み</div>`);
+    $filterButton.on("click", () => {
+      renderPage({
+        page: "search"
+      });
+    });
     
     this.$headerOriginalContents.append( $countDiv );
     this.$headerOriginalContents.append( $sortButton );
@@ -46,7 +51,7 @@ export default class SearchResultPage extends Page {
       var gaikanImageMainUrl = room.gaikan_images.count == 0 ?
           "" : // 外観写真が無い場合
           room.gaikan_image_main ; // 外観写真（メイン）
-      return $(`<img class="main" src="${gaikanImageMainUrl}">`);
+      return $(`<img class="main-img" src="${gaikanImageMainUrl}">`);
     } )();
     $room.append( $gaikanImage );
     // 半透明グラデーション背景

@@ -31,6 +31,7 @@ module.exports = function(env) {
             fallbackLoader: 'style-loader',
             loader: [
               'css-loader',
+              'autoprefixer-loader?browsers=last 2 versions',
               'sass-loader?outputStyle=expanded&sourceMap'
             ]
           })

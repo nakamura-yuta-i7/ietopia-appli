@@ -1,0 +1,26 @@
+.mypage-page {
+  .contents {
+    .menus {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 16px 10px;
+      
+      .menu {
+        flex-basis: calc(30%);
+        text-align: center;
+        margin-bottom: 15px;
+        background: #fff;
+        padding: 5px 0px;
+        border-radius: 8px;
+        cursor: pointer;
+        
+        img {
+          margin: 0 auto;
+          width: 84px;
+          display: block;
+        }
+      }
+    }
+  }
+}

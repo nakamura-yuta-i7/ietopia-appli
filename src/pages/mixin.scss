@@ -1,0 +1,34 @@
+@mixin maxWH() {
+  width: 100%;
+  height: 100%;
+}
+@mixin maxW() {
+  width: 100%;
+}
+@mixin maxH() {
+  height: 100%;
+}
+@mixin middleCenter() {
+  vertical-align: middle;
+  text-align: center;
+}
+@mixin table() {
+  display: table;
+}
+@mixin cell() {
+  display: table-cell;
+}
+@mixin middleCenterCell() {
+  @include cell();
+  @include middleCenter();
+}
+@mixin absoluteTop() {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@mixin fixedTop() {
+  position: fixed;
+  top: 0;
+  left: 0;
+}

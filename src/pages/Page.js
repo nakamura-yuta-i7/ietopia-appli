@@ -1,10 +1,17 @@
 import './common.scss';
 
 export default class Page {
-  constructor(requestParams) {
+  constructor(requestParams,
+  transitionType = "REPLACE" ) {
+    
     this.requests = requestParams;
-    this.page = this.requests.page
-    this.action = this.requests.action
+    this.page     = this.requests.page;
+    this.action   = this.requests.action;
+    this.transitionType = transitionType;
+    
+    this.$app = $("#app");
+    this.$app.find(".loading-message").remove();
+    this.$app.show();
     
     // ヘッダー要否
     this.displayHeader = true;
@@ -12,24 +19,25 @@ export default class Page {
     this.displayHeaderTitle = true;
     // ヘッダータイトル
     this.headerTitle = "タイトル";
-    // ヘッダー戻るボタン要否
+    // ヘッダー戻るボタン
     this.displayHeaderBackButton = false;
+    this.headerBackButtonText = `戻る`
     // ヘッダー内ロゴ要否
     this.displayHeaderLogoS = true;
     // ヘッダーオリジナルコンテンツ
     this.$headerOriginalContents = "";
     // フッター要否
     this.displayFooter = true;
+    
+    // メインパネル(フッター以外の部分)
+    var depthTop = 0;
+    this.$main = $(`<div class="main" depth="${depthTop}"></a>`);
+    this.$main.addClass(`${this.page}-page`);
+    this.$main.addClass(`${this.action}-action`);
     // コンテンツ
     this.$contents = $(`
-      <div id="contents"></div>
+      <div class="contents"></div>
     `);
-    
-    this.$app = $("#app");
-    this.$app.attr("class", `${this.page}-page ${this.action}-action`);
-    this.$app.show();
-    this.$app.html(null);
-    console.log( this.requests );
   }
   render() {
     
@@ -44,7 +52,7 @@ export default class Page {
       var headerBackButton = this.displayHeaderBackButton
         ? `<div id="history-back">
             <img src="img/common/header/icon_back.png">
-            <span>戻る</span>
+            <span>${this.headerBackButtonText}</span>
           </div>` : ``;
       var $header = $(`
         <header>
@@ -61,31 +69,86 @@ export default class Page {
       if ( this.$headerOriginalContents.length ) {
         $header.append( this.$headerOriginalContents );
       }
-      this.$app.append($header);
-      this.$app.append($(`<div id="header-under-space"></div>`));
+      this.$main.append($header);
+      this.$main.append($(`<div id="header-under-space"></div>`));
     }
     
-    this.$app.append(this.$contents);
-    
-    if ( this.displayFooter ) {
-      var $footer = $(`
-        <footer>
-          <nav>
-            <ul>
-              <li class="search"><img src="img/common/footer/nav_search.png"></li>
-              <li class="special"><img src="img/common/footer/nav_special.png"></li>
-              <li class="news"><img src="img/common/footer/nav_news.png"></li>
-              <li class="favorite"><img src="img/common/footer/nav_favorite.png"></li>
-              <li class="mypage"><img src="img/common/footer/nav_mypage.png"></li>
-            </ul>
-          </nav>
-        </footer>
-      `);
-      $footer.find("li").on("click", function() {
-        var page = $(this).attr("class");
-        renderPage({ page: page });
-      });
-      this.$app.append($footer);
+    if ( this.transitionType != "BACK" ) {
+      this.$main.append(this.$contents);
+      this.$app.append( this.$main );
     }
+    
+    // 元々表示していたページは裏のレイヤーとする
+    // その際はレイヤーの深さを設定してあげる
+    this.refreshMainDepth();
+    
+    function windowWidthPx() {
+      return `${window.innerWidth}px`;
+    }
+    
+    if ( this.transitionType == "REPLACE" ) {
+      $(".main[depth!=0]").remove();
+    } else if ( this.transitionType == "BACK" ) {
+      if ( $(".main").length > 1 ) {
+        // BACKのページ切り替え時
+        $(".main[depth=1]").animate({left: "0px"});
+        $(".main[depth=0]").animate({left: windowWidthPx()}, () => {
+          $(".main[depth=0]").remove();
+        });
+        this.refreshMainDepth();
+      }
+    } else if ( this.transitionType == "SLIDE_LEFT" ) {
+      if ( $(".main").length > 1 ) {
+        // REPLACE以外のページ切り替え時
+        $(".main[depth=0]").css({left: windowWidthPx()});
+        $(".main[depth=1]").animate({left: "-100px"});
+        $(".main[depth=0]").animate({left: "0px"});
+      }
+    }
+    this.buildFooter();
+  }
+  refreshMainDepth() {
+    $( $(".main").get().reverse() ).each(function(i) {
+      var depth = i;
+      $(this).attr("depth", depth);
+    });
+  }
+  buildFooter() {
+    
+    if ( !this.displayFooter ) {
+      // フッター不要なら何もしない
+      if ( $("footer").length ) {
+        // でも既にフッターが存在するなら削除
+        $("footer").remove();
+      }
+      return;
+    }
+    // フッターが必要、でも
+    // 既に フッター構築済みなら何もしない
+    if ( $("footer").length ) return;
+    
+    // フッター構築
+    var $footer = $(`
+      <footer>
+        <nav>
+          <ul>
+            <li class="search"><img src="img/common/footer/nav_search.png"></li>
+            <li class="special"><img src="img/common/footer/nav_special.png"></li>
+            <li class="news"><img src="img/common/footer/nav_news.png"></li>
+            <li class="favorite"><img src="img/common/footer/nav_favorite.png"></li>
+            <li class="mypage"><img src="img/common/footer/nav_mypage.png"></li>
+          </ul>
+        </nav>
+      </footer>
+    `);
+    
+    $footer.find("li").on("click", function() {
+      var page = $(this).attr("class");
+      renderPage({ page: page });
+    });
+    
+    this.$app.append($footer);
+    global.APP.$footer = $footer;
+    console.log( "buildFooter" );
   }
 }

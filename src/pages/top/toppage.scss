@@ -1,11 +1,5 @@
-html, body {
-  background: #fff;
-  color: #333;
-  height: 100%;
-}
-#app {
-  height: 100%;
-}
+@import "../mixin";
+
 #logo {
   img {
     width: 70%;
@@ -15,4 +9,10 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.top-page {
+  .contents {
+    background: #fff;
+    @include maxWH();
+  }
 }

@@ -1,5 +1,37 @@
-header {
+html, body {
+  background: #fff;
+  color: #333;
+  height: 100%;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+.loading-message {
+  font-size: 12px;
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.loading-message span {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.main {
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -51,7 +83,7 @@ header #history-back span {
   height: 52px;
 }
 
-#contents {
+.contents {
   box-sizing: border-box;
   height: calc( 100% - 52px - 56px);
   background: #FFF1E1;
@@ -64,6 +96,7 @@ footer {
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 999;
   width: 100%;
   height: 56px;
   border-top: 2px solid #EA0000;
@@ -108,88 +141,87 @@ footer nav ul li img {
 .text-right {
   text-align: right;
 }
-html, body {
-  background: #fff;
-  color: #333;
-  height: 100%;
-}
-
-#app {
-  height: 100%;
-}
-
 #logo {
   height: 100%;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 
 #logo img {
   width: 70%;
   max-width: 500px;
 }
-#contents.search-page {
+
+.top-page .contents {
+  background: #fff;
+  width: 100%;
+  height: 100%;
+}
+.contents.search-page {
   padding: 0px 0px 16px 0px;
 }
 
-form h2 {
+.search-form h2 {
   font-size: 17px;
   color: #F47F00;
   font-weight: 900;
   text-align: center;
 }
 
-form .ui input, form .ui.dropdown {
+.search-form .ui input, .search-form .ui.dropdown {
   box-sizing: border-box;
   height: 48px;
   border: 1px solid #fff !important;
   font-size: 16px;
 }
 
-form .description {
+.search-form .description {
   color: #7F7F7F;
   font-size: 12px;
   margin-bottom: 3px;
 }
 
-form section {
+.search-form section {
   padding: 13px 10px 16px 10px;
   border-bottom: 2px solid #fff;
 }
 
-form .ui.input.word {
+.search-form .ui.input.word {
   width: 100%;
 }
 
-form .ui.input.station {
+.search-form .ui.input.station {
   width: 100%;
 }
 
-form .ui.input.station input {
+.search-form .ui.input.station input {
   padding-left: 52px !important;
   cursor: pointer;
 }
 
-form .ui.input.station .icon_train {
+.search-form .ui.input.station .icon_train {
   position: absolute;
   left: 22px;
   top: 16px;
 }
 
-form .ui.input.station .icon_train img {
+.search-form .ui.input.station .icon_train img {
   width: 13px;
 }
 
-form select.ui.dropdown {
+.search-form select.ui.dropdown {
   background: #fff;
 }
 
-form #yatin .table {
+.search-form #yatin .table {
   width: 100%;
 }
 
-form #yatin .table .table-cell select {
+.search-form #yatin .table .table-cell select {
   width: 100px;
   padding-left: 10px;
   text-align: center;
@@ -197,11 +229,11 @@ form #yatin .table .table-cell select {
   color: #9A9A9A;
 }
 
-form #yatin .table .table-cell:nth-child(1) {
+.search-form #yatin .table .table-cell:nth-child(1) {
   text-align: right;
 }
 
-form #yatin .table .table-cell:nth-child(2) {
+.search-form #yatin .table .table-cell:nth-child(2) {
   padding: 0px 5px;
   font-size: 17px;
   color: #F47F00;
@@ -209,11 +241,11 @@ form #yatin .table .table-cell:nth-child(2) {
   text-align: center;
 }
 
-form #yatin .table .table-cell:nth-child(3) {
+.search-form #yatin .table .table-cell:nth-child(3) {
   text-align: left;
 }
 
-form .icon_remove {
+.search-form .icon_remove {
   position: absolute;
   cursor: pointer;
   height: 52px;
@@ -222,33 +254,33 @@ form .icon_remove {
   right: 0px;
 }
 
-form .icon_remove img {
+.search-form .icon_remove img {
   width: 16px;
   position: absolute;
   top: 16px;
   right: 16px;
 }
 
-form .ui.input.kodawari {
+.search-form .ui.input.kodawari {
   width: 100%;
 }
 
-form .ui.input.kodawari input {
+.search-form .ui.input.kodawari input {
   padding-left: 52px !important;
   cursor: pointer;
 }
 
-form .ui.input.kodawari .icon_list {
+.search-form .ui.input.kodawari .icon_list {
   position: absolute;
   left: 18px;
   top: 15px;
 }
 
-form .ui.input.kodawari .icon_list img {
+.search-form .ui.input.kodawari .icon_list img {
   width: 20px;
 }
 
-form #submit-btn-area {
+.search-form #submit-btn-area {
   position: fixed;
   bottom: 53px;
   left: 0;
@@ -258,12 +290,18 @@ form #submit-btn-area {
   text-align: center;
 }
 
-form #submit-btn-area .btn_search {
+.search-form #submit-btn-area .btn_search {
   cursor: pointer;
 }
 
-form #submit-btn-area .btn_search img {
+.search-form #submit-btn-area .btn_search img {
   width: 199px;
+}
+.contents.search-form-detail-page {
+  padding: 0px 0px 16px 0px;
+}
+.contents.search-form-station-page {
+  padding: 0px 0px 16px 0px;
 }
 #search-result-panel {
   height: 52px;
@@ -316,7 +354,7 @@ form #submit-btn-area .btn_search img {
   cursor: pointer;
 }
 
-.room-list .room img.main {
+.room-list .room img.main-img {
   width: 100%;
   position: absolute;
   bottom: 0px;
@@ -381,26 +419,50 @@ form #submit-btn-area .btn_search img {
   width: 100%;
   background: #ccc;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100&0+0,0.66+100;Black+3D+%231 */
-  background: -moz-linear-gradient(top, rgba(69, 72, 77, 0) 0%, rgba(0, 0, 0, 0.66) 100%);
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(69, 72, 77, 0) 0%, rgba(0, 0, 0, 0.66) 100%);
   /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba(69, 72, 77, 0) 0%, rgba(0, 0, 0, 0.66) 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0045484d', endColorstr='#a8000000',GradientType=0 );
   /* IE6-9 */
 }
-.special-page #contents {
+.special-page .contents {
   padding: 16px 13px;
 }
 
-.special-page #contents .banner {
+.special-page .contents .banner {
   margin-bottom: 5px;
   cursor: pointer;
 }
 
-.special-page #contents .banner img {
+.special-page .contents .banner img {
   width: 100%;
+}
+.mypage-page .contents .menus {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 16px 10px;
+}
+
+.mypage-page .contents .menus .menu {
+  -ms-flex-preferred-size: calc(30%);
+      flex-basis: calc(30%);
+  text-align: center;
+  margin-bottom: 15px;
+  background: #fff;
+  padding: 5px 0px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.mypage-page .contents .menus .menu img {
+  margin: 0 auto;
+  width: 84px;
+  display: block;
 }
 
 /*# sourceMappingURL=bundle.css.map*/

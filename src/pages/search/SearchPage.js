@@ -1,10 +1,11 @@
 import Page from '../Page';
 import './search.scss';
+import './search-common.scss';
 
 export default class SearchPage extends Page {
   indexAction() {
     this.headerTitle = "検索";
-    var $searchForm = $(`<form>
+    var $searchForm = $(`<form class="search-form">
       
       <section>
         <div class="description text-right">マンション・アパート名、全文から検索</div>
@@ -84,14 +85,33 @@ export default class SearchPage extends Page {
     </form>`);
     
     var $stationInput = $searchForm.find("input[name=station]");
-    $stationInput.on("click", function() {
-      console.log( "koko1" );
+    $stationInput.focus(function() {
+      $(this).blur();
+      renderPage({
+        page: "search_form_station",
+        transitionType: "SLIDE_LEFT"
+      });
+      return false;
+    });
+    
+    var $stationInput = $searchForm.find("input[name=kodawari]");
+    $stationInput.focus(function() {
+      $(this).blur();
+      renderPage({
+        page: "search_form_detail",
+        transitionType: "SLIDE_LEFT"
+      });
       return false;
     });
     
     var $searchButton = $searchForm.find(".btn_search");
     $searchButton.on("click", function() {
-      renderPage({page: "search_result", action: "index"});
+      
+      renderPage({
+        page: "search_result",
+        action: "index",
+        transitionType: "SLIDE_LEFT"
+      });
     });
     
     this.$contents.html( $searchForm );

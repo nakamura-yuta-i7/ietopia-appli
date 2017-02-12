@@ -2,12 +2,14 @@ import Router from "./Router";
 
 export default class Dispatcher {
   
-  static dispatch(requestParams) {
+  static dispatch(requestParams, transitionType) {
     try {
-      const router = new Router(requestParams);
+      const router = new Router(requestParams, transitionType);
       const controller = router.getController();
       const action     = router.getAction();
-      controller[ action + "Action" ]();
+      if (transitionType != "BACK") {
+        controller[ action + "Action" ]();
+      }
       controller.render();
       
     } catch (err) {
