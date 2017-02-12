@@ -7,12 +7,13 @@ global.$html = function(tagname, params={}) {
   return $tag;
 }
 global.config = require("./config");
-
 global.APP = {
   ScreenTransitionType: ["SLIDE_LEFT", "REPLACE"]
 };
 console.log( "global.APP", global.APP );
 
+// 端末情報の取得
+// see: https://docs.monaca.io/ja/reference/cordova_3.5/device/
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     console.log( device.cordova );

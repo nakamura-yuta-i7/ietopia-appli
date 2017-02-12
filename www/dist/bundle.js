@@ -694,6 +694,7 @@ module.exports = {
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
   IETOPIA_GAIYO_URL: "http://www.ietopia.jp/companies?smp=1",
+  IETOPIA_TEL: "0120552470",
 }
 
 /***/ }),
@@ -7487,12 +7488,13 @@ global.$html = function(tagname, params={}) {
   return $tag;
 }
 global.config = __webpack_require__(5);
-
 global.APP = {
   ScreenTransitionType: ["SLIDE_LEFT", "REPLACE"]
 };
 console.log( "global.APP", global.APP );
 
+// 端末情報の取得
+// see: https://docs.monaca.io/ja/reference/cordova_3.5/device/
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     console.log( device.cordova );
@@ -7616,6 +7618,8 @@ class InfoPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inquiry_scss__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inquiry_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__inquiry_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_ModalDialog__ = __webpack_require__(47);
+
 
 
 
@@ -7632,13 +7636,34 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     this.$headerOriginalContents = $callTelDiv;
     $callTelDiv.on("click", () => {
       // 電話をかける場合のダイアログを表示
-      alert("電話をかけます");
+      var $modalContents = $(`
+        <div class="content-group">
+          <div class="title">担当者にお繋ぎいたします</div>
+          <div class="bukken">
+            <div class="bukken-no">物件番号: </div>
+            <div class="bukken-name">サンプル物件名:ウエストパークタワー池袋,(WEST PARK TOWER IKEBUKURO),【ペット可,仲介手数料無料キャンペーン中】</div>
+            <div class="bukken-info">15.7万円：1DK/35.65m²</div>
+          </div>
+          <div class="call-tel">
+            <img src="img/common/form/call_tel_icon_text_button.png" width="158">
+          </div>
+        </div>
+      `);
+      
+      var modal = new __WEBPACK_IMPORTED_MODULE_2__utils_ModalDialog__["a" /* default */]($modalContents);
+      modal.open();
+      
+      var $telButton = $modalContents.find(".call-tel");
+      $telButton.on("click", () => {
+        location.href = `tel:${config.IETOPIA_TEL}`;
+        modal.close();
+      });
     });
     
     // お問い合わせ説明エリアについて
     var $descriptionArea = $(`
       <div class="description">
-        お問い合せは、お電話(上部メニューの電話アイコンをタップ)、または下記メールフォームより受け付けておりますのでお気軽にお問い合わせください。<br>
+        お問い合せは、<strong>お電話(上部メニューの電話アイコンをタップ)</strong>、または下記メールフォームより受け付けておりますのでお気軽にお問い合わせください。<br>
         後日弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てにご連絡させていただきます。
       </div>
     `);
@@ -7862,6 +7887,49 @@ class KiyakuPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = KiyakuPage;
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 47 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_dialog_scss__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_dialog_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_dialog_scss__);
+
+
+class ModalDialog {
+  constructor($contents) {
+    this.$contents = $(`<div class="modal-contents"></div>`);
+    this.$contents.append($contents);
+    this.$modalWrapper = $(`<div class="modal-wrapper"></div>`);
+  }
+  open() {
+    this.renderBgLayer();
+    this.renderContents();
+    $("body").append(this.$modalWrapper);
+  }
+  renderContents() {
+    this.$modalWrapper.append(this.$contents);
+  }
+  close() {
+    this.$modalWrapper.remove();
+  }
+  renderBgLayer() {
+    var $bg = $(`<div class="modal-bg-layer"></div>`);
+    $bg.on("click", () => {
+      this.close();
+    });
+    this.$modalWrapper.append($bg);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ModalDialog;
 
 
 /***/ })

@@ -22,6 +22,28 @@ html, body {
   text-align: center;
 }
 
+.modal-contents .title {
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+.modal-contents .bukken .bukken-no {
+  font-size: 11px;
+  text-align: left;
+}
+
+.modal-contents .bukken .bukken-name {
+  color: #F47F00;
+  font-size: 12px;
+  text-align: left;
+}
+
+.modal-contents .bukken .bukken-info {
+  font-size: 12px;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
 .main {
   position: fixed;
   top: 0;
@@ -494,6 +516,10 @@ footer nav ul li img {
   line-height: 1.5;
 }
 
+.inquiry-page .description strong {
+  color: #E70B18;
+}
+
 .inquiry-page .inquiry-form .form-group {
   margin-bottom: 12px;
 }
@@ -522,6 +548,36 @@ footer nav ul li img {
 
 .inquiry-page .submit-area .submit-button {
   cursor: pointer;
+}
+.modal-wrapper {
+  position: fixed;
+  z-index: 9999;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+}
+
+.modal-wrapper .modal-bg-layer {
+  width: 100%;
+  height: 100%;
+  background: #717D90;
+  opacity: 0.5;
+}
+
+.modal-wrapper .modal-contents {
+  position: absolute;
+  background: #fff;
+  width: 320px;
+  padding: 30px 20px 20px 20px;
+  text-align: center;
+  border-radius: 4px;
 }
 
 /*# sourceMappingURL=bundle.css.map*/

@@ -16,6 +16,28 @@ html, body {
     @include middleCenterCell();
   }
 }
+.modal-contents {
+  .title {
+    font-size: 17px;
+    margin-bottom: 20px;
+  }
+  .bukken {
+    .bukken-no {
+      font-size: 11px;
+      text-align: left;
+    }
+    .bukken-name {
+      color: #F47F00;
+      font-size: 12px;
+      text-align: left;
+    }
+    .bukken-info {
+      font-size: 12px;
+      text-align: right;
+      margin-bottom: 20px;
+    }
+  }
+}
 .main {
   @include fixedTop();
   @include maxWH();

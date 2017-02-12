@@ -5,4 +5,5 @@ module.exports = {
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
   IETOPIA_GAIYO_URL: "http://www.ietopia.jp/companies?smp=1",
+  IETOPIA_TEL: "0120552470",
 }

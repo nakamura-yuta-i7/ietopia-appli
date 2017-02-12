@@ -1,5 +1,6 @@
 import Page from '../Page';
 import './inquiry.scss';
+import ModalDialog from '../../utils/ModalDialog';
 
 export default class InquiryPage extends Page {
   indexAction() {
@@ -14,13 +15,34 @@ export default class InquiryPage extends Page {
     this.$headerOriginalContents = $callTelDiv;
     $callTelDiv.on("click", () => {
       // 電話をかける場合のダイアログを表示
-      alert("電話をかけます");
+      var $modalContents = $(`
+        <div class="content-group">
+          <div class="title">担当者にお繋ぎいたします</div>
+          <div class="bukken">
+            <div class="bukken-no">物件番号: </div>
+            <div class="bukken-name">サンプル物件名:ウエストパークタワー池袋,(WEST PARK TOWER IKEBUKURO),【ペット可,仲介手数料無料キャンペーン中】</div>
+            <div class="bukken-info">15.7万円：1DK/35.65m²</div>
+          </div>
+          <div class="call-tel">
+            <img src="img/common/form/call_tel_icon_text_button.png" width="158">
+          </div>
+        </div>
+      `);
+      
+      var modal = new ModalDialog($modalContents);
+      modal.open();
+      
+      var $telButton = $modalContents.find(".call-tel");
+      $telButton.on("click", () => {
+        location.href = `tel:${config.IETOPIA_TEL}`;
+        modal.close();
+      });
     });
     
     // お問い合わせ説明エリアについて
     var $descriptionArea = $(`
       <div class="description">
-        お問い合せは、お電話(上部メニューの電話アイコンをタップ)、または下記メールフォームより受け付けておりますのでお気軽にお問い合わせください。<br>
+        お問い合せは、<strong>お電話(上部メニューの電話アイコンをタップ)</strong>、または下記メールフォームより受け付けておりますのでお気軽にお問い合わせください。<br>
         後日弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てにご連絡させていただきます。
       </div>
     `);
