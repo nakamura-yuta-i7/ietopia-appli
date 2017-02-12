@@ -1,3 +1,4 @@
+
 .modal-wrapper {
   position: fixed;
   z-index: 9999;
@@ -25,5 +26,10 @@
     padding: 30px 20px 20px 20px;
     text-align: center;
     border-radius: 4px;
+    
+    .title {
+      font-size: 17px;
+      margin-bottom: 20px;
+    }
   }
 }

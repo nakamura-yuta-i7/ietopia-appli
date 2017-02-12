@@ -1,10 +1,12 @@
+@import "../mixin";
+
 .inquiry-page {
   
   header {
     .call-tel {
       position: absolute;
       right: 0;
-      top: 0;
+      top: 0 + $topPointInHeader;
       width: 52px;
       height: 52px;
       cursor: pointer;

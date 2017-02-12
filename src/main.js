@@ -6,9 +6,10 @@ global.$html = function(tagname, params={}) {
   $tag.attr(params);
   return $tag;
 }
+// 定数等の設定
 global.config = require("./config");
+// グローバル変数
 global.APP = {
-  ScreenTransitionType: ["SLIDE_LEFT", "REPLACE"]
 };
 console.log( "global.APP", global.APP );
 

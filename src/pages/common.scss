@@ -16,12 +16,6 @@ html, body {
     @include middleCenterCell();
   }
 }
-.modal-contents {
-  .title {
-    font-size: 17px;
-    margin-bottom: 20px;
-  }
-}
 .main {
   @include fixedTop();
   @include maxWH();
@@ -29,7 +23,9 @@ html, body {
 header {
   @include absoluteTop();
   @include maxW();
-  height: 52px;
+  box-sizing: border-box;
+  height: $headerHeight;
+  padding-top: $statusBarHeight;
   
   background: #F47F00;
   color: white;
@@ -38,6 +34,7 @@ header {
   h1 {
     font-size: 18px !important;
     padding: 15px 0 15px 0;
+    margin:0px;
   }
   #logo_s {
     img {
@@ -45,16 +42,16 @@ header {
     }
     width: 62px;
     position: absolute;
-    top:12px;
+    top: 12px + $topPointInHeader;
     left:12px;
   }
   #history-back {
     z-index: 99;
-    height: 52px;
+    height: $headerHeight;
     position: absolute;
     top: 0px;
     left: 0px;
-    padding-top: 14px;
+    padding-top: 14px + $topPointInHeader;
     padding-left: 14px;
     cursor: pointer;
     img {
@@ -68,11 +65,11 @@ header {
   }
 }
 #header-under-space {
-  height: 52px;
+  height: $headerHeight;
 }
 .contents {
   box-sizing: border-box;
-  height: calc( 100% - 52px - 56px );
+  height: $contentsHeight;
   background: #FFF1E1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -84,7 +81,7 @@ footer {
   left: 0;
   z-index: 999;
   width: 100%;
-  height: 56px;
+  height: $footerHeight;
   border-top: 2px solid #EA0000;
   
   box-sizing: border-box;

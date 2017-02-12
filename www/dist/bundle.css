@@ -22,11 +22,6 @@ html, body {
   text-align: center;
 }
 
-.modal-contents .title {
-  font-size: 17px;
-  margin-bottom: 20px;
-}
-
 .main {
   position: fixed;
   top: 0;
@@ -40,7 +35,9 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  height: 52px;
+  box-sizing: border-box;
+  height: 72px;
+  padding-top: 20px;
   background: #F47F00;
   color: white;
   font-weight: 900;
@@ -50,12 +47,13 @@ header {
 header h1 {
   font-size: 18px !important;
   padding: 15px 0 15px 0;
+  margin: 0px;
 }
 
 header #logo_s {
   width: 62px;
   position: absolute;
-  top: 12px;
+  top: 32px;
   left: 12px;
 }
 
@@ -65,11 +63,11 @@ header #logo_s img {
 
 header #history-back {
   z-index: 99;
-  height: 52px;
+  height: 72px;
   position: absolute;
   top: 0px;
   left: 0px;
-  padding-top: 14px;
+  padding-top: 34px;
   padding-left: 14px;
   cursor: pointer;
 }
@@ -85,12 +83,12 @@ header #history-back span {
 }
 
 #header-under-space {
-  height: 52px;
+  height: 72px;
 }
 
 .contents {
   box-sizing: border-box;
-  height: calc( 100% - 52px - 56px);
+  height: calc( 100% - 72px - 56px);
   background: #FFF1E1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -321,7 +319,7 @@ footer nav ul li img {
   width: 100%;
   display: table;
   position: absolute;
-  top: 0px;
+  top: 20px;
   right: 0px;
   padding-left: 80px;
   line-height: 1;
@@ -480,7 +478,7 @@ footer nav ul li img {
 .inquiry-page header .call-tel {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 20px;
   width: 52px;
   height: 52px;
   cursor: pointer;
@@ -577,6 +575,11 @@ footer nav ul li img {
   padding: 30px 20px 20px 20px;
   text-align: center;
   border-radius: 4px;
+}
+
+.modal-wrapper .modal-contents .title {
+  font-size: 17px;
+  margin-bottom: 20px;
 }
 
 /*# sourceMappingURL=bundle.css.map*/

@@ -1,9 +1,11 @@
+@import "../mixin";
+
 #search-result-panel {
   height: 52px;
   width: 100%;
   display: table;
   position: absolute;
-  top: 0px;
+  top: 0px + $topPointInHeader;
   right: 0px;
   padding-left: 80px;
   
