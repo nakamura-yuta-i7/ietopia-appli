@@ -5,10 +5,11 @@ export default class ModalDialog {
     this.$contents = $(`<div class="modal-contents"></div>`);
     this.$contents.append($contents);
     this.$modalWrapper = $(`<div class="modal-wrapper"></div>`);
+    this.$modalBg = $(`<div class="modal-bg-layer"></div>`);
   }
   open() {
-    this.renderBgLayer();
     this.renderContents();
+    this.renderBgLayer();
     $("body").append(this.$modalWrapper);
   }
   renderContents() {
@@ -18,10 +19,9 @@ export default class ModalDialog {
     this.$modalWrapper.remove();
   }
   renderBgLayer() {
-    var $bg = $(`<div class="modal-bg-layer"></div>`);
-    $bg.on("click", () => {
+    this.$modalBg.on("click", () => {
       this.close();
     });
-    this.$modalWrapper.append($bg);
+    this.$modalWrapper.append(this.$modalBg);
   }
 }

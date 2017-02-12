@@ -16,7 +16,7 @@ export default class InquiryPage extends Page {
     $callTelDiv.on("click", () => {
       // 電話をかける場合のダイアログを表示
       var $modalContents = $(`
-        <div class="content-group">
+        <div class="modal-bukken-content">
           <div class="title">担当者にお繋ぎいたします</div>
           <div class="bukken">
             <div class="bukken-no">物件番号: </div>

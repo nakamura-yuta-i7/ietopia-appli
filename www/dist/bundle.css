@@ -27,23 +27,6 @@ html, body {
   margin-bottom: 20px;
 }
 
-.modal-contents .bukken .bukken-no {
-  font-size: 11px;
-  text-align: left;
-}
-
-.modal-contents .bukken .bukken-name {
-  color: #F47F00;
-  font-size: 12px;
-  text-align: left;
-}
-
-.modal-contents .bukken .bukken-info {
-  font-size: 12px;
-  text-align: right;
-  margin-bottom: 20px;
-}
-
 .main {
   position: fixed;
   top: 0;
@@ -549,6 +532,23 @@ footer nav ul li img {
 .inquiry-page .submit-area .submit-button {
   cursor: pointer;
 }
+
+.modal-bukken-content .bukken-no {
+  font-size: 11px;
+  text-align: left;
+}
+
+.modal-bukken-content .bukken-name {
+  color: #F47F00;
+  font-size: 12px;
+  text-align: left;
+}
+
+.modal-bukken-content .bukken-info {
+  font-size: 12px;
+  text-align: right;
+  margin-bottom: 20px;
+}
 .modal-wrapper {
   position: fixed;
   z-index: 9999;
@@ -572,7 +572,8 @@ footer nav ul li img {
 }
 
 .modal-wrapper .modal-contents {
-  position: absolute;
+  position: fixed;
+  z-index: 9999;
   background: #fff;
   width: 320px;
   padding: 30px 20px 20px 20px;

@@ -1,4 +1,5 @@
 .inquiry-page {
+  
   header {
     .call-tel {
       position: absolute;
@@ -49,5 +50,21 @@
     .submit-button {
       cursor: pointer;
     }
+  }
+}
+.modal-bukken-content {
+  .bukken-no {
+    font-size: 11px;
+    text-align: left;
+  }
+  .bukken-name {
+    color: #F47F00;
+    font-size: 12px;
+    text-align: left;
+  }
+  .bukken-info {
+    font-size: 12px;
+    text-align: right;
+    margin-bottom: 20px;
   }
 }

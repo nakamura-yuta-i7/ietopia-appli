@@ -7637,7 +7637,7 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     $callTelDiv.on("click", () => {
       // 電話をかける場合のダイアログを表示
       var $modalContents = $(`
-        <div class="content-group">
+        <div class="modal-bukken-content">
           <div class="title">担当者にお繋ぎいたします</div>
           <div class="bukken">
             <div class="bukken-no">物件番号: </div>
@@ -7909,10 +7909,11 @@ class ModalDialog {
     this.$contents = $(`<div class="modal-contents"></div>`);
     this.$contents.append($contents);
     this.$modalWrapper = $(`<div class="modal-wrapper"></div>`);
+    this.$modalBg = $(`<div class="modal-bg-layer"></div>`);
   }
   open() {
-    this.renderBgLayer();
     this.renderContents();
+    this.renderBgLayer();
     $("body").append(this.$modalWrapper);
   }
   renderContents() {
@@ -7922,11 +7923,10 @@ class ModalDialog {
     this.$modalWrapper.remove();
   }
   renderBgLayer() {
-    var $bg = $(`<div class="modal-bg-layer"></div>`);
-    $bg.on("click", () => {
+    this.$modalBg.on("click", () => {
       this.close();
     });
-    this.$modalWrapper.append($bg);
+    this.$modalWrapper.append(this.$modalBg);
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = ModalDialog;
