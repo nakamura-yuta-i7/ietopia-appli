@@ -13,19 +13,19 @@ export default class MyPagePage extends Page {
         window.open(config.IETOPIA_GOOGLE_MAP_URL, "_blank");
       } },
       { type:"inquiry", action: function() {
-        
+        global.renderPage({page:"inquiry", transitionType: "SLIDE_LEFT"});
       } },
       { type:"history", action: function() {
-        
+        global.renderPage({page:"history", transitionType: "SLIDE_LEFT"});
       } },
       { type:"kibou_osumai", action: function() {
-        
+        global.renderPage({page:"kibou_osumai", transitionType: "SLIDE_LEFT"});
       } },
       { type:"info", action: function() {
-        
+        global.renderPage({page:"info", transitionType: "SLIDE_LEFT"});
       } },
       { type:"kiyaku", action: function() {
-        
+        global.renderPage({page:"kiyaku", transitionType: "SLIDE_LEFT"});
       } },
       { type:"privacy_policy", action: function() {
         window.open(config.IETOPIA_PRIVACY_POLICY_URL, "_blank");

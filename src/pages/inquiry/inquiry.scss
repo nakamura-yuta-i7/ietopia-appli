@@ -1,0 +1,24 @@
+.inquiry-page {
+  header {
+    .call-tel {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 52px;
+      height: 52px;
+      cursor: pointer;
+      box-sizing: border-box;
+      
+      padding-top: 15px;
+      img {
+        width:22px;
+      }
+    }
+  }
+  .description {
+    background: #fff;
+    font-size: 12px;
+    padding: 10px;
+    line-height: 1.5;
+  }
+}

@@ -1,6 +1,6 @@
 html, body {
   background: #fff;
-  color: #333;
+  color: #4A4A4A;
   height: 100%;
 }
 
@@ -141,6 +141,18 @@ footer nav ul li img {
 .text-right {
   text-align: right;
 }
+
+.contents section {
+  padding: 13px 10px 16px 10px;
+  border-bottom: 2px solid #fff;
+}
+
+.contents h2 {
+  font-size: 17px;
+  color: #F47F00;
+  font-weight: 900;
+  text-align: center;
+}
 #logo {
   height: 100%;
   display: -ms-flexbox;
@@ -165,13 +177,6 @@ footer nav ul li img {
   padding: 0px 0px 16px 0px;
 }
 
-.search-form h2 {
-  font-size: 17px;
-  color: #F47F00;
-  font-weight: 900;
-  text-align: center;
-}
-
 .search-form .ui input, .search-form .ui.dropdown {
   box-sizing: border-box;
   height: 48px;
@@ -183,11 +188,6 @@ footer nav ul li img {
   color: #7F7F7F;
   font-size: 12px;
   margin-bottom: 3px;
-}
-
-.search-form section {
-  padding: 13px 10px 16px 10px;
-  border-bottom: 2px solid #fff;
 }
 
 .search-form .ui.input.word {
@@ -454,7 +454,7 @@ footer nav ul li img {
   text-align: center;
   margin-bottom: 15px;
   background: #fff;
-  padding: 5px 0px;
+  padding: 10px 0px;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -463,6 +463,27 @@ footer nav ul li img {
   margin: 0 auto;
   width: 84px;
   display: block;
+}
+.inquiry-page header .call-tel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding-top: 15px;
+}
+
+.inquiry-page header .call-tel img {
+  width: 22px;
+}
+
+.inquiry-page .description {
+  background: #fff;
+  font-size: 12px;
+  padding: 10px;
+  line-height: 1.5;
 }
 
 /*# sourceMappingURL=bundle.css.map*/

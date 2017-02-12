@@ -7,6 +7,11 @@ import SpecialPage           from "./pages/special/SpecialPage";
 import NewsPage              from "./pages/news/NewsPage";
 import FavoritePage          from "./pages/favorite/FavoritePage";
 import MyPagePage            from "./pages/mypage/MyPagePage";
+import InqueryPage           from "./pages/inquiry/InqueryPage";
+import HistoryPage           from "./pages/history/HistoryPage";
+import KibouOsumaiPage       from "./pages/kibou_osumai/KibouOsumaiPage";
+import InfoPage              from "./pages/info/InfoPage";
+import KiyakuPage            from "./pages/kiyaku/KiyakuPage";
 
 export default class Router {
   constructor(requestParams, transitionType) {
@@ -26,6 +31,11 @@ export default class Router {
       case "news"               : return new NewsPage(this.requestParams, this.transitionType);
       case "favorite"           : return new FavoritePage(this.requestParams, this.transitionType);
       case "mypage"             : return new MyPagePage(this.requestParams, this.transitionType);
+      case "inquiry"            : return new InqueryPage(this.requestParams, this.transitionType);
+      case "history"            : return new HistoryPage(this.requestParams, this.transitionType);
+      case "kibou_osumai"       : return new KibouOsumaiPage(this.requestParams, this.transitionType);
+      case "info"               : return new InfoPage(this.requestParams, this.transitionType);
+      case "kiyaku"             : return new KiyakuPage(this.requestParams, this.transitionType);
       default:
         throw Error("Not found.");
     }

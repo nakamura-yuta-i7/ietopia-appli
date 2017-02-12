@@ -2,7 +2,7 @@
 
 html, body {
   background: #fff;
-  color: #333;
+  color: #4A4A4A;
   height: 100%;
 }
 #app {
@@ -116,4 +116,14 @@ footer {
 }
 .text-right {
   text-align: right;
+}
+.contents section {
+  padding: 13px 10px 16px 10px;
+  border-bottom: 2px solid #fff;
+}
+.contents h2 {
+  font-size: 17px;
+  color: #F47F00;
+  font-weight: 900;
+  text-align: center;
 }

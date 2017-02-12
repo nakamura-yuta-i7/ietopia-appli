@@ -6731,6 +6731,16 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfYAAADKCAYAAABX
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_news_NewsPage__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_favorite_FavoritePage__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_mypage_MyPagePage__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_inquiry_InqueryPage__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_history_HistoryPage__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_kibou_osumai_KibouOsumaiPage__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_info_InfoPage__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_kiyaku_KiyakuPage__ = __webpack_require__(45);
+
+
+
+
+
 
 
 
@@ -6759,6 +6769,11 @@ class Router {
       case "news"               : return new __WEBPACK_IMPORTED_MODULE_6__pages_news_NewsPage__["a" /* default */](this.requestParams, this.transitionType);
       case "favorite"           : return new __WEBPACK_IMPORTED_MODULE_7__pages_favorite_FavoritePage__["a" /* default */](this.requestParams, this.transitionType);
       case "mypage"             : return new __WEBPACK_IMPORTED_MODULE_8__pages_mypage_MyPagePage__["a" /* default */](this.requestParams, this.transitionType);
+      case "inquiry"            : return new __WEBPACK_IMPORTED_MODULE_9__pages_inquiry_InqueryPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "history"            : return new __WEBPACK_IMPORTED_MODULE_10__pages_history_HistoryPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "kibou_osumai"       : return new __WEBPACK_IMPORTED_MODULE_11__pages_kibou_osumai_KibouOsumaiPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "info"               : return new __WEBPACK_IMPORTED_MODULE_12__pages_info_InfoPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "kiyaku"             : return new __WEBPACK_IMPORTED_MODULE_13__pages_kiyaku_KiyakuPage__["a" /* default */](this.requestParams, this.transitionType);
       default:
         throw Error("Not found.");
     }
@@ -6794,7 +6809,7 @@ class FavoritePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mypage_scss__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mypage_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__mypage_scss__);
 
@@ -6812,19 +6827,19 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
         window.open(config.IETOPIA_GOOGLE_MAP_URL, "_blank");
       } },
       { type:"inquiry", action: function() {
-        
+        global.renderPage({page:"inquiry", transitionType: "SLIDE_LEFT"});
       } },
       { type:"history", action: function() {
-        
+        global.renderPage({page:"history", transitionType: "SLIDE_LEFT"});
       } },
       { type:"kibou_osumai", action: function() {
-        
+        global.renderPage({page:"kibou_osumai", transitionType: "SLIDE_LEFT"});
       } },
       { type:"info", action: function() {
-        
+        global.renderPage({page:"info", transitionType: "SLIDE_LEFT"});
       } },
       { type:"kiyaku", action: function() {
-        
+        global.renderPage({page:"kiyaku", transitionType: "SLIDE_LEFT"});
       } },
       { type:"privacy_policy", action: function() {
         window.open(config.IETOPIA_PRIVACY_POLICY_URL, "_blank");
@@ -6845,6 +6860,7 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = MyPagePage;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 26 */
@@ -7510,6 +7526,193 @@ window.onpopstate = function(e) {
 
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 34 */,
+/* 35 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 40 */,
+/* 41 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__history_scss__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__history_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__history_scss__);
+
+
+
+class HistoryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    this.headerTitle = "履歴"
+    this.displayHeaderLogoS = false;
+    this.displayHeaderBackButton = true;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = HistoryPage;
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__info_scss__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__info_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__info_scss__);
+
+
+
+class InfoPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    this.headerTitle = "お知らせ"
+    this.displayHeaderLogoS = false;
+    this.displayHeaderBackButton = true;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = InfoPage;
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inquiry_scss__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inquiry_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__inquiry_scss__);
+
+
+
+class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    this.headerTitle = "お問い合わせ"
+    this.displayHeaderLogoS = false;
+    this.displayHeaderBackButton = true;
+    
+    // 電話をかけるアイコンについて
+    var $callTelDiv = $(`<div class="call-tel">
+        <img src="img/common/header/icon_phone.png">
+      </div>`);
+    this.$headerOriginalContents = $callTelDiv;
+    $callTelDiv.on("click", () => {
+      // 電話をかける場合のダイアログを表示
+      alert("電話をかけます");
+    });
+    
+    // お問い合わせ説明エリアについて
+    var $descriptionArea = $(`
+      <div class="description">
+        お問い合せは、お電話(上部メニューの電話アイコンをタップ)、または下記メールフォームより受け付けておりますのでお気軽にお問い合わせください。<br>
+        後日弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てにご連絡させていただきます。
+      </div>
+    `);
+    this.$contents.append($descriptionArea);
+    
+    // お問い合わせ物件について
+    if ( this.requests.bukken_id ) {
+      this.$contents.append($(`
+        <section>
+          ここに物件情報を表示します。
+        </section>
+      `));
+    }
+    
+    // お問い合わせフォームについて
+    var $inquiryForm = $(`
+      <form class="inquiry-form">
+        <h2>お問い合わせ内容入力</h2>
+        
+      </form>
+    `);
+    var $inquirySection = $(`<section></section>`);
+    $inquirySection.append($inquiryForm);
+    this.$contents.append($inquirySection);
+    
+    // 希望のお住いについて
+    // マイページ：希望のお住いページで情報登録していた場合
+    // ここに表示させる
+    if ( false ) {
+      this.$contents.append( $(`
+        <section>
+          <h2>希望のお住い</h2>
+        </section>
+      `) );
+    }
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = InquiryPage;
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__kibou_osumai_scss__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__kibou_osumai_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__kibou_osumai_scss__);
+
+
+
+class KibouOsumaiPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    this.headerTitle = "希望のお住い"
+    this.displayHeaderLogoS = false;
+    this.displayHeaderBackButton = true;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = KibouOsumaiPage;
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__kiyaku_scss__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__kiyaku_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__kiyaku_scss__);
+
+
+
+class KiyakuPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    this.headerTitle = "利用規約"
+    this.displayHeaderLogoS = false;
+    this.displayHeaderBackButton = true;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = KiyakuPage;
+
 
 /***/ })
 /******/ ]);
