@@ -7493,6 +7493,13 @@ global.APP = {
 };
 console.log( "global.APP", global.APP );
 
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    console.log( device.cordova );
+    console.log( device.uuid );
+    console.log( {device: device} );
+}
+
 
 
 global.renderPage = function (params={}) {
@@ -7648,8 +7655,134 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     
     // お問い合わせフォームについて
     var $inquiryForm = $(`
-      <form class="inquiry-form">
+      <form class="inquiry-form ui form">
         <h2>お問い合わせ内容入力</h2>
+        
+        <div class="table w100per form-group">
+          <div class="table-cell">
+            <label>お名前</label>
+            <div class="ui input" style="margin-right:10px;">
+              <input type="text" name="name" placeholder="お名前">
+            </div>
+          </div>
+          <div class="table-cell">
+            <label>フリガナ</label>
+            <div class="ui input">
+              <input type="text" name="furigana" placeholder="フリガナ">
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>住所</label>
+          <div class="ui input fluid">
+            <input type="text" name="jusho" placeholder="住所: 東京都豊島区 東池袋1丁目2−11 片山ビル4F">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>電話番号</label>
+          <div class="ui input fluid">
+            <input type="text" name="tel" placeholder="電話番号: 0120-55-2470">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>メールアドレス</label>
+          <div class="ui input fluid">
+            <input type="text" name="mail" placeholder="メールアドレス: mail@ietopia.jp">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>メールアドレス（再入力）</label>
+          <div class="ui input fluid">
+            <input type="text" name="mail" placeholder="メールアドレス（再入力）: mail@ietopia.jp">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>ご希望の連絡方法</label>
+          <div class="table w100per">
+            <div class="table-cell">
+              <div class="ui checkbox">
+                <input type="checkbox" name="kibou_renraku_houhou" value="メール" checked>
+                <label>メール</label>
+              </div>
+            </div>
+            <div class="table-cell">
+              <div class="ui checkbox">
+                <input type="checkbox" name="kibou_renraku_houhou" value="電話" checked>
+                <label>電話</label>
+              </div>
+            </div>
+            <div class="table-cell nowrap">
+              <select name="kibou_renraku_jikan_start">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option selected>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+                <option>18</option>
+                <option>19</option>
+                <option>20</option>
+                <option>21</option>
+                <option>22</option>
+                <option>23</option>
+                <option>24</option>
+              </select>
+              時 〜
+              <select name="kibou_renraku_jikan_end">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+                <option>18</option>
+                <option>19</option>
+                <option selected>20</option>
+                <option>21</option>
+                <option>22</option>
+                <option>23</option>
+                <option>24</option>
+              </select>
+              時
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>備考</label>
+          <div class="field">
+            <textarea rows="3" name="note"></textarea>
+          </div>
+        </div>
         
       </form>
     `);
@@ -7667,6 +7800,23 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
         </section>
       `) );
     }
+    
+    // 送信ボタンエリアについて
+    var $submitArea = $(`
+      <section class="submit-area">
+        <div class="message">
+          <a href="${config.IETOPIA_PRIVACY_POLICY_URL}" target="_blank">プライバシーポリシー</a>
+          をお読みいただき、<br>
+          同意の上、メールを送信してください。
+        </div>
+        <img class="submit-button" src="img/common/form/submit_inquiry_form.png" width="234">
+      </section>
+    `);
+    var $submitButton = $submitArea.find(".submit-button");
+    $submitButton.on("click", () => {
+      console.log( $inquiryForm.serialize() );
+    });
+    this.$contents.append($submitArea);
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = InquiryPage;

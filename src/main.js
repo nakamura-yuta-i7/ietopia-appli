@@ -13,6 +13,13 @@ global.APP = {
 };
 console.log( "global.APP", global.APP );
 
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    console.log( device.cordova );
+    console.log( device.uuid );
+    console.log( {device: device} );
+}
+
 import Dispatcher from "./Dispatcher";
 import queryString from 'query-string';
 global.renderPage = function (params={}) {

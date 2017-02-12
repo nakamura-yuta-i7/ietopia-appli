@@ -129,6 +129,14 @@ footer nav ul li img {
   cursor: pointer;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
+.w100per {
+  width: 100%;
+}
+
 .table {
   display: table;
 }
@@ -484,6 +492,36 @@ footer nav ul li img {
   font-size: 12px;
   padding: 10px;
   line-height: 1.5;
+}
+
+.inquiry-page .inquiry-form .form-group {
+  margin-bottom: 12px;
+}
+
+.inquiry-page .inquiry-form label {
+  display: block;
+  font-size: 12px;
+  color: #4A4A4A;
+}
+
+.inquiry-page .inquiry-form select {
+  display: inline-block;
+  width: auto;
+}
+
+.inquiry-page .submit-area {
+  background: #fff;
+  text-align: center;
+}
+
+.inquiry-page .submit-area .message {
+  line-height: 1.3;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.inquiry-page .submit-area .submit-button {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=bundle.css.map*/
