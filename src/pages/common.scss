@@ -136,3 +136,17 @@ footer {
   font-weight: 900;
   text-align: center;
 }
+select {
+  background: #fff;
+  border: none;
+  padding: 5px;
+}
+.ui.input, .ui.form {
+  label {
+    font-weight: 900;
+    margin-bottom: 5px;
+  }
+  input[type=text], textarea {
+    border: none;
+  }
+}

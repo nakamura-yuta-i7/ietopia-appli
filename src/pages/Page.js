@@ -149,6 +149,5 @@ export default class Page {
     
     this.$app.append($footer);
     global.APP.$footer = $footer;
-    console.log( "buildFooter" );
   }
 }

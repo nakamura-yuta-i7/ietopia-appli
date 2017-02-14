@@ -1,15 +1,21 @@
 // JQuery.easing: 設定
 jQuery.easing.def = "easeOutExpo";
-// 便利関数
-global.$html = function(tagname, params={}) {
-  var $tag = $(`<${tagname}>`);
-  $tag.attr(params);
-  return $tag;
-}
+// HTML:DOM便利関数群ロード
+import "./utils/html";
 // 定数等の設定
 global.config = require("./config");
 // グローバル変数
 global.APP = {
+  values: {
+  },
+  master: {
+    ekitoho: [],
+    madori: [],
+    menseki: [],
+    rosen: [],
+    station: [],
+    tikunensu: [],
+  }
 };
 console.log( "global.APP", global.APP );
 

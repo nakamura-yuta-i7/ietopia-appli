@@ -5,7 +5,7 @@ import Promise from "bluebird";
 
 class WebSqlDatabase {
     DBNAME(){
-      return "ietopia_web_db";
+      return "web_sql_database";
     }
     constructor() {
         var dbname = this.DBNAME();
