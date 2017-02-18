@@ -171,6 +171,13 @@ select {
   padding: 5px;
 }
 
+.ui input, .ui.dropdown {
+  box-sizing: border-box;
+  height: 48px;
+  border: 1px solid #fff !important;
+  font-size: 16px;
+}
+
 .ui.input label, .ui.form label {
   font-weight: 900;
   margin-bottom: 5px;
@@ -201,13 +208,6 @@ select {
 }
 .contents.search-page {
   padding: 0px 0px 16px 0px;
-}
-
-.search-form .ui input, .search-form .ui.dropdown {
-  box-sizing: border-box;
-  height: 48px;
-  border: 1px solid #fff !important;
-  font-size: 16px;
 }
 
 .search-form .description {
@@ -609,10 +609,85 @@ select {
   line-height: 1.5;
 }
 
+.kibou_osumai-page .kibou-form .okyakusama-ni-tuite .table {
+  margin: 0 auto;
+  margin-bottom: 12px;
+}
+
+.kibou_osumai-page .kibou-form .okyakusama-ni-tuite .table .table-cell {
+  width: 40%;
+}
+
+.kibou_osumai-page .kibou-form .okyakusama-ni-tuite .table .table-cell:nth-child(1) {
+  text-align: right;
+  width: 30%;
+}
+
+.kibou_osumai-page .kibou-form .okyakusama-ni-tuite .table .table-cell label {
+  font-weight: 900;
+  margin: 0 10px 0 20px;
+}
+
+.kibou_osumai-page .kibou-form .okyakusama-ni-tuite .additional-note {
+  padding: 0 10px;
+}
+
 .kibou_osumai-page .kibou-form .additional-note {
   color: #9B9B9B;
   font-size: 10px;
   line-height: 1.3;
+}
+
+.kibou_osumai-page .kibou-form .yatin-section .center {
+  text-align: center;
+}
+
+.kibou_osumai-page .kibou-form .yatin-section .kara, .kibou_osumai-page .kibou-form .yatin-section select {
+  display: inline-block;
+}
+
+.kibou_osumai-page .kibou-form .yatin-section .kara {
+  margin: 0 10px;
+  font-weight: 900;
+}
+
+.kibou_osumai-page .kibou-form .remove-all-checks {
+  text-align: right;
+  font-size: 12px;
+}
+
+.kibou_osumai-page .kibou-form .remove-all-checks a {
+  color: #7F7F7F;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.kibou_osumai-page .kibou-form .madori-checkboxes {
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px 15px;
+  line-height: 2.2;
+}
+
+.kibou_osumai-page .kibou-form .madori-checkboxes .checkbox {
+  -ms-flex-positive: 1;
+      flex-grow: 1;
+}
+
+.kibou_osumai-page .kibou-form .madori-checkboxes .ui.checkbox.checked label {
+  color: #F47F00;
+}
+
+.kibou_osumai-page .kibou-form .madori-checkboxes .ui.checkbox {
+  width: 50%;
+}
+
+.kibou_osumai-page .kibou-form .madori-checkboxes .ui.checkbox label {
+  padding-left: 30px;
+}
+
+.kibou_osumai-page .kibou-form .tikunensu-section {
+  text-align: center;
 }
 
 /*# sourceMappingURL=bundle.css.map*/

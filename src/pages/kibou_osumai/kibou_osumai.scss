@@ -11,10 +11,75 @@
     }
   }
   .kibou-form {
+    .okyakusama-ni-tuite {
+      .table {
+        margin: 0 auto;
+        margin-bottom: 12px;
+        .table-cell {
+          &:nth-child(1) {
+            text-align: right;
+            width: 30%;
+          }
+          width: 40%;
+          label {
+            font-weight: 900;
+            margin: 0 10px 0 20px;
+          }
+        }
+      }
+      .additional-note {
+        padding: 0 10px;
+      }
+    }
     .additional-note {
       color: #9B9B9B;
       font-size: 10px;
       line-height: 1.3;
+    }
+    .yatin-section {
+      .center {
+        text-align: center;
+      }
+      .kara, select {
+        display: inline-block;
+      }
+      .kara {
+        margin: 0 10px;
+        font-weight: 900;
+      }
+    }
+    .remove-all-checks {
+      text-align: right;
+      font-size: 12px;
+      a {
+        color: #7F7F7F;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+    .madori-checkboxes {
+      background: #fff;
+      border-radius: 4px;
+      padding: 12px 15px;
+      line-height: 2.2;
+      .checkbox {
+        flex-grow:1;
+      }
+      .ui.checkbox.checked {
+        label {
+          color: #F47F00;
+        }
+      }
+      .ui.checkbox {
+        width: 50%;
+        
+        label {
+          padding-left: 30px;
+        }
+      }
+    }
+    .tikunensu-section {
+      text-align: center;
     }
   }
 }

@@ -7005,6 +7005,8 @@ class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search_common_scss__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search_common_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__search_common_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__ = __webpack_require__(51);
+
 
 
 
@@ -7037,34 +7039,12 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       <section id="yatin">
         <h2>￥ 家賃</h2>
         <div class="table">
-          <div class="table-cell">
-            <select class="ui dropdown" id="yatin-min">
-              <option value="">下限なし</option>
-              <option value="3">3.0万</option>
-              <option value="2">5.0万</option>
-              <option value="2">5.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-            </select>
+          <div class="table-cell min">
           </div>
           <div class="table-cell">
             <span class="between">〜</span>
           </div>
-          <div class="table-cell">
-            <select class="ui dropdown" id="yatin-max">
-              <option value="">下限なし</option>
-              <option value="3">3.0万</option>
-              <option value="2">5.0万</option>
-              <option value="2">5.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-            </select>
+          <div class="table-cell max">
           </div>
         </div>
       </section>
@@ -7090,6 +7070,12 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       </div>
       
     </form>`);
+    
+    var selectMin = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["a" /* YatinSelectMin */]();
+    var selectMax = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["b" /* YatinSelectMax */]();
+    
+    $searchForm.find("#yatin").find(".min").append( selectMin.getHtml() );
+    $searchForm.find("#yatin").find(".max").append( selectMax.getHtml() );
     
     var $stationInput = $searchForm.find("input[name=station]");
     $stationInput.focus(function() {
@@ -7475,20 +7461,32 @@ class TopPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_html__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__utils_html__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Dispatcher__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_query_string__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_query_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_query_string__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IetopiaApi__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_html__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__utils_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_is__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_is___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__utils_is__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Dispatcher__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_query_string__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_query_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_query_string__);
+
 // JQuery.easing: 設定
 jQuery.easing.def = "easeOutExpo";
-// HTML:DOM便利関数群ロード
+// 便利関数群ロード
+
 
 // 定数等の設定
 global.config = __webpack_require__(5);
 // グローバル変数
 global.APP = {
+  api: {
+    ietopia: {
+      ekitoho: new __WEBPACK_IMPORTED_MODULE_0__IetopiaApi__["a" /* EkitohoApi */](),
+      tikunensu: new __WEBPACK_IMPORTED_MODULE_0__IetopiaApi__["b" /* TikunensuApi */](),
+    },
+  },
   values: {
+    yatinSelectBaseOptions: __webpack_require__(52)
   },
   master: {
     ekitoho: [],
@@ -7514,7 +7512,7 @@ function onDeviceReady() {
 
 global.renderPage = function (params={}) {
   const transitionType = params.transitionType || "REPLACE"
-  const qs = __WEBPACK_IMPORTED_MODULE_2_query_string___default.a.parse(location.search);
+  const qs = __WEBPACK_IMPORTED_MODULE_4_query_string___default.a.parse(location.search);
   const page   = params.page   || qs.page || "top";
   const action = params.action || qs.action || "index";
   const requestParams = params.requests || qs;
@@ -7524,10 +7522,10 @@ global.renderPage = function (params={}) {
   
   if ( transitionType != "BACK" ) {
     history.pushState(null,null, 
-      "?" + __WEBPACK_IMPORTED_MODULE_2_query_string___default.a.stringify(requestParams) ); 
+      "?" + __WEBPACK_IMPORTED_MODULE_4_query_string___default.a.stringify(requestParams) ); 
   }
   
-  __WEBPACK_IMPORTED_MODULE_1__Dispatcher__["a" /* default */].dispatch( requestParams, transitionType );
+  __WEBPACK_IMPORTED_MODULE_3__Dispatcher__["a" /* default */].dispatch( requestParams, transitionType );
 }
 // アプリ初回起動時
 global.renderPage();
@@ -7536,7 +7534,7 @@ global.renderPage();
 window.onpopstate = function(e) {
   console.log( e );
   // ページ読み込み、描画処理
-  var qs = __WEBPACK_IMPORTED_MODULE_2_query_string___default.a.parse(location.search);
+  var qs = __WEBPACK_IMPORTED_MODULE_4_query_string___default.a.parse(location.search);
   qs.transitionType = "BACK";
   global.renderPage(qs);
 }
@@ -7821,6 +7819,7 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     `);
     var $inquirySection = $(`<section></section>`);
     $inquirySection.append($inquiryForm);
+    $inquirySection.find(".checkbox").checkbox();
     this.$contents.append($inquirySection);
     
     // 希望のお住いについて
@@ -7860,9 +7859,22 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__kibou_osumai_scss__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__kibou_osumai_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__kibou_osumai_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bluebird__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bluebird___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_bluebird__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_query_string__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_query_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_query_string__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__parts_YatinSection__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__parts_MadoriSection__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__parts_TikunenSection__ = __webpack_require__(56);
+
+
+
+
+
+
 
 
 
@@ -7872,147 +7884,37 @@ class KibouOsumaiPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default
     this.displayHeaderLogoS = false;
     this.displayHeaderBackButton = true;
     
-    // 希望のお住い：説明欄について
-    var $descriptionArea = $(`
-      <div class="description-area">
-        <div class="message">
-          お探しのお住いの条件を登録することができます。<br>
-条件にマッチしたお部屋をリアルタイムで受け取ることができたり、お問い合わせいただいた際によりスムーズにご案内することができますので是非ご活用ください。
-        </div>
-      </div>
-    `);
-    this.$contents.append($descriptionArea);
+    $("body").click(()=>{
+      console.log( __WEBPACK_IMPORTED_MODULE_3_query_string___default.a.parse($("form").serialize()) );
+    });
     
-    var $kibouForm = $(`
-      <form class="kibou-form">
-      </form>
-    `);
+    // 希望のお住い：説明欄について
+    this.$contents.append(getDescriptionArea());
+    
+    var $kibouForm = $html("form", {
+      class: "kibou-form",
+    });
     
     // お客様について
-    var $userInfoSection = $(`
-      <section>
-        <h2>お客様について</h2>
-        <div class="table">
-          <div class="table-cell">
-            <label>性別</label>
-            <select name="sex">
-              <option value="">選択してください</option>
-              <option>男性</option>
-              <option>女性</option>
-            </select>
-          </div>
-          <div class="table-cell">
-            <label>年齢</label>
-            <select name="age">
-              <option value="">選択してください</option>
-              <option>10代</option>
-              <option>20代</option>
-              <option>30代</option>
-              <option>40代</option>
-              <option>50代</option>
-              <option>60代</option>
-              <option>70代</option>
-              <option>80代</option>
-              <option>90歳以上</option>
-            </select>
-          </div>
-        </div>
-        <div class="additional-note">
-          ご入力いただいた情報はより良いサービスをご提供する為に利用されます。お客様の情報はプライバシーポリシーに則り厳重に管理いたします。
-        </div>
-      </section>
-    `);
-    $kibouForm.append($userInfoSection);
-    
+    $kibouForm.append( getUserInfoSection() );
     
     // 家賃について
-    var $yatinSection = $(`
-      <section>
-        <h2>￥家賃</h2>
-      </section>
-    `);
-    
-    global.$yatinSelectMax = function(selectedVal="") {
-      var options = APP.values.yatinSelectBaseOptions();
-      var name = "yatin-max";
-      options.push( { val: "", name: "上限なし" } );
-      return $select({options, selectedVal, name});
-    };
-    global.$yatinSelectMin = function(selectedVal="") {
-      var options = APP.values.yatinSelectBaseOptions();
-      var name = "yatin-min";
-      options.unshift( { val: "", name: "下限なし" } );
-      return $select({options, selectedVal, name});
-    };
-    global.APP.values.yatinSelectBaseOptions = function() {
-      return [
-        { val: "30000", name: "3万" },
-        { val: "50000", name: "5万" },
-        { val: "60000", name: "6万" },
-        { val: "65000", name: "6.5万" },
-        { val: "70000", name: "7万" },
-        { val: "75000", name: "7.5万" },
-        { val: "80000", name: "8万" },
-        { val: "85000", name: "8.5万" },
-        { val: "90000", name: "9万" },
-        { val: "95000", name: "9.5万" },
-        { val: "100000", name: "10万" },
-        { val: "105000", name: "10.5万" },
-        { val: "110000", name: "11万" },
-        { val: "115000", name: "11.5万" },
-        { val: "120000", name: "12万" },
-        { val: "125000", name: "12.5万" },
-        { val: "130000", name: "13万" },
-        { val: "135000", name: "13.5万" },
-        { val: "140000", name: "14万" },
-        { val: "145000", name: "14.5万" },
-        { val: "150000", name: "15万" },
-        { val: "170000", name: "17万" },
-        { val: "200000", name: "20万" },
-        { val: "300000", name: "30万" },
-        { val: "400000", name: "40万" },
-        { val: "500000", name: "50万" },
-      ];
-    };
-    
-    $yatinSection.append( $yatinSelectMin(100000) );
-    $yatinSection.append( $(`<div class="kara">〜</div>`) );
-    $yatinSection.append( $yatinSelectMax(150000) );
-    
-    $kibouForm.append($yatinSection);
+    $kibouForm.append( new __WEBPACK_IMPORTED_MODULE_4__parts_YatinSection__["a" /* default */](100000, 150000).getHtml() );
     
     // 間取について
-    var $madoriSection = $(`
-      <section>
-        <h2>間取</h2>
-      </section>
-    `);
-    var $madoriCheckboxArea = $(`
-      <div class="madori-checkboxes">
-        <div class="remove-all-checks">
-          <a>すべてのチェックを外す</a>
-        </div>
-        
-      </div>
-    `);
-    
-    
-    $kibouForm.append($madoriSection);
+    var madoriSection = new __WEBPACK_IMPORTED_MODULE_5__parts_MadoriSection__["a" /* default */]();
+    $kibouForm.append(madoriSection.getHtml());
     
     // 築年数について
-    var $tikunenSection = $(`
-      <section>
-        <h2>築年数</h2>
-      </section>
-    `);
-    $kibouForm.append($tikunenSection);
+    $kibouForm.append( new __WEBPACK_IMPORTED_MODULE_6__parts_TikunenSection__["a" /* default */]().getHtml() );
     
     // 備考について
-    var $noteSection = $(`
-      <section>
+    var $noteSection = $html("section", {}, $(`
         <h2>その他のご希望</h2>
-      </section>
-    `);
+        <div class="ui form">
+          <textarea rows="5" name="note"></textarea>
+        </div>
+    `));
     $kibouForm.append($noteSection);
     
     // フォームに挿入
@@ -8021,7 +7923,57 @@ class KibouOsumaiPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = KibouOsumaiPage;
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+function getDescriptionArea() {
+  return $(`
+    <div class="description-area">
+      <div class="message">
+        お探しのお住いの条件を登録することができます。<br>
+条件にマッチしたお部屋をリアルタイムで受け取ることができたり、お問い合わせいただいた際によりスムーズにご案内することができますので是非ご活用ください。
+      </div>
+    </div>
+  `);
+}
+
+function getUserInfoSection(sex="", age="") {
+  
+  var $sexSelect = $select({
+    options: [
+      {val:"", name:"--"},
+      {val:"男性", name:"男性"},
+      {val:"女性", name:"女性"},
+    ],
+    selectedVal: sex,
+    name: "sex"
+  });
+  var $ageSelect = $select({
+    options: [
+      { val: "", name: "--" },
+      "10代","20代","30代","40代","50代","60代","70代","80代","90歳以上"
+    ],
+    selectedVal: age,
+    name: "age"
+  });
+  
+  return $(`
+    <section class="okyakusama-ni-tuite">
+      <h2>お客様について</h2>
+      <div class="table">
+        <div class="table-cell">
+          <label>性別</label>
+          ${$sexSelect.outerHTML()}
+        </div>
+        <div class="table-cell">
+          <label>年齢</label>
+          ${$ageSelect.outerHTML()}
+        </div>
+      </div>
+      <div class="additional-note">
+        ご入力いただいた情報はより良いサービスをご提供する為に利用されます。お客様の情報はプライバシーポリシーに則り厳重に管理いたします。
+      </div>
+    </section>
+  `);
+}
 
 /***/ }),
 /* 45 */
@@ -8091,17 +8043,32 @@ class ModalDialog {
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {global.$html = function(tagname, params={}) {
+/* WEBPACK VAR INJECTION */(function(global) {$.fn.outerHTML = function(s) {
+    return s
+        ? this.before(s).remove()
+        : jQuery("<p>").append(this.eq(0).clone()).html();
+};
+global.$html = function(tagname, params={}, $innerHtml=null) {
   var $tag = $(`<${tagname}>`);
   $tag.attr(params);
+  if ($innerHtml) {
+    $tag.append($innerHtml);
+  }
   return $tag;
 }
 global.$select = function(params) {
   var options= params.options || [];
   var selectedVal= params.selectedVal || "";
   var name = params.name || ""
-  var $select = $html("select", {name});
+  var classes = params.classes || "ui dropdown"
+  var $select = $html("select", {name, class: classes});
   options.forEach( (data) => {
+    if ( is("String", data) ) {
+      data = {
+        val: data,
+        name: data
+      };
+    }
     var $option = $(`<option value="${data.val}">${data.name}</option>`);
     if ( data.val == selectedVal ) {
       $option.attr("selected", "selected");
@@ -8111,6 +8078,290 @@ global.$select = function(params) {
   return $select;
 };
 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {class IetopiaApi {
+  constructor() {
+    this.API_BASE_URL = global.config.API_BASE_URL + "/api";
+  }
+  request(params={}) {
+    var url = this.API_BASE_URL + this.API_URL_SUFIX;
+    
+    return $.ajax({
+      url,
+      dataType: "json",
+    });
+  }
+}
+class IetopiaMasterApiBase extends IetopiaApi {
+  constructor() {
+    super();
+    this.API_URL_SUFIX = "/master";
+  }
+  setApiUrlSufix(sufix) {
+    this.API_URL_SUFIX = this.API_URL_SUFIX + sufix;
+  }
+}
+class EkitohoApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/madori");
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = EkitohoApi;
+
+class MadoriApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/madori");
+  }
+}
+/* unused harmony export MadoriApi */
+
+class TikunensuApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/tikunensu");
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["b"] = TikunensuApi;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 50 */,
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Html__ = __webpack_require__(53);
+
+
+class YatinSelect extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
+  constructor() {
+    super();
+    this.options = APP.values.yatinSelectBaseOptions;
+  }
+}
+class YatinSelectMin extends YatinSelect {
+  constructor(selectedVal="") {
+    super();
+    var name = "yatin-min";
+    this.options.unshift( { val: "", name: "下限なし" } );
+    this.$html = $select({options: this.options, selectedVal, name});
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = YatinSelectMin;
+
+class YatinSelectMax extends YatinSelect {
+  constructor(selectedVal="") {
+    super();
+    var name = "yatin-max";
+    this.options.push( { val: "", name: "上限なし" } );
+    this.$html = $select({options: this.options , selectedVal, name});
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["b"] = YatinSelectMax;
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = [
+  { val: "30000", name: "3万" },
+  { val: "50000", name: "5万" },
+  { val: "60000", name: "6万" },
+  { val: "65000", name: "6.5万" },
+  { val: "70000", name: "7万" },
+  { val: "75000", name: "7.5万" },
+  { val: "80000", name: "8万" },
+  { val: "85000", name: "8.5万" },
+  { val: "90000", name: "9万" },
+  { val: "95000", name: "9.5万" },
+  { val: "100000", name: "10万" },
+  { val: "105000", name: "10.5万" },
+  { val: "110000", name: "11万" },
+  { val: "115000", name: "11.5万" },
+  { val: "120000", name: "12万" },
+  { val: "125000", name: "12.5万" },
+  { val: "130000", name: "13万" },
+  { val: "135000", name: "13.5万" },
+  { val: "140000", name: "14万" },
+  { val: "145000", name: "14.5万" },
+  { val: "150000", name: "15万" },
+  { val: "170000", name: "17万" },
+  { val: "200000", name: "20万" },
+  { val: "300000", name: "30万" },
+  { val: "400000", name: "40万" },
+  { val: "500000", name: "50万" },
+];
+
+/***/ }),
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Html {
+  constructor() { 
+    this.$html = null;
+  }
+  getHtml() {
+    return this.$html;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Html;
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Html__ = __webpack_require__(53);
+
+
+class MadoriSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
+  constructor() {
+    super();
+    var $madoriSection = $(`
+      <section>
+        <h2>間取</h2>
+      </section>
+    `);
+    var $madoriCheckboxArea = $(`
+      <div class="madori-checkboxes-area">
+      </div>
+    `);
+    var $madoriCheckboxes = $(`
+      <div class="madori-checkboxes">
+        <div class="remove-all-checks">
+          <a>すべてのチェックを外す</a>
+        </div>
+      </div>
+    `);
+    global.APP.api.ietopia.ekitoho.request()
+    .then((result)=>{
+      result.forEach((data)=>{
+        var $checkbox = $(`
+          <div class="ui checkbox">
+            <input type="checkbox" name="madori[]" value="${data.name}">
+            <label>${data.name}</label>
+          </div>
+        `);
+        $checkbox.checkbox();
+        $madoriCheckboxes.append($checkbox);
+      });
+      $madoriCheckboxArea.append($madoriCheckboxes);
+      $madoriSection.append($madoriCheckboxArea);
+      var $removeAllChecks = $madoriCheckboxes.find(".remove-all-checks");
+      $removeAllChecks.on("click", ()=>{
+        $madoriSection.find(".checked").trigger("click");
+      });
+      
+    });
+    this.$html = $madoriSection
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = MadoriSection;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Html__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__parts_YatinSelect__ = __webpack_require__(51);
+
+
+
+class YatinSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
+  constructor(min="", max="") {
+    super();
+    
+    var $yatinSection = $(`
+      <section class="yatin-section">
+        <h2>￥家賃</h2>
+        <div class="center"></div>
+      </section>
+    `);
+    
+    var selectMin = new __WEBPACK_IMPORTED_MODULE_1__parts_YatinSelect__["a" /* YatinSelectMin */](min);
+    var selectMax = new __WEBPACK_IMPORTED_MODULE_1__parts_YatinSelect__["b" /* YatinSelectMax */](max);
+    
+    $yatinSection.find(".center").append( selectMin.getHtml() );
+    $yatinSection.find(".center").append( $(`<div class="kara">〜</div>`) );
+    $yatinSection.find(".center").append( selectMax.getHtml() );
+    
+    this.$html = $yatinSection
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = YatinSection;
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Html__ = __webpack_require__(53);
+
+class TikunenSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
+  constructor() {
+    super();
+    var $tikunenSection = $(`
+      <section class="tikunensu-section">
+        <h2>築年数</h2>
+      </section>
+    `);
+    global.APP.api.ietopia.tikunensu.request().then((result)=>{
+      var options = [{
+        val: "",
+        name: "指定なし",
+      }];
+      result.forEach((data)=>{
+        options.push({
+          val: data.value,
+          name: data.name,
+        })
+      });
+      var selectedVal = ""; // 指定なし
+      var name = "tikunensu";
+      $tikunenSection.append( $select({options, selectedVal, name}) );
+    });
+    this.$html = $tikunenSection;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = TikunenSection;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {// 型を確かめる
+// sample: is("String", new String("Test")) => true
+// String
+// Number
+// Boolean
+// Date
+// Error
+// Array
+// Function
+// RegExp
+// Object
+global.is = function(type, obj) {
+    var clas = Object.prototype.toString.call(obj).slice(8, -1);
+    return obj !== undefined && obj !== null && clas === type;
+}
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ })

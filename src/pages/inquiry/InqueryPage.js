@@ -192,6 +192,7 @@ export default class InquiryPage extends Page {
     `);
     var $inquirySection = $(`<section></section>`);
     $inquirySection.append($inquiryForm);
+    $inquirySection.find(".checkbox").checkbox();
     this.$contents.append($inquirySection);
     
     // 希望のお住いについて

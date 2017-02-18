@@ -1,12 +1,21 @@
+import { EkitohoApi, TikunensuApi } from "./IetopiaApi";
 // JQuery.easing: 設定
 jQuery.easing.def = "easeOutExpo";
-// HTML:DOM便利関数群ロード
+// 便利関数群ロード
 import "./utils/html";
+import "./utils/is";
 // 定数等の設定
 global.config = require("./config");
 // グローバル変数
 global.APP = {
+  api: {
+    ietopia: {
+      ekitoho: new EkitohoApi(),
+      tikunensu: new TikunensuApi(),
+    },
+  },
   values: {
+    yatinSelectBaseOptions: require("./values/yatinSelectBaseOptions.js")
   },
   master: {
     ekitoho: [],

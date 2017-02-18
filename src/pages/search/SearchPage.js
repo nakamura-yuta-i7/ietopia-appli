@@ -1,6 +1,7 @@
 import Page from '../Page';
 import './search.scss';
 import './search-common.scss';
+import { YatinSelectMin, YatinSelectMax } from "../parts/YatinSelect";
 
 export default class SearchPage extends Page {
   indexAction() {
@@ -30,34 +31,12 @@ export default class SearchPage extends Page {
       <section id="yatin">
         <h2>￥ 家賃</h2>
         <div class="table">
-          <div class="table-cell">
-            <select class="ui dropdown" id="yatin-min">
-              <option value="">下限なし</option>
-              <option value="3">3.0万</option>
-              <option value="2">5.0万</option>
-              <option value="2">5.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-            </select>
+          <div class="table-cell min">
           </div>
           <div class="table-cell">
             <span class="between">〜</span>
           </div>
-          <div class="table-cell">
-            <select class="ui dropdown" id="yatin-max">
-              <option value="">下限なし</option>
-              <option value="3">3.0万</option>
-              <option value="2">5.0万</option>
-              <option value="2">5.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-              <option value="2">2.0万</option>
-            </select>
+          <div class="table-cell max">
           </div>
         </div>
       </section>
@@ -83,6 +62,12 @@ export default class SearchPage extends Page {
       </div>
       
     </form>`);
+    
+    var selectMin = new YatinSelectMin();
+    var selectMax = new YatinSelectMax();
+    
+    $searchForm.find("#yatin").find(".min").append( selectMin.getHtml() );
+    $searchForm.find("#yatin").find(".max").append( selectMax.getHtml() );
     
     var $stationInput = $searchForm.find("input[name=station]");
     $stationInput.focus(function() {
