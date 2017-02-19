@@ -114,13 +114,17 @@ export default class SearchPage extends Page {
       .then( () => history.getLastConditions() )
       .then((getLastConditions)=>{
         console.log( "history.getLastConditions()", getLastConditions );
+      })
+      .then(()=>{
+        renderPage({
+          page: "search_result",
+          action: "index",
+          transitionType: "SLIDE_LEFT"
+        });
+        console.log( "koko2!!!" );
       });
       
-      renderPage({
-        page: "search_result",
-        action: "index",
-        transitionType: "SLIDE_LEFT"
-      });
+      console.log( "koko!!!" );
     });
     
     this.$contents.html( $searchForm );

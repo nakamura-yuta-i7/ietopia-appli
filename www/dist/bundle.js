@@ -7014,13 +7014,17 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       .then( () => history.getLastConditions() )
       .then((getLastConditions)=>{
         console.log( "history.getLastConditions()", getLastConditions );
+      })
+      .then(()=>{
+        renderPage({
+          page: "search_result",
+          action: "index",
+          transitionType: "SLIDE_LEFT"
+        });
+        console.log( "koko2!!!" );
       });
       
-      renderPage({
-        page: "search_result",
-        action: "index",
-        transitionType: "SLIDE_LEFT"
-      });
+      console.log( "koko!!!" );
     });
     
     this.$contents.html( $searchForm );
@@ -23936,7 +23940,6 @@ class SearchHistory extends IetopiaWebDb {
         return global.config.SEARCH_HISTORY_MAX_COUNT;
     }
     saveConditions(conditionParams={}) {
-        console.log( "conditionParams", conditionParams );
         // 検索条件パラメータを記録
         var value = JSON.stringify( conditionParams )
         return this.insert({

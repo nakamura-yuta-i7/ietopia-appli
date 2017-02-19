@@ -189,7 +189,6 @@ export class SearchHistory extends IetopiaWebDb {
         return global.config.SEARCH_HISTORY_MAX_COUNT;
     }
     saveConditions(conditionParams={}) {
-        console.log( "conditionParams", conditionParams );
         // 検索条件パラメータを記録
         var value = JSON.stringify( conditionParams )
         return this.insert({
