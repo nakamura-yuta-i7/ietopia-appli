@@ -6,14 +6,22 @@ import { YatinSelectMin, YatinSelectMax } from "../parts/YatinSelect";
 export default class SearchPage extends Page {
   indexAction() {
     this.headerTitle = "検索";
-    var $searchForm = $(`<form class="search-form">
+    var $searchForm = $(`
+      <form class="search-form">
+      </form>
+    `);
+    
+    var $freewordSection = $(`
       <section>
         <div class="description text-right">マンション・アパート名、全文から検索</div>
         <div class="ui input word">
           <input type="text" name="word" placeholder="フリーワードで検索">
         </div>
       </section>
-      
+    `);
+    $searchForm.append( $freewordSection );
+    
+    var $rosenStationSection = $(`
       <section>
         <h2>路線・駅</h2>
         <div class="ui left icon input station">
@@ -26,7 +34,10 @@ export default class SearchPage extends Page {
           </div>
         </div>
       </section>
-      
+    `);
+    $searchForm.append( $rosenStationSection );
+    
+    var $yatinSection = $(`
       <section id="yatin">
         <h2>￥ 家賃</h2>
         <div class="table">
@@ -39,7 +50,16 @@ export default class SearchPage extends Page {
           </div>
         </div>
       </section>
-      
+    `);
+    $searchForm.append($yatinSection);
+    
+    var selectMin = new YatinSelectMin(30000);
+    var selectMax = new YatinSelectMax(400000);
+    
+    $yatinSection.find(".min").append( selectMin.getHtml() );
+    $yatinSection.find(".max").append( selectMax.getHtml() );
+    
+    var $codawariJokenSection = $(`
       <section>
         <h2>条件・こだわり</h2>
         <div class="description">間取や面積、駅徒歩、設備などこだわりポイントを指定</div>
@@ -53,20 +73,18 @@ export default class SearchPage extends Page {
           </div>
         </div>
       </section>
-      
+    `);
+    $searchForm.append( $codawariJokenSection );
+    
+    var $submitButtonArea = $(`
       <div id="submit-btn-area">
         <div class="btn_search">
           <img src="img/common/form/btn_search.png">
         </div>
       </div>
-      
-    </form>`);
+    `);
     
-    var selectMin = new YatinSelectMin(30000);
-    var selectMax = new YatinSelectMax(400000);
-    
-    $searchForm.find("#yatin").find(".min").append( selectMin.getHtml() );
-    $searchForm.find("#yatin").find(".max").append( selectMax.getHtml() );
+    $searchForm.append( $submitButtonArea );
     
     var $stationInput = $searchForm.find("input[name=station]");
     $stationInput.focus(function() {
@@ -90,6 +108,13 @@ export default class SearchPage extends Page {
     
     var $searchButton = $searchForm.find(".btn_search");
     $searchButton.on("click", function() {
+      
+      var history = new APP.db.SearchHistory();
+      history.saveConditions( queryString.parse($searchForm.serialize()) )
+      .then( () => history.getLastConditions() )
+      .then((getLastConditions)=>{
+        console.log( "history.getLastConditions()", getLastConditions );
+      });
       
       renderPage({
         page: "search_result",

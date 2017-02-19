@@ -35,9 +35,6 @@ export default class SearchFormStationPage extends Page {
     
     rosenSection.setChangeEvent( stationSection );
     
-    $("body").click(()=>{
-      console.log( queryString.parse($("form").serialize()) );
-    });
     // 決定ボタンエリア
     var $submitButtonArea = $(`
       <div id="submit-btn-area">

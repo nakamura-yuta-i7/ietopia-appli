@@ -13,10 +13,6 @@ export default class KibouOsumaiPage extends Page {
     this.displayHeaderLogoS = false;
     this.displayHeaderBackButton = true;
     
-    $("body").click(()=>{
-      console.log( queryString.parse($("form").serialize()) );
-    });
-    
     // 希望のお住い：説明欄について
     this.$contents.append(getDescriptionArea());
     

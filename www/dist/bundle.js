@@ -694,6 +694,7 @@ module.exports = {
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
   IETOPIA_GAIYO_URL: "http://www.ietopia.jp/companies?smp=1",
   IETOPIA_TEL: "0120552470",
+  SEARCH_HISTORY_MAX_COUNT: 5,
 }
 
 /***/ }),
@@ -6881,8 +6882,6 @@ class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     indexAction() {
         this.headerTitle = "新着・おすすめ";
         
-        var kvs = new APP.db.Kvs();
-        kvs.set("test", "Yuta Nakamura");
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = NewsPage;
@@ -6907,14 +6906,22 @@ class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
   indexAction() {
     this.headerTitle = "検索";
-    var $searchForm = $(`<form class="search-form">
+    var $searchForm = $(`
+      <form class="search-form">
+      </form>
+    `);
+    
+    var $freewordSection = $(`
       <section>
         <div class="description text-right">マンション・アパート名、全文から検索</div>
         <div class="ui input word">
           <input type="text" name="word" placeholder="フリーワードで検索">
         </div>
       </section>
-      
+    `);
+    $searchForm.append( $freewordSection );
+    
+    var $rosenStationSection = $(`
       <section>
         <h2>路線・駅</h2>
         <div class="ui left icon input station">
@@ -6927,7 +6934,10 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
           </div>
         </div>
       </section>
-      
+    `);
+    $searchForm.append( $rosenStationSection );
+    
+    var $yatinSection = $(`
       <section id="yatin">
         <h2>￥ 家賃</h2>
         <div class="table">
@@ -6940,7 +6950,16 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
           </div>
         </div>
       </section>
-      
+    `);
+    $searchForm.append($yatinSection);
+    
+    var selectMin = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["a" /* YatinSelectMin */](30000);
+    var selectMax = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["b" /* YatinSelectMax */](400000);
+    
+    $yatinSection.find(".min").append( selectMin.getHtml() );
+    $yatinSection.find(".max").append( selectMax.getHtml() );
+    
+    var $codawariJokenSection = $(`
       <section>
         <h2>条件・こだわり</h2>
         <div class="description">間取や面積、駅徒歩、設備などこだわりポイントを指定</div>
@@ -6954,20 +6973,18 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
           </div>
         </div>
       </section>
-      
+    `);
+    $searchForm.append( $codawariJokenSection );
+    
+    var $submitButtonArea = $(`
       <div id="submit-btn-area">
         <div class="btn_search">
           <img src="img/common/form/btn_search.png">
         </div>
       </div>
-      
-    </form>`);
+    `);
     
-    var selectMin = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["a" /* YatinSelectMin */](30000);
-    var selectMax = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["b" /* YatinSelectMax */](400000);
-    
-    $searchForm.find("#yatin").find(".min").append( selectMin.getHtml() );
-    $searchForm.find("#yatin").find(".max").append( selectMax.getHtml() );
+    $searchForm.append( $submitButtonArea );
     
     var $stationInput = $searchForm.find("input[name=station]");
     $stationInput.focus(function() {
@@ -6991,6 +7008,13 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     
     var $searchButton = $searchForm.find(".btn_search");
     $searchButton.on("click", function() {
+      
+      var history = new APP.db.SearchHistory();
+      history.saveConditions( queryString.parse($searchForm.serialize()) )
+      .then( () => history.getLastConditions() )
+      .then((getLastConditions)=>{
+        console.log( "history.getLastConditions()", getLastConditions );
+      });
       
       renderPage({
         page: "search_result",
@@ -7141,9 +7165,6 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
     
     rosenSection.setChangeEvent( stationSection );
     
-    $("body").click(()=>{
-      console.log( __WEBPACK_IMPORTED_MODULE_2_queryString___default.a.parse($("form").serialize()) );
-    });
     // 決定ボタンエリア
     var $submitButtonArea = $(`
       <div id="submit-btn-area">
@@ -7429,7 +7450,7 @@ global.APP = {
     rosen: [],
     station: [],
     tikunensu: [],
-  }
+  },
 };
 console.log( "global.APP", global.APP );
 
@@ -7817,10 +7838,6 @@ class KibouOsumaiPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default
     this.headerTitle = "希望のお住い"
     this.displayHeaderLogoS = false;
     this.displayHeaderBackButton = true;
-    
-    $("body").click(()=>{
-      console.log( __WEBPACK_IMPORTED_MODULE_3_query_string___default.a.parse($("form").serialize()) );
-    });
     
     // 希望のお住い：説明欄について
     this.$contents.append(getDescriptionArea());
@@ -23726,7 +23743,7 @@ module.exports = Enum;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class WebSqlDatabase {
+/* WEBPACK VAR INJECTION */(function(global) {class WebSqlDatabase {
     DBNAME(){
       throw new Error("DBNAME() is undefined");
     }
@@ -23861,6 +23878,9 @@ class WebSqlDatabase {
         return this.findFirst(where, order)
     }
     findFirst(where="", order="") {
+        if ( order.length == 0 ) {
+            order = " id ASC ";
+        }
         var order = order.length ? ` ORDER BY ${order} ` : "";
         where = " WHERE " + this.createWhereSql(where)
         return this.query(`SELECT * FROM ${this.TABLE()} ${where} ${order} LIMIT 1`)
@@ -23905,6 +23925,25 @@ class SearchHistory extends IetopiaWebDb {
             )
         `);
     }
+    getLastConditions() {
+        return this.findLast()
+        .then(function(result) {
+            if (result == false) return {};
+            return JSON.parse(result["params_json"]);
+        });
+    }
+    SAVE_MAX_COUNT() {
+        return global.config.SEARCH_HISTORY_MAX_COUNT;
+    }
+    saveConditions(conditionParams={}) {
+        console.log( "conditionParams", conditionParams );
+        // 検索条件パラメータを記録
+        var value = JSON.stringify( conditionParams )
+        return this.insert({
+            params_json: value,
+            created_at: now(),
+        });
+    }
 }
 /* harmony export (immutable) */ __webpack_exports__["b"] = SearchHistory;
 
@@ -23943,6 +23982,7 @@ class Kvs extends IetopiaWebDb {
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Kvs;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 189 */

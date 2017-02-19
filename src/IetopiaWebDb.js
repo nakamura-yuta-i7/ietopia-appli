@@ -133,6 +133,9 @@ class WebSqlDatabase {
         return this.findFirst(where, order)
     }
     findFirst(where="", order="") {
+        if ( order.length == 0 ) {
+            order = " id ASC ";
+        }
         var order = order.length ? ` ORDER BY ${order} ` : "";
         where = " WHERE " + this.createWhereSql(where)
         return this.query(`SELECT * FROM ${this.TABLE()} ${where} ${order} LIMIT 1`)
@@ -174,6 +177,25 @@ export class SearchHistory extends IetopiaWebDb {
                 "created_at" datetime NOT NULL
             )
         `);
+    }
+    getLastConditions() {
+        return this.findLast()
+        .then(function(result) {
+            if (result == false) return {};
+            return JSON.parse(result["params_json"]);
+        });
+    }
+    SAVE_MAX_COUNT() {
+        return global.config.SEARCH_HISTORY_MAX_COUNT;
+    }
+    saveConditions(conditionParams={}) {
+        console.log( "conditionParams", conditionParams );
+        // 検索条件パラメータを記録
+        var value = JSON.stringify( conditionParams )
+        return this.insert({
+            params_json: value,
+            created_at: now(),
+        });
     }
 }
 export class Kvs extends IetopiaWebDb {

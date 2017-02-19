@@ -37,7 +37,7 @@ global.APP = {
     rosen: [],
     station: [],
     tikunensu: [],
-  }
+  },
 };
 console.log( "global.APP", global.APP );
 
