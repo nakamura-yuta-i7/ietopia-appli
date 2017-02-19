@@ -25,17 +25,19 @@ export default class KibouOsumaiPage extends Page {
     });
     
     // お客様について
-    $kibouForm.append( getUserInfoSection() );
+    $kibouForm.append( getUserInfoSection({sex: "男性", age: "30代"}) );
     
     // 家賃について
     $kibouForm.append( new YatinSection(100000, 150000).getHtml() );
     
     // 間取について
-    var madoriSection = new MadoriSection();
+    var madoriSection = new MadoriSection({
+      selectedVals: ["1K"]
+    });
     $kibouForm.append(madoriSection.getHtml());
     
     // 築年数について
-    $kibouForm.append( new TikunenSection().getHtml() );
+    $kibouForm.append( new TikunenSection(1).getHtml() );
     
     // 備考について
     var $noteSection = $html("section", {}, $(`
@@ -62,8 +64,9 @@ function getDescriptionArea() {
   `);
 }
 
-function getUserInfoSection(sex="", age="") {
-  
+function getUserInfoSection(params={}) {
+  var sex = params.sex || ""
+  var age = params.age || ""
   var $sexSelect = $select({
     options: [
       {val:"", name:"--"},

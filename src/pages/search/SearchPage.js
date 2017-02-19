@@ -7,7 +7,6 @@ export default class SearchPage extends Page {
   indexAction() {
     this.headerTitle = "検索";
     var $searchForm = $(`<form class="search-form">
-      
       <section>
         <div class="description text-right">マンション・アパート名、全文から検索</div>
         <div class="ui input word">
@@ -63,8 +62,8 @@ export default class SearchPage extends Page {
       
     </form>`);
     
-    var selectMin = new YatinSelectMin();
-    var selectMax = new YatinSelectMax();
+    var selectMin = new YatinSelectMin(30000);
+    var selectMax = new YatinSelectMax(400000);
     
     $searchForm.find("#yatin").find(".min").append( selectMin.getHtml() );
     $searchForm.find("#yatin").find(".max").append( selectMax.getHtml() );

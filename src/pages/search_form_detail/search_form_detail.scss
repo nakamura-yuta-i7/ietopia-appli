@@ -1,3 +1,11 @@
-.contents.search-form-detail-page {
-  padding: 0px 0px 16px 0px;
+.search_form_detail-page {
+  
+  .search-form {
+    margin-bottom: 65px;
+  }
+  .search_form_conditions_submit_button {
+    display: table;
+    margin: 0 0 0 auto;
+    cursor: pointer;
+  }
 }

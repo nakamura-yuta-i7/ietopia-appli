@@ -19,7 +19,9 @@
   "homepage": "https://github.com/nakamura-yuta-i7/ietopia-appli#readme",
   "main": "index.js",
   "dependencies": {
+    "es6-enum": "^1.1.0",
     "lodash": "^4.17.4",
+    "moment": "^2.17.1",
     "query-string": "^4.3.1"
   },
   "devDependencies": {
@@ -30,6 +32,7 @@
     "extract-text-webpack-plugin": "^2.0.0-rc.2",
     "file-loader": "^0.10.0",
     "http-server": "^0.7.4",
+    "moment": "^2.17.1",
     "node-sass": "^4.5.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",

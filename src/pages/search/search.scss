@@ -99,7 +99,7 @@
   #submit-btn-area {
     
     position: fixed;
-    bottom: 53px;
+    bottom: 56px;
     left: 0;
     
     width: 100%;
@@ -113,6 +113,8 @@
       
       img {
         width: 199px;
+        display: block;
+        margin: 0 auto;
       }
     }
   }

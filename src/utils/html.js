@@ -15,7 +15,9 @@ global.$select = function(params) {
   var options= params.options || [];
   var selectedVal= params.selectedVal || "";
   var name = params.name || ""
-  var classes = params.classes || "ui dropdown"
+  var classes = (function() {
+    return params.class || "ui dropdown"
+  })();
   var $select = $html("select", {name, class: classes});
   options.forEach( (data) => {
     if ( is("String", data) ) {

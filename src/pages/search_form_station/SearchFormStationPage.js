@@ -1,5 +1,9 @@
 import Page from '../Page';
 import './search_form_station.scss';
+import queryString from 'queryString';
+
+import StationSection from "../parts/StationSection";
+import RosenSection from "../parts/RosenSection";
 
 export default class SearchFormStationPage extends Page {
   indexAction() {
@@ -8,57 +12,48 @@ export default class SearchFormStationPage extends Page {
     this.displayHeaderBackButton = true;
     this.displayHeaderLogoS = false;
     
-    var $searchForm = $(`<form class="search-form">
-      <section>
-        <h2>路線</h2>
-        <div class="ui left icon input station">
-          <input type="text" name="station" placeholder="指定なし">
-          <div class="icon_train">
-            <img src="img/common/form/icon_train.png">
-          </div>
-          <div class="icon_remove">
-            <img src="img/common/form/icon_remove.png">
-          </div>
-        </div>
-      </section>
-      
-      <section>
-        <h2>駅</h2>
-        <div class="ui left icon input station">
-          <input type="text" name="station" placeholder="指定なし">
-          <div class="icon_train">
-            <img src="img/common/form/icon_train.png">
-          </div>
-          <div class="icon_remove">
-            <img src="img/common/form/icon_remove.png">
-          </div>
-        </div>
-      </section>
-      
+    var $searchForm = $(`
+      <form class="search-form">
+        <div id="rosen-area"></div>
+        <div id="station-area"></div>
+      </form>
+    `);
+    
+    // 路線選択メニューエリア
+    var $rosenArea = $searchForm.find("#rosen-area");
+    var rosenSection = new RosenSection();
+    $rosenArea.html(null);
+    $rosenArea.append( rosenSection.getHtml() );
+    
+    // 駅選択チェックボックスエリア
+    var $stationArea = $searchForm.find("#station-area");
+    var stationSection = new StationSection({
+      selectedVals: []
+    });
+    $stationArea.html(null);
+    $stationArea.append( stationSection.getHtml() );
+    
+    rosenSection.setChangeEvent( stationSection );
+    
+    $("body").click(()=>{
+      console.log( queryString.parse($("form").serialize()) );
+    });
+    // 決定ボタンエリア
+    var $submitButtonArea = $(`
       <div id="submit-btn-area">
-        <div class="btn_search">
-          <img src="img/common/form/btn_search.png">
-        </div>
       </div>
-      
-    </form>`);
-    
-    var $stationInput = $searchForm.find("input[name=station]");
-    $stationInput.focus(function() {
-      console.log( "koko1" );
-      $(this).blur();
-      return false;
+    `);
+    var $submitButton = $(`
+      <div class="search_form_conditions_submit_button">
+        <img src="img/common/form/search_form_conditions_submit_button.png">
+      </div>
+    `);
+    $submitButtonArea.append( $submitButton );
+    $submitButton.on("click", function() {
+      history.back();
     });
     
-    var $searchButton = $searchForm.find(".btn_search");
-    $searchButton.focus(function() {
-      
-      renderPage({
-        page: "search_result",
-        action: "index",
-        transitionType: "SLIDE_LEFT"
-      });
-    });
+    $searchForm.append( $submitButtonArea );
     
     this.$contents.html( $searchForm );
   }

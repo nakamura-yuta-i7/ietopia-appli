@@ -1,3 +1,20 @@
 .contents.search-form-station-page {
   padding: 0px 0px 16px 0px;
 }
+.search_form_station-page {
+  .search-form {
+    margin-bottom: 65px;
+  }
+  .search-form select {
+    width: 100%;
+    height: 48px !important;
+  }
+  .search_form_conditions_submit_button {
+    img {
+      width: 199px;
+      display: block;
+    }
+    float: right;
+    cursor: pointer;
+  }
+}

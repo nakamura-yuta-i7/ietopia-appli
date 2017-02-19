@@ -308,7 +308,7 @@ select {
 
 .search-form #submit-btn-area {
   position: fixed;
-  bottom: 53px;
+  bottom: 56px;
   left: 0;
   width: 100%;
   background: #fff;
@@ -322,12 +322,86 @@ select {
 
 .search-form #submit-btn-area .btn_search img {
   width: 199px;
+  display: block;
+  margin: 0 auto;
 }
-.contents.search-form-detail-page {
-  padding: 0px 0px 16px 0px;
+.search_form_detail-page .search-form {
+  margin-bottom: 65px;
+}
+
+.search_form_detail-page .search_form_conditions_submit_button {
+  display: table;
+  margin: 0 0 0 auto;
+  cursor: pointer;
+}
+.checkboxes-section .remove-all-checks {
+  text-align: right;
+  font-size: 12px;
+}
+
+.checkboxes-section .remove-all-checks a {
+  color: #7F7F7F;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.checkboxes-section .checkboxes {
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px 15px;
+  line-height: 2.2;
+}
+
+.checkboxes-section .checkboxes .checkbox {
+  -ms-flex-positive: 1;
+      flex-grow: 1;
+}
+
+.checkboxes-section .checkboxes .ui.checkbox.checked label {
+  color: #F47F00;
+}
+
+.checkboxes-section .checkboxes .ui.checkbox {
+  width: 50%;
+}
+
+.checkboxes-section .checkboxes .ui.checkbox label {
+  padding-left: 30px;
+  color: #4A4A4A;
+}
+.tikunensu-section {
+  text-align: center;
+}
+
+.tikunensu-section select {
+  width: 100%;
+  height: 48px !important;
+}
+.ekitoho-section select {
+  width: 100%;
+  height: 48px !important;
 }
 .contents.search-form-station-page {
   padding: 0px 0px 16px 0px;
+}
+
+.search_form_station-page .search-form {
+  margin-bottom: 65px;
+}
+
+.search_form_station-page .search-form select {
+  width: 100%;
+  height: 48px !important;
+}
+
+.search_form_station-page .search_form_conditions_submit_button {
+  float: right;
+  cursor: pointer;
+}
+
+.search_form_station-page .search_form_conditions_submit_button img {
+  width: 199px;
+  display: block;
 }
 #search-result-panel {
   height: 52px;
@@ -649,45 +723,6 @@ select {
 .kibou_osumai-page .kibou-form .yatin-section .kara {
   margin: 0 10px;
   font-weight: 900;
-}
-
-.kibou_osumai-page .kibou-form .remove-all-checks {
-  text-align: right;
-  font-size: 12px;
-}
-
-.kibou_osumai-page .kibou-form .remove-all-checks a {
-  color: #7F7F7F;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.kibou_osumai-page .kibou-form .madori-checkboxes {
-  background: #fff;
-  border-radius: 4px;
-  padding: 12px 15px;
-  line-height: 2.2;
-}
-
-.kibou_osumai-page .kibou-form .madori-checkboxes .checkbox {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
-}
-
-.kibou_osumai-page .kibou-form .madori-checkboxes .ui.checkbox.checked label {
-  color: #F47F00;
-}
-
-.kibou_osumai-page .kibou-form .madori-checkboxes .ui.checkbox {
-  width: 50%;
-}
-
-.kibou_osumai-page .kibou-form .madori-checkboxes .ui.checkbox label {
-  padding-left: 30px;
-}
-
-.kibou_osumai-page .kibou-form .tikunensu-section {
-  text-align: center;
 }
 
 /*# sourceMappingURL=bundle.css.map*/

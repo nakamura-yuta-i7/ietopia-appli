@@ -1,6 +1,8 @@
 import Html from "./Html";
+import "./tikunen_section.scss";
+
 export default class TikunenSection extends Html {
-  constructor() {
+  constructor(selectedVal) {
     super();
     var $tikunenSection = $(`
       <section class="tikunensu-section">
@@ -18,7 +20,6 @@ export default class TikunenSection extends Html {
           name: data.name,
         })
       });
-      var selectedVal = ""; // 指定なし
       var name = "tikunensu";
       $tikunenSection.append( $select({options, selectedVal, name}) );
     });

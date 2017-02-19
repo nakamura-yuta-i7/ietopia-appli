@@ -3,7 +3,7 @@ import Html from "./Html";
 class YatinSelect extends Html {
   constructor() {
     super();
-    this.options = APP.values.yatinSelectBaseOptions;
+    this.options = deepCopy(APP.values.yatinSelectBaseOptions);
   }
 }
 export class YatinSelectMin extends YatinSelect {

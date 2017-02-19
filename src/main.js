@@ -1,18 +1,31 @@
-import { EkitohoApi, TikunensuApi } from "./IetopiaApi";
 // JQuery.easing: 設定
 jQuery.easing.def = "easeOutExpo";
 // 便利関数群ロード
 import "./utils/html";
 import "./utils/is";
+import "./utils/deepCopy";
+import "./utils/moment";
+import "./utils/enum";
 // 定数等の設定
 global.config = require("./config");
+
+import {Kvs, SearchHistory} from "./IetopiaWebDb";
+import { EkitohoApi, TikunensuApi, MensekiApi, MadoriApi, RosenApi, StationApi, KodawariJokenApi } from "./IetopiaApi";
 // グローバル変数
 global.APP = {
   api: {
     ietopia: {
+      madori: new MadoriApi(),
       ekitoho: new EkitohoApi(),
       tikunensu: new TikunensuApi(),
+      menseki: new MensekiApi(),
+      rosen: new RosenApi(),
+      station: new StationApi(),
+      kodawari_joken: new KodawariJokenApi(),
     },
+  },
+  db: {
+    Kvs, SearchHistory
   },
   values: {
     yatinSelectBaseOptions: require("./values/yatinSelectBaseOptions.js")
@@ -39,6 +52,7 @@ function onDeviceReady() {
 
 import Dispatcher from "./Dispatcher";
 import queryString from 'query-string';
+global.queryString = queryString;
 global.renderPage = function (params={}) {
   const transitionType = params.transitionType || "REPLACE"
   const qs = queryString.parse(location.search);
@@ -53,7 +67,6 @@ global.renderPage = function (params={}) {
     history.pushState(null,null, 
       "?" + queryString.stringify(requestParams) ); 
   }
-  
   Dispatcher.dispatch( requestParams, transitionType );
 }
 // アプリ初回起動時

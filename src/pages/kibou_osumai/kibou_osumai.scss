@@ -48,38 +48,5 @@
         font-weight: 900;
       }
     }
-    .remove-all-checks {
-      text-align: right;
-      font-size: 12px;
-      a {
-        color: #7F7F7F;
-        text-decoration: underline;
-        cursor: pointer;
-      }
-    }
-    .madori-checkboxes {
-      background: #fff;
-      border-radius: 4px;
-      padding: 12px 15px;
-      line-height: 2.2;
-      .checkbox {
-        flex-grow:1;
-      }
-      .ui.checkbox.checked {
-        label {
-          color: #F47F00;
-        }
-      }
-      .ui.checkbox {
-        width: 50%;
-        
-        label {
-          padding-left: 30px;
-        }
-      }
-    }
-    .tikunensu-section {
-      text-align: center;
-    }
   }
 }
