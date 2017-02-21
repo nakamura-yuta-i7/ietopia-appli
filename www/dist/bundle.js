@@ -23786,6 +23786,8 @@ module.exports = Enum;
     }
     insert(values) {
         var sql = this.createInsertSql({values});
+console.log( "sql" );
+console.log( sql );
         return this.query( sql )
         .then(()=>{
             return this.lastInsertId()
