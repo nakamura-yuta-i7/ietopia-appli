@@ -110,10 +110,12 @@ console.log( "koko1" );
         return where_string;
     }
     query(sql) {
-console.log( "query", sql );
+console.log( {sql} );
         return new Promise( (resolve, reject) => {
             this.db.transaction( (tx) => {
+console.log( "koko2" );
                     tx.executeSql(sql, [], function(tran, result) {
+console.log( "koko3" );
                         resolve(result.rows);
                     });
                 }, reject // 第2引数はエラー時のコールバック
