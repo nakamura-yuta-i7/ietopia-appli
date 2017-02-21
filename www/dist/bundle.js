@@ -7012,12 +7012,12 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       var history = new APP.db.SearchHistory();
       history.saveConditions( queryString.parse($searchForm.serialize()) )
       .then(()=>{
-console.log( "koko4" );
         return history.getLastConditions();
       })
       .then((lastConditions)=>{
-        
-        return console.log( "history.getLastConditions()", lastConditions );
+        console.log( "history.getLastConditions()" );
+        console.log( lastConditions );
+        return true;
       })
       .then(()=>{
         renderPage({
@@ -7025,13 +7025,10 @@ console.log( "koko4" );
           action: "index",
           transitionType: "SLIDE_LEFT"
         });
-        console.log( "koko2!!!" );
       })
       .catch((err)=>{
         console.log( {err} );
       });
-      
-      console.log( "koko!!!" );
     });
     
     this.$contents.html( $searchForm );
@@ -7437,10 +7434,6 @@ window.onerror = function (msg, file, line, column, err) {
   console.log( "window.onerror!!!" );
   console.log(msg + file + ':' + line);
 };
-
-setTimeout(function() {
-  throw new Error("UDF Error!!!");
-}, 3000);
 
 
 

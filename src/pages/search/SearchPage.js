@@ -112,12 +112,12 @@ export default class SearchPage extends Page {
       var history = new APP.db.SearchHistory();
       history.saveConditions( queryString.parse($searchForm.serialize()) )
       .then(()=>{
-console.log( "koko4" );
         return history.getLastConditions();
       })
       .then((lastConditions)=>{
-        
-        return console.log( "history.getLastConditions()", lastConditions );
+        console.log( "history.getLastConditions()" );
+        console.log( lastConditions );
+        return true;
       })
       .then(()=>{
         renderPage({
@@ -125,13 +125,10 @@ console.log( "koko4" );
           action: "index",
           transitionType: "SLIDE_LEFT"
         });
-        console.log( "koko2!!!" );
       })
       .catch((err)=>{
         console.log( {err} );
       });
-      
-      console.log( "koko!!!" );
     });
     
     this.$contents.html( $searchForm );

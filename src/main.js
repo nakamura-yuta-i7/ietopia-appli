@@ -14,10 +14,6 @@ window.onerror = function (msg, file, line, column, err) {
   console.log(msg + file + ':' + line);
 };
 
-setTimeout(function() {
-  throw new Error("UDF Error!!!");
-}, 3000);
-
 import {Kvs, SearchHistory} from "./IetopiaWebDb";
 import { EkitohoApi, TikunensuApi, MensekiApi, MadoriApi, RosenApi, StationApi, KodawariJokenApi } from "./IetopiaApi";
 // グローバル変数
