@@ -142,6 +142,7 @@ class WebSqlDatabase {
         where = " WHERE " + this.createWhereSql(where)
         return this.query(`SELECT * FROM ${this.TABLE()} ${where} ${order} LIMIT 1`)
         .then(function(rows) {
+            console.log( {rows} );
             if ( rows.length == 0 ) return false;
             return rows[0];
         });
