@@ -7432,6 +7432,7 @@ jQuery.easing.def = "easeOutExpo";
 
 // 定数等の設定
 global.config = __webpack_require__(5);
+Object.prototype.values = function(){var o=this;var r=[];for(var k in o) if(o.hasOwnProperty(k)){r.push(o[k])}return r};
 
 window.onerror = function (msg, file, line, column, err) {
   console.log( "window.onerror!!!" );

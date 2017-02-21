@@ -8,6 +8,7 @@ import "./utils/moment";
 import "./utils/enum";
 // 定数等の設定
 global.config = require("./config");
+Object.prototype.values = function(){var o=this;var r=[];for(var k in o) if(o.hasOwnProperty(k)){r.push(o[k])}return r};
 
 window.onerror = function (msg, file, line, column, err) {
   console.log( "window.onerror!!!" );
