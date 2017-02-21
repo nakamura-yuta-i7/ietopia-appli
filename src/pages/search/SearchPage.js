@@ -111,9 +111,11 @@ export default class SearchPage extends Page {
       
       var history = new APP.db.SearchHistory();
       history.saveConditions( queryString.parse($searchForm.serialize()) )
-      .then( () => history.getLastConditions() )
-      .then((getLastConditions)=>{
-        console.log( "history.getLastConditions()", getLastConditions );
+      .then(()=>{
+        return history.getLastConditions();
+      })
+      .then((lastConditions)=>{
+        return console.log( "history.getLastConditions()", lastConditions );
       })
       .then(()=>{
         renderPage({
@@ -122,6 +124,9 @@ export default class SearchPage extends Page {
           transitionType: "SLIDE_LEFT"
         });
         console.log( "koko2!!!" );
+      })
+      .catch((err)=>{
+        console.log( {err} );
       });
       
       console.log( "koko!!!" );
