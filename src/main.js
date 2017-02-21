@@ -9,10 +9,10 @@ import "./utils/enum";
 // 定数等の設定
 global.config = require("./config");
 
-process.on('uncaughtException', function(err) {
-  console.log( "uncaughtException" );
-  console.log( {err} );
-});
+window.onerror = function (msg, file, line, column, err) {
+  console.log( "window.onerror!!!" );
+  console.log(msg + file + ':' + line);
+};
 
 setTimeout(function() {
   throw new Error("UDF Error!!!");
