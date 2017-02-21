@@ -112,9 +112,11 @@ export default class SearchPage extends Page {
       var history = new APP.db.SearchHistory();
       history.saveConditions( queryString.parse($searchForm.serialize()) )
       .then(()=>{
+console.log( "koko4" );
         return history.getLastConditions();
       })
       .then((lastConditions)=>{
+        
         return console.log( "history.getLastConditions()", lastConditions );
       })
       .then(()=>{
