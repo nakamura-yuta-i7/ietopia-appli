@@ -137,7 +137,7 @@ console.log( sql );
         return this.findFirst(where, order)
     }
     findFirst(where="", order="") {
-        if ( order.length ) {
+        if ( !order.length ) {
             order = " id ASC ";
         }
         var order = order.length ? ` ORDER BY ${order} ` : "";
@@ -188,9 +188,8 @@ export class SearchHistory extends IetopiaWebDb {
         .then(function(result) {
             if (result == false) return {};
             if (!result) return {};
-            console.log( "result.length" );
-            console.log( result.length );
-            return JSON.encode(result["params_json"]);
+            console.log( "getLastConditions", result );
+            return result["params_json"];
         });
     }
     SAVE_MAX_COUNT() {
