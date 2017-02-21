@@ -184,7 +184,9 @@ export class SearchHistory extends IetopiaWebDb {
         return this.findLast()
         .then(function(result) {
             if (result == false) return {};
-            console.log( {result} );
+            
+            console.log( "result.length" );
+            console.log( result.length );
             return JSON.encode(result["params_json"]);
         });
     }
