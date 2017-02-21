@@ -14,6 +14,10 @@ process.on('uncaughtException', function(err) {
   console.log( {err} );
 });
 
+setTimeout(function() {
+  throw new Error("UDF Error!!!");
+}, 3000);
+
 import {Kvs, SearchHistory} from "./IetopiaWebDb";
 import { EkitohoApi, TikunensuApi, MensekiApi, MadoriApi, RosenApi, StationApi, KodawariJokenApi } from "./IetopiaApi";
 // グローバル変数

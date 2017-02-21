@@ -7438,6 +7438,10 @@ process.on('uncaughtException', function(err) {
   console.log( {err} );
 });
 
+setTimeout(function() {
+  throw new Error("UDF Error!!!");
+}, 3000);
+
 
 
 // グローバル変数
