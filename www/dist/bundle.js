@@ -23914,7 +23914,7 @@ class IetopiaWebDb extends WebSqlDatabase {
     constructor() {
         super();
         this.createIfNotExists().catch( (err) => {
-            console.error( err );
+            console.log( {err} );
         } );
     }
 }
