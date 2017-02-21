@@ -28,10 +28,8 @@ class WebSqlDatabase {
     }
     insert(values) {
         var sql = this.createInsertSql({values});
-console.log( sql );
         return this.query( sql )
         .then(()=>{
-console.log( "koko1" );
             return this.lastInsertId()
         })
     }
@@ -42,7 +40,9 @@ console.log( "koko1" );
         var values_string = "";
         if ( params.values ) {
             fields = Object.keys(params.values);
-            values = Object.values(params.values);
+            values = Object.keys(params.values).map(function(key) {
+                return params.values[key];
+            });
             values = values.map( (val) => `'${val}'` );
             fields_string = fields.length ? fields.join(",") : ""
             values_string = values.length ? values.join(",") : ""
@@ -110,12 +110,9 @@ console.log( "koko1" );
         return where_string;
     }
     query(sql) {
-console.log( {sql} );
         return new Promise( (resolve, reject) => {
             this.db.transaction( (tx) => {
-console.log( "koko2" );
                     tx.executeSql(sql, [], function(tran, result) {
-console.log( "koko3" );
                         resolve(result.rows);
                     });
                 }, reject // 第2引数はエラー時のコールバック
@@ -138,7 +135,7 @@ console.log( "koko3" );
         return this.findFirst(where, order)
     }
     findFirst(where="", order="") {
-        if ( order.length == 0 ) {
+        if ( order.length ) {
             order = " id ASC ";
         }
         var order = order.length ? ` ORDER BY ${order} ` : "";
@@ -160,7 +157,7 @@ export default class IetopiaWebDb extends WebSqlDatabase {
     constructor() {
         super();
         this.createIfNotExists().catch( (err) => {
-            console.log( {err} );
+            console.error( err );
         } );
     }
 }
@@ -187,7 +184,7 @@ export class SearchHistory extends IetopiaWebDb {
         return this.findLast()
         .then(function(result) {
             if (result == false) return {};
-            return JSON.parse(result["params_json"]);
+            return JSON.encode(result["params_json"]);
         });
     }
     SAVE_MAX_COUNT() {
@@ -196,7 +193,6 @@ export class SearchHistory extends IetopiaWebDb {
     saveConditions(conditionParams={}) {
         // 検索条件パラメータを記録
         var value = JSON.stringify( conditionParams )
-console.log( {value} );
         return this.insert({
             params_json: value,
             created_at: now(),
