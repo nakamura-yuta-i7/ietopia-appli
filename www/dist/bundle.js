@@ -23777,8 +23777,10 @@ module.exports = Enum;
     }
     insert(values) {
         var sql = this.createInsertSql({values});
+console.log( sql );
         return this.query( sql )
         .then(()=>{
+console.log( "koko1" );
             return this.lastInsertId()
         })
     }
@@ -23857,6 +23859,7 @@ module.exports = Enum;
         return where_string;
     }
     query(sql) {
+console.log( "query", sql );
         return new Promise( (resolve, reject) => {
             this.db.transaction( (tx) => {
                     tx.executeSql(sql, [], function(tran, result) {
@@ -23942,6 +23945,7 @@ class SearchHistory extends IetopiaWebDb {
     saveConditions(conditionParams={}) {
         // 検索条件パラメータを記録
         var value = JSON.stringify( conditionParams )
+console.log( {value} );
         return this.insert({
             params_json: value,
             created_at: now(),
