@@ -7011,7 +7011,8 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       
       var history = new APP.db.SearchHistory();
       history.saveConditions( queryString.parse($searchForm.serialize()) )
-      .then(()=>{
+      .then((lastInsertId)=>{
+        console.log( {lastInsertId} );
         return history.getLastConditions();
       })
       .then((lastConditions)=>{

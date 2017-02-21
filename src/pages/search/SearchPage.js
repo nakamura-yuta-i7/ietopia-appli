@@ -111,7 +111,8 @@ export default class SearchPage extends Page {
       
       var history = new APP.db.SearchHistory();
       history.saveConditions( queryString.parse($searchForm.serialize()) )
-      .then(()=>{
+      .then((lastInsertId)=>{
+        console.log( {lastInsertId} );
         return history.getLastConditions();
       })
       .then((lastConditions)=>{
