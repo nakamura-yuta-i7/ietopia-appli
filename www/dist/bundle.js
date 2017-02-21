@@ -23944,7 +23944,7 @@ class SearchHistory extends IetopiaWebDb {
         return this.findLast()
         .then(function(result) {
             if (result == false) return {};
-            
+            if (!result.length) return {};
             console.log( "result.length" );
             console.log( result.length );
             return JSON.encode(result["params_json"]);
