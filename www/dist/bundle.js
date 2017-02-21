@@ -7408,7 +7408,7 @@ class TopPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(global, process) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_html__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__utils_html__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_is__ = __webpack_require__(57);
@@ -7432,6 +7432,11 @@ jQuery.easing.def = "easeOutExpo";
 
 // 定数等の設定
 global.config = __webpack_require__(5);
+
+process.on('uncaughtException', function(err) {
+  console.log( "uncaughtException" );
+  console.log( {err} );
+});
 
 
 
@@ -7506,7 +7511,7 @@ window.onpopstate = function(e) {
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(2)))
 
 /***/ }),
 /* 34 */,

@@ -9,6 +9,11 @@ import "./utils/enum";
 // 定数等の設定
 global.config = require("./config");
 
+process.on('uncaughtException', function(err) {
+  console.log( "uncaughtException" );
+  console.log( {err} );
+});
+
 import {Kvs, SearchHistory} from "./IetopiaWebDb";
 import { EkitohoApi, TikunensuApi, MensekiApi, MadoriApi, RosenApi, StationApi, KodawariJokenApi } from "./IetopiaApi";
 // グローバル変数
