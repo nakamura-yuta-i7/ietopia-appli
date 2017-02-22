@@ -8,7 +8,7 @@ export default class NewsPage extends Page {
         this.headerTitle = "新着・おすすめ";
         
         
-        var db = openDatabase("testDB", "", "Test Database", 1000);
+        var db = openDatabase("ietopia_web_db", "", "ietopia_web_db", 1000);
         console.log( "DB" );
         console.log( db );
         console.log( "koko2" );
@@ -19,14 +19,16 @@ export default class NewsPage extends Page {
                 tr.executeSql(sql, [], function(tran, result) {
                     console.log( result );
                 });
-                // tr.executeSql("DROP TABLE IF EXISTS test", [],
-                //     function() { console.log("DROP TABLE SUCCESS"); },
-                //     function() { console.log("DROP TABLE ERROR"); }
-                // );
-                // tr.executeSql("CREATE TABLE test ( id, name )", [],
-                //     function() { console.log("CREATE TABLE SUCCESS"); },
-                //     function() { console.log("CREATE TABLE ERROR"); }
-                // );
+                tr.executeSql("DROP TABLE IF EXISTS test", [],
+                    function() { console.log("DROP TABLE SUCCESS"); },
+                    function() { console.log("DROP TABLE ERROR"); }
+                );
+                tr.executeSql("CREATE TABLE test ( id, name )", [],
+                    function() {
+                        console.log("CREATE TABLE SUCCESS");
+                    },
+                    function() { console.log("CREATE TABLE ERROR"); }
+                );
                 tr.executeSql("SELECT id FROM test ORDER BY id DESC LIMIT 1", [], function(rt, result) {
                     var row = result.rows.item(0);
                     var maxId = row["id"] + 1;
