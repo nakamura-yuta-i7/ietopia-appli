@@ -16,6 +16,19 @@ class WebSqlDatabase {
         console.log( "DB" );
         console.log( this.db );
     }
+    query(sql) {
+        var rtn = null;
+        return new Promise( (resolve, reject) => {
+            this.db.transaction( (tx) => {
+                    tx.executeSql(sql, [], function(tran, result) {
+                        rtn = result.rows;
+                    });
+                }, 
+                function(err) { reject(err); },
+                function(   ) { resolve(rtn); }
+            );
+        });
+    }
     createSelectSql(params={}) {
         var where = (function() {
             if ( ! params.where ) return ""; 
@@ -120,16 +133,6 @@ console.log( sql );
         .then((result)=>{
             var tables = Object.keys(result).map((key)=> result[key].name );
             return tables.filter((table)=> table != "__WebKitDatabaseInfoTable__" );
-        });
-    }
-    query(sql) {
-        return new Promise( (resolve, reject) => {
-            this.db.transaction( (tx) => {
-                    tx.executeSql(sql, [], function(tran, result) {
-                        resolve(result.rows);
-                    });
-                }, reject // 第2引数はエラー時のコールバック
-            );
         });
     }
     findAll(params={}) {
