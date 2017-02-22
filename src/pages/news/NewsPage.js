@@ -10,7 +10,9 @@ export default class NewsPage extends Page {
         var model = new APP.db.SearchHistory();
         model.showTables()
         .then((tables)=>{
+             console.log( "koko1" );
             tables.forEach((table)=>{
+                console.log( "koko2" );
                 model.query(`SELECT * FROM ${table}`)
                 .then((rows)=>{
                     console.log( rows );

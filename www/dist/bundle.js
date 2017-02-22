@@ -6885,7 +6885,9 @@ class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
         var model = new APP.db.SearchHistory();
         model.showTables()
         .then((tables)=>{
+             console.log( "koko1" );
             tables.forEach((table)=>{
+                console.log( "koko2" );
                 model.query(`SELECT * FROM ${table}`)
                 .then((rows)=>{
                     console.log( rows );
