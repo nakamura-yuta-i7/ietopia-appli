@@ -23784,6 +23784,7 @@ module.exports = Enum;
     constructor() {
         var dbname = this.DBNAME();
         var version = "1.0";
+        var version = "";
         var displayName = dbname;
         var estimatedSize = 4999999; // 5MB(5MBを超える場合、確認ダイアログが出るらしい)
         var estimatedSize = 1000;
