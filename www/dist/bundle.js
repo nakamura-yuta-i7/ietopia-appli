@@ -6882,6 +6882,8 @@ class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     indexAction() {
         this.headerTitle = "新着・おすすめ";
         
+        
+        
         var model = new APP.db.SearchHistory();
         model.showTables()
         .then((tables)=>{
@@ -23785,6 +23787,8 @@ module.exports = Enum;
         var displayName = dbname;
         var estimatedSize = 4999999; // 5MB(5MBを超える場合、確認ダイアログが出るらしい)
         this.db = openDatabase(dbname, version, displayName, estimatedSize);
+        console.log( "DB" );
+        console.log( this.db );
     }
     createSelectSql(params={}) {
         var where = (function() {

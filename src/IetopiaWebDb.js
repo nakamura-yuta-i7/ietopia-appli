@@ -11,6 +11,8 @@ class WebSqlDatabase {
         var displayName = dbname;
         var estimatedSize = 4999999; // 5MB(5MBを超える場合、確認ダイアログが出るらしい)
         this.db = openDatabase(dbname, version, displayName, estimatedSize);
+        console.log( "DB" );
+        console.log( this.db );
     }
     createSelectSql(params={}) {
         var where = (function() {
