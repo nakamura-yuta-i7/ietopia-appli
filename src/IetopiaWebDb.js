@@ -111,6 +111,13 @@ console.log( sql );
         } else {}
         return where_string;
     }
+    showTables() {
+        return this.query("select name from sqlite_master where type = 'table';")
+        .then((result)=>{
+            var tables = Object.keys(result).map((key)=> result[key].name );
+            return tables.filter((table)=> table != "__WebKitDatabaseInfoTable__" );
+        });
+    }
     query(sql) {
         return new Promise( (resolve, reject) => {
             this.db.transaction( (tx) => {

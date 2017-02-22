@@ -6882,6 +6882,19 @@ class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     indexAction() {
         this.headerTitle = "新着・おすすめ";
         
+        var model = new APP.db.SearchHistory();
+        model.showTables()
+        .then((tables)=>{
+            tables.forEach((table)=>{
+                model.query(`SELECT * FROM ${table}`)
+                .then((rows)=>{
+                    console.log( rows );
+                });
+            });
+        })
+        .then((result)=>{
+            console.log( {result} );
+        });
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = NewsPage;
@@ -23869,6 +23882,13 @@ console.log( sql );
             });
         } else {}
         return where_string;
+    }
+    showTables() {
+        return this.query("select name from sqlite_master where type = 'table';")
+        .then((result)=>{
+            var tables = Object.keys(result).map((key)=> result[key].name );
+            return tables.filter((table)=> table != "__WebKitDatabaseInfoTable__" );
+        });
     }
     query(sql) {
         return new Promise( (resolve, reject) => {
