@@ -23786,6 +23786,7 @@ module.exports = Enum;
         var version = "1.0";
         var displayName = dbname;
         var estimatedSize = 4999999; // 5MB(5MBを超える場合、確認ダイアログが出るらしい)
+        var estimatedSize = 1000;
         this.db = openDatabase(dbname, version, displayName, estimatedSize);
         console.log( "DB" );
         console.log( this.db );
