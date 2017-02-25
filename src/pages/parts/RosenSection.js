@@ -11,7 +11,7 @@ export default class RosenSection extends Html {
       selectedVal: "",
     });
     
-    global.APP.api.ietopia.rosen.request()
+    global.APP.api.ietopia.master.rosen.request()
     .then((result)=>{
       result.forEach((data)=>{
         $rosenSelect.append( $(`<option>${data.name}</option>`) );

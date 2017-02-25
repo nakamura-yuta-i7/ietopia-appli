@@ -9,7 +9,7 @@ export default class TikunenSection extends Html {
         <h2>築年数</h2>
       </section>
     `);
-    global.APP.api.ietopia.tikunensu.request().then((result)=>{
+    global.APP.api.ietopia.master.tikunensu.request().then((result)=>{
       var options = [{
         val: "",
         name: "指定なし",

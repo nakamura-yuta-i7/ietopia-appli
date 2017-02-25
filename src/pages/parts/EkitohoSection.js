@@ -9,7 +9,7 @@ export default class EkitohoSection extends Html {
         <h2>駅徒歩</h2>
       </section>
     `);
-    global.APP.api.ietopia.ekitoho.request().then((result)=>{
+    global.APP.api.ietopia.master.ekitoho.request().then((result)=>{
       var options = [{
         val: "",
         name: "指定なし",

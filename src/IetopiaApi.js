@@ -1,15 +1,41 @@
-import queryString from "queryString";
-
-class IetopiaApi {
+function ajaxWithSession(params) {
+  params.xhrFields = {withCredentials: true};
+  params.dataType = "json";
+  
+  // params.beforeSend = function(xhr) {
+  //   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  // };
+  return $.ajax(params);
+}
+export default class IetopiaApi {
   constructor() {
     this.API_BASE_URL = global.config.API_BASE_URL + "/api";
+    this.url = this.API_BASE_URL;
   }
-  request(params={}) {
-    var url = this.API_BASE_URL + this.API_URL_SUFIX;
-    return $.ajax({
-      url,
+  setApiUrlSufix(sufix) {
+    this.API_URL_SUFIX += sufix;
+    this.url = this.API_BASE_URL + this.API_URL_SUFIX;
+  }
+  request(params={}, url) {
+    return ajaxWithSession({
+      url: url || this.url,
       data: params,
-      dataType: "json",
+    });
+  }
+  static login(uuid) {
+    return ajaxWithSession({
+      url: global.config.API_BASE_URL + "/login",
+      data: { uuid: uuid, },
+    });
+  }
+  static isloggedIn() {
+    return ajaxWithSession({
+      url: global.config.API_BASE_URL + "/is_logged_in",
+    });
+  }
+  static logout() {
+    return ajaxWithSession({
+      url: global.config.API_BASE_URL + "/logout",
     });
   }
 }
@@ -17,9 +43,6 @@ class IetopiaMasterApiBase extends IetopiaApi {
   constructor() {
     super();
     this.API_URL_SUFIX = "/master";
-  }
-  setApiUrlSufix(sufix) {
-    this.API_URL_SUFIX = this.API_URL_SUFIX + sufix;
   }
 }
 export class StationApi extends IetopiaMasterApiBase {
@@ -62,5 +85,44 @@ export class KodawariJokenApi extends IetopiaMasterApiBase {
   constructor() {
     super();
     this.setApiUrlSufix("/kodawari_joken");
+  }
+}
+class IetopiaUserApiBase extends IetopiaApi {
+  constructor() {
+    super();
+    this.API_URL_SUFIX = "/user";
+  }
+  request(params={}) {
+    if ( ! params.uuid ) {
+      params.uuid = "uuid-test2";
+    }
+    return super.request(params);
+  }
+}
+class IetopiaMeApiBase extends IetopiaUserApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/me");
+  }
+}
+export class MeApi extends IetopiaMeApiBase {
+  
+}
+export class SearchHistoryApi extends IetopiaMeApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/search_history");
+  }
+}
+export class RoomHistoryApi extends IetopiaMeApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/room_history");
+  }
+}
+export class FavoriteApi extends IetopiaMeApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/favorite");
   }
 }

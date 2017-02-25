@@ -6881,70 +6881,6 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
 class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     indexAction() {
         this.headerTitle = "新着・おすすめ";
-        
-        
-        var db = openDatabase("ietopia_web_db", "", "ietopia_web_db", 1000);
-        console.log( "DB" );
-        console.log( db );
-        console.log( "koko2" );
-        
-        db.transaction(
-            function(tr) {
-                var sql = "select name from sqlite_master where type = 'table';";
-                tr.executeSql(sql, [], function(tran, result) {
-                    console.log( result );
-                });
-                tr.executeSql("DROP TABLE IF EXISTS test", [],
-                    function() { console.log("DROP TABLE SUCCESS"); },
-                    function() { console.log("DROP TABLE ERROR"); }
-                );
-                tr.executeSql("CREATE TABLE test ( id, name )", [],
-                    function() {
-                        console.log("CREATE TABLE SUCCESS");
-                    },
-                    function() { console.log("CREATE TABLE ERROR"); }
-                );
-                tr.executeSql("SELECT id FROM test ORDER BY id DESC LIMIT 1", [], function(rt, result) {
-                    var row = result.rows.item(0);
-                    var maxId = row["id"] + 1;
-                    tr.executeSql("INSERT INTO test VALUES ( ?, ? )", [ maxId, 'YAMADA' ],
-                        function() {
-                            console.log("INSERT DATA YAMADA"+ maxId +" SUCCESS");
-                            
-                            tr.executeSql("SELECT * FROM test", [],
-                                function(rt, rs) {
-                                    console.log("SELECT: SUCCESS");
-                                    for (var i = 0; i < rs.rows.length; i++) {
-                                        var row = rs.rows.item(i);
-                                        console.log(row.id + " / " + row.name);
-                                    }
-                                },
-                                function() { console.log("SELECT: ERROR"); }
-                            );
-                        },
-                        function() { console.log("INSERT DATA YAMADA ERROR"); }
-                    );
-                })
-            },
-            function(err) { console.log("TRANSACTION ERROR", err); },
-            function(   ) { console.log("TRANSACTION SUCCESS"); }
-        );
-        
-        var model = new APP.db.SearchHistory();
-        model.showTables()
-        .then((tables)=>{
-             console.log( "koko1" );
-            tables.forEach((table)=>{
-                console.log( "koko2" );
-                model.query(`SELECT * FROM ${table}`)
-                .then((rows)=>{
-                    console.log( rows );
-                });
-            });
-        })
-        .then((result)=>{
-            console.log( {result} );
-        });
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = NewsPage;
@@ -7072,26 +7008,12 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     var $searchButton = $searchForm.find(".btn_search");
     $searchButton.on("click", function() {
       
-      var history = new APP.db.SearchHistory();
-      history.saveConditions( queryString.parse($searchForm.serialize()) )
-      .then((lastInsertId)=>{
-        console.log( {lastInsertId} );
-        return history.getLastConditions();
-      })
-      .then((lastConditions)=>{
-        console.log( "history.getLastConditions()" );
-        console.log( lastConditions );
-        return true;
-      })
-      .then(()=>{
-        renderPage({
-          page: "search_result",
-          action: "index",
-          transitionType: "SLIDE_LEFT"
-        });
-      })
-      .catch((err)=>{
-        console.log( {err} );
+      APP.api.ietopia.user.search_history.request()
+      
+      renderPage({
+        page: "search_result",
+        action: "index",
+        transitionType: "SLIDE_LEFT"
       });
     });
     
@@ -7478,11 +7400,10 @@ class TopPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_deepCopy___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__utils_deepCopy__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_moment__ = __webpack_require__(185);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_enum__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__IetopiaWebDb__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__IetopiaApi__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Dispatcher__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_query_string__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_query_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_query_string__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Dispatcher__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_query_string__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_query_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_query_string__);
 // JQuery.easing: 設定
 jQuery.easing.def = "easeOutExpo";
 // 便利関数群ロード
@@ -7491,31 +7412,33 @@ jQuery.easing.def = "easeOutExpo";
 
 
 
+global.promise = __webpack_require__(6);
 // 定数等の設定
 global.config = __webpack_require__(5);
-
-window.onerror = function (msg, file, line, column, err) {
-  console.log( "window.onerror!!!" );
-  console.log(msg + file + ':' + line);
-};
 
 
 
 // グローバル変数
 global.APP = {
+  me: null,
   api: {
     ietopia: {
-      madori: new __WEBPACK_IMPORTED_MODULE_6__IetopiaApi__["a" /* MadoriApi */](),
-      ekitoho: new __WEBPACK_IMPORTED_MODULE_6__IetopiaApi__["b" /* EkitohoApi */](),
-      tikunensu: new __WEBPACK_IMPORTED_MODULE_6__IetopiaApi__["c" /* TikunensuApi */](),
-      menseki: new __WEBPACK_IMPORTED_MODULE_6__IetopiaApi__["d" /* MensekiApi */](),
-      rosen: new __WEBPACK_IMPORTED_MODULE_6__IetopiaApi__["e" /* RosenApi */](),
-      station: new __WEBPACK_IMPORTED_MODULE_6__IetopiaApi__["f" /* StationApi */](),
-      kodawari_joken: new __WEBPACK_IMPORTED_MODULE_6__IetopiaApi__["g" /* KodawariJokenApi */](),
+      master: {
+        madori: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["a" /* MadoriApi */](),
+        ekitoho: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["b" /* EkitohoApi */](),
+        tikunensu: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["c" /* TikunensuApi */](),
+        menseki: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["d" /* MensekiApi */](),
+        rosen: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["e" /* RosenApi */](),
+        station: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["f" /* StationApi */](),
+        kodawari_joken: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["g" /* KodawariJokenApi */](),
+      },
+      user: {
+        me: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["h" /* MeApi */](),
+        search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["i" /* SearchHistoryApi */](),
+        room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["j" /* RoomHistoryApi */](),
+        favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["k" /* FavoriteApi */](),
+      },
     },
-  },
-  db: {
-    Kvs: __WEBPACK_IMPORTED_MODULE_5__IetopiaWebDb__["a" /* Kvs */], SearchHistory: __WEBPACK_IMPORTED_MODULE_5__IetopiaWebDb__["b" /* SearchHistory */]
   },
   values: {
     yatinSelectBaseOptions: __webpack_require__(52)
@@ -7531,21 +7454,11 @@ global.APP = {
 };
 console.log( "global.APP", global.APP );
 
-// 端末情報の取得
-// see: https://docs.monaca.io/ja/reference/cordova_3.5/device/
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
-    console.log( device.cordova );
-    console.log( device.uuid );
-    console.log( {device: device} );
-}
 
-
-
-global.queryString = __WEBPACK_IMPORTED_MODULE_8_query_string___default.a;
+global.queryString = __WEBPACK_IMPORTED_MODULE_7_query_string___default.a;
 global.renderPage = function (params={}) {
   const transitionType = params.transitionType || "REPLACE"
-  const qs = __WEBPACK_IMPORTED_MODULE_8_query_string___default.a.parse(location.search);
+  const qs = __WEBPACK_IMPORTED_MODULE_7_query_string___default.a.parse(location.search);
   const page   = params.page   || qs.page || "top";
   const action = params.action || qs.action || "index";
   const requestParams = params.requests || qs;
@@ -7555,23 +7468,70 @@ global.renderPage = function (params={}) {
   
   if ( transitionType != "BACK" ) {
     history.pushState(null,null, 
-      "?" + __WEBPACK_IMPORTED_MODULE_8_query_string___default.a.stringify(requestParams) ); 
+      "?" + __WEBPACK_IMPORTED_MODULE_7_query_string___default.a.stringify(requestParams) ); 
   }
-  __WEBPACK_IMPORTED_MODULE_7__Dispatcher__["a" /* default */].dispatch( requestParams, transitionType );
+  __WEBPACK_IMPORTED_MODULE_6__Dispatcher__["a" /* default */].dispatch( requestParams, transitionType );
 }
-// アプリ初回起動時
-global.renderPage();
-
 // 戻るボタン押した時
 window.onpopstate = function(e) {
   console.log( e );
   // ページ読み込み、描画処理
-  var qs = __WEBPACK_IMPORTED_MODULE_8_query_string___default.a.parse(location.search);
+  var qs = __WEBPACK_IMPORTED_MODULE_7_query_string___default.a.parse(location.search);
   qs.transitionType = "BACK";
   global.renderPage(qs);
 }
+// 発生したエラーを最後まで捕捉できなかった場合のエラーハンドリング
+window.onerror = function (msg, file, line, column, err) {
+  console.log( "window.onerror!!!" );
+  console.log(msg + file + ':' + line);
+};
 
+// アプリ起動時
+if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+  document.addEventListener("deviceready", onDeviceReady, false);
+} else {
+  onDeviceReady();
+}
+function onDeviceReady() {
+  
+  //IetopiaApi.logout()
+  promise.resolve()
+  .then( () => __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].isloggedIn() )
+  .then( isloggedIn => {
+    if ( isloggedIn == false ) {
+      return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].login( getUUID() );
+    }
+    return global.APP.api.ietopia.user.me.request();
+  })
+  .then( me => {
+    global.me = me;
+    global.renderPage();
+  })
+  .catch((err)=>{
+    throw err;
+  });
+}
 
+function getUUID() {
+  // 端末情報の取得
+  // see: https://docs.monaca.io/ja/reference/cordova_3.5/device/
+  if ( typeof device === "undefined" ) {
+    console.log( "NOT APP !!!!" );
+    while ( true ) {
+      var uuid = prompt("uuid", "test-uuid");
+      if ( uuid.length ) {
+        break;
+      }
+      console.log( "UUID: " + uuid );
+    }
+  } else {
+    console.log( {
+      device: device,
+    } );
+    var uuid = device.uuid;
+  }
+  return uuid;
+}
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
@@ -8118,30 +8078,53 @@ global.$select = function(params) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_queryString__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_queryString___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_queryString__);
-
-
+/* WEBPACK VAR INJECTION */(function(global) {function ajaxWithSession(params) {
+  params.xhrFields = {withCredentials: true};
+  params.dataType = "json";
+  
+  // params.beforeSend = function(xhr) {
+  //   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  // };
+  return $.ajax(params);
+}
 class IetopiaApi {
   constructor() {
     this.API_BASE_URL = global.config.API_BASE_URL + "/api";
+    this.url = this.API_BASE_URL;
   }
-  request(params={}) {
-    var url = this.API_BASE_URL + this.API_URL_SUFIX;
-    return $.ajax({
-      url,
+  setApiUrlSufix(sufix) {
+    this.API_URL_SUFIX += sufix;
+    this.url = this.API_BASE_URL + this.API_URL_SUFIX;
+  }
+  request(params={}, url) {
+    return ajaxWithSession({
+      url: url || this.url,
       data: params,
-      dataType: "json",
+    });
+  }
+  static login(uuid) {
+    return ajaxWithSession({
+      url: global.config.API_BASE_URL + "/login",
+      data: { uuid: uuid, },
+    });
+  }
+  static isloggedIn() {
+    return ajaxWithSession({
+      url: global.config.API_BASE_URL + "/is_logged_in",
+    });
+  }
+  static logout() {
+    return ajaxWithSession({
+      url: global.config.API_BASE_URL + "/logout",
     });
   }
 }
+/* harmony export (immutable) */ __webpack_exports__["l"] = IetopiaApi;
+
 class IetopiaMasterApiBase extends IetopiaApi {
   constructor() {
     super();
     this.API_URL_SUFIX = "/master";
-  }
-  setApiUrlSufix(sufix) {
-    this.API_URL_SUFIX = this.API_URL_SUFIX + sufix;
   }
 }
 class StationApi extends IetopiaMasterApiBase {
@@ -8199,6 +8182,53 @@ class KodawariJokenApi extends IetopiaMasterApiBase {
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["g"] = KodawariJokenApi;
+
+class IetopiaUserApiBase extends IetopiaApi {
+  constructor() {
+    super();
+    this.API_URL_SUFIX = "/user";
+  }
+  request(params={}) {
+    if ( ! params.uuid ) {
+      params.uuid = "uuid-test2";
+    }
+    return super.request(params);
+  }
+}
+class IetopiaMeApiBase extends IetopiaUserApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/me");
+  }
+}
+class MeApi extends IetopiaMeApiBase {
+  
+}
+/* harmony export (immutable) */ __webpack_exports__["h"] = MeApi;
+
+class SearchHistoryApi extends IetopiaMeApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/search_history");
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["i"] = SearchHistoryApi;
+
+class RoomHistoryApi extends IetopiaMeApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/room_history");
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["j"] = RoomHistoryApi;
+
+class FavoriteApi extends IetopiaMeApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/favorite");
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["k"] = FavoriteApi;
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
@@ -8304,7 +8334,7 @@ class MadoriSection extends __WEBPACK_IMPORTED_MODULE_0__CheckboxesSection__["a"
     
     var title = "間取";
     var identifier = "madori";
-    var api = global.APP.api.ietopia.madori;
+    var api = global.APP.api.ietopia.master.madori;
     
     super({selectedVals, title, identifier, api});
   }
@@ -8366,7 +8396,7 @@ class TikunenSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
         <h2>築年数</h2>
       </section>
     `);
-    global.APP.api.ietopia.tikunensu.request().then((result)=>{
+    global.APP.api.ietopia.master.tikunensu.request().then((result)=>{
       var options = [{
         val: "",
         name: "指定なし",
@@ -8507,7 +8537,7 @@ class StationSection extends __WEBPACK_IMPORTED_MODULE_0__CheckboxesSection__["a
     
     var title = "駅";
     var identifier = "station";
-    var api = global.APP.api.ietopia.station;
+    var api = global.APP.api.ietopia.master.station;
     
     super({selectedVals, title, identifier, api});
   }
@@ -8540,7 +8570,7 @@ class RosenSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */
       selectedVal: "",
     });
     
-    global.APP.api.ietopia.rosen.request()
+    global.APP.api.ietopia.master.rosen.request()
     .then((result)=>{
       result.forEach((data)=>{
         $rosenSelect.append( $(`<option>${data.name}</option>`) );
@@ -8764,7 +8794,7 @@ class MensekiSection extends __WEBPACK_IMPORTED_MODULE_0__CheckboxesSection__["a
     
     var title = "専有面積";
     var identifier = "menseki";
-    var api = global.APP.api.ietopia.menseki;
+    var api = global.APP.api.ietopia.master.menseki;
     
     super({selectedVals, title, identifier, api});
   }
@@ -8798,7 +8828,7 @@ class EkitohoSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
         <h2>駅徒歩</h2>
       </section>
     `);
-    global.APP.api.ietopia.ekitoho.request().then((result)=>{
+    global.APP.api.ietopia.master.ekitoho.request().then((result)=>{
       var options = [{
         val: "",
         name: "指定なし",
@@ -8842,7 +8872,7 @@ class KodawariJokenSection extends __WEBPACK_IMPORTED_MODULE_0__CheckboxesSectio
     
     var title = "こだわり条件";
     var identifier = "kodawari_joken";
-    var api = global.APP.api.ietopia.kodawari_joken;
+    var api = global.APP.api.ietopia.master.kodawari_joken;
     
     super({selectedVals, title, identifier, api});
   }
@@ -23816,272 +23846,7 @@ function Enum() {
 module.exports = Enum;
 
 /***/ }),
-/* 188 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {class WebSqlDatabase {
-    DBNAME(){
-      throw new Error("DBNAME() is undefined");
-    }
-    TABLE() {
-      throw new Error("TABLE() is undefined");
-    }
-    constructor() {
-        var dbname = this.DBNAME();
-        var version = "1.0";
-        var version = "";
-        var displayName = dbname;
-        var estimatedSize = 4999999; // 5MB(5MBを超える場合、確認ダイアログが出るらしい)
-        var estimatedSize = 1000;
-        this.db = openDatabase(dbname, version, displayName, estimatedSize);
-        console.log( "DB" );
-        console.log( this.db );
-    }
-    query(sql) {
-        var rtn = null;
-        return new Promise( (resolve, reject) => {
-            this.db.transaction( (tx) => {
-                    tx.executeSql(sql, [], function(tran, result) {
-                        rtn = result.rows;
-                    });
-                }, 
-                function(err) { reject(err); },
-                function(   ) { resolve(rtn); }
-            );
-        });
-    }
-    createSelectSql(params={}) {
-        var where = (function() {
-            if ( ! params.where ) return ""; 
-            return params.where.length ? " WHERE " + params.where : "";
-        })();
-        var join   = params.join ? " "+ params.join : "";
-        var fields = params.fields ? params.fields : " * ";
-        var fields = $.isArray(fields) ? fields.join(",") : fields;
-        var group  = params.group ? "GROUP BY "+ params.group : "";
-        var order  = params.order ? "ORDER BY "+ params.order : "";
-        var limit  = params.limit ? "LIMIT "+ params.limit : "";
-        var offset = params.offset ? "OFFSET "+ params.offset : "";
-        return ` SELECT ${fields} FROM ${this.TABLE()} ${join} ${where} ${group} ${order} ${limit} ${offset}`;
-    }
-    insert(values) {
-        var sql = this.createInsertSql({values});
-console.log( "sql" );
-console.log( sql );
-        return this.query( sql )
-        .then(()=>{
-            return this.lastInsertId()
-        })
-    }
-    createInsertSql(params={}) {
-        var fields = [];
-        var values = [];
-        var fields_string = "";
-        var values_string = "";
-        if ( params.values ) {
-            fields = Object.keys(params.values);
-            values = Object.keys(params.values).map(function(key) {
-                return params.values[key];
-            });
-            values = values.map( (val) => `'${val}'` );
-            fields_string = fields.length ? fields.join(",") : ""
-            values_string = values.length ? values.join(",") : ""
-        }
-        return `
-            INSERT INTO ${this.TABLE()} 
-                (${fields_string}) 
-                VALUES (${values_string}) ;
-        `;
-    }
-    lastInsertId() {
-        return this.query(` SELECT last_insert_rowid() `)
-        .then((row)=>{
-            return row[0] ? row[0]["last_insert_rowid()"] : false ;
-        });
-    }
-    save(values, where) {
-        return this.findAll({where})
-        .then((rows)=>{
-            if ( rows.length ) {
-                return this.update(values, where);
-            } else {
-                return this.insert(values);
-            }
-        })
-    }
-    delete(where) {
-        var where = this.createWhereSql(where);
-        return this.query(` DELETE FROM ${this.TABLE()} WHERE ${where} `);
-    }
-    update(values, where) {
-        var sql = this.createUpdateSql({values, where});
-        return this.query(sql);
-    }
-    createUpdateSql(params={}) {
-        var fields = [];
-        var values = [];
-        var field_and_values_string = "";
-        var field_and_values = [];
-        if ( params.values ) {
-            fields = Object.keys(params.values);
-            values = params.values;
-            fields.forEach((field)=>{
-                var value = values[field];
-                field_and_values.push(` ${field} = '${value}' `);
-            });
-            field_and_values_string = field_and_values.length ? field_and_values.join(",") : ""
-        }
-        var where_string = this.createWhereSql(params.where);
-        
-        return `
-            UPDATE ${this.TABLE()} SET 
-                ${field_and_values_string} WHERE ${where_string};
-        `;
-    }
-    createWhereSql(where) {
-        var where_string = " 1 = 1 ";
-        if ( is("String", where) && where.length ) {
-            where_string = where;
-        } else if ( is("Array", where) ) {
-            where.forEach((val)=>{
-                where_string += ` AND ${val} `
-            });
-        } else {}
-        return where_string;
-    }
-    showTables() {
-        return this.query("select name from sqlite_master where type = 'table';")
-        .then((result)=>{
-            var tables = Object.keys(result).map((key)=> result[key].name );
-            return tables.filter((table)=> table != "__WebKitDatabaseInfoTable__" );
-        });
-    }
-    findAll(params={}) {
-        var sql = this.createSelectSql(params);
-        return this.query(sql);
-    }
-    findCount(where="") {
-        where = " WHERE " + this.createWhereSql(where)
-        return this.query(`SELECT count(*) AS c FROM ${this.TABLE()} ${where}`)
-        .then(function(rows) {
-            return rows[0]["c"];
-        });
-    }
-    findLast(where="") {
-        var order = " id DESC ";
-        return this.findFirst(where, order)
-    }
-    findFirst(where="", order="") {
-        if ( !order.length ) {
-            order = " id ASC ";
-        }
-        var order = order.length ? ` ORDER BY ${order} ` : "";
-        where = " WHERE " + this.createWhereSql(where)
-        return this.query(`SELECT * FROM ${this.TABLE()} ${where} ${order} LIMIT 1`)
-        .then(function(rows) {
-            console.log( {rows} );
-            if ( rows.length == 0 ) return false;
-            return rows[0];
-        });
-    }
-    dropTable() {
-        return this.query(`DROP TABLE IF EXISTS ${this.TABLE()}`);
-    }
-}
-class IetopiaWebDb extends WebSqlDatabase {
-    DBNAME() {
-      return "ietopia_web_db";
-    }
-    constructor() {
-        super();
-        this.createIfNotExists().catch( (err) => {
-            console.error( err );
-        } );
-    }
-}
-/* unused harmony export default */
-
-class SearchHistory extends IetopiaWebDb {
-    TABLE() {
-        return "search_history";
-    }
-    static get fields() {
-        return Enum(
-            "params_json",
-            "created_at"
-        );
-    }
-    createIfNotExists() {
-        return this.query(`
-            CREATE TABLE IF NOT EXISTS ${this.TABLE()} (
-                "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                "params_json" TEXT NULL,
-                "created_at" datetime NOT NULL
-            )
-        `);
-    }
-    getLastConditions() {
-        return this.findLast()
-        .then(function(result) {
-            if (result == false) return {};
-            if (!result) return {};
-            console.log( "getLastConditions", result );
-            return result["params_json"];
-        });
-    }
-    SAVE_MAX_COUNT() {
-        return global.config.SEARCH_HISTORY_MAX_COUNT;
-    }
-    saveConditions(conditionParams={}) {
-        // 検索条件パラメータを記録
-        var value = JSON.stringify( conditionParams )
-        return this.insert({
-            params_json: value,
-            created_at: now(),
-        });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["b"] = SearchHistory;
-
-class Kvs extends IetopiaWebDb {
-    TABLE() {
-      return "kvs";
-    }
-    createIfNotExists() {
-        return this.query(`
-            CREATE TABLE IF NOT EXISTS kvs ( 
-                key_str TEXT UNIQUE,
-                value TEXT DEFAULT NULL
-            )
-        `);
-    }
-    set(key, value) {
-        var where = `key_str = '${key}'`;
-        return this.findCount(where).then( (count) => {
-            if ( count > 0 ) {
-                // 存在したら
-                var sql = `UPDATE kvs SET value='${value}' WHERE key_str='${key}';`;
-            } else {
-                // 存在しなければ
-                var sql = `INSERT INTO kvs(key_str,value) VALUES ('${key}', '${value}');`;
-            }
-            return this.query(sql);
-        });
-    }
-    get(key) {
-        var where = `key_str = '${key}'`;
-        return this.findFirst(where).then( (row) => {
-            if ( ! row ) return false;
-            return row.value;
-        });
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Kvs;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
-
-/***/ }),
+/* 188 */,
 /* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

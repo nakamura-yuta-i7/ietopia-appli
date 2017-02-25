@@ -7,7 +7,7 @@ export default class MadoriSection extends CheckboxesSection {
     
     var title = "間取";
     var identifier = "madori";
-    var api = global.APP.api.ietopia.madori;
+    var api = global.APP.api.ietopia.master.madori;
     
     super({selectedVals, title, identifier, api});
   }

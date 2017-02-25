@@ -7,7 +7,7 @@ export default class MensekiSection extends CheckboxesSection {
     
     var title = "専有面積";
     var identifier = "menseki";
-    var api = global.APP.api.ietopia.menseki;
+    var api = global.APP.api.ietopia.master.menseki;
     
     super({selectedVals, title, identifier, api});
   }

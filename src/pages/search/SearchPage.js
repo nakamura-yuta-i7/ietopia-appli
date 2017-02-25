@@ -109,26 +109,12 @@ export default class SearchPage extends Page {
     var $searchButton = $searchForm.find(".btn_search");
     $searchButton.on("click", function() {
       
-      var history = new APP.db.SearchHistory();
-      history.saveConditions( queryString.parse($searchForm.serialize()) )
-      .then((lastInsertId)=>{
-        console.log( {lastInsertId} );
-        return history.getLastConditions();
-      })
-      .then((lastConditions)=>{
-        console.log( "history.getLastConditions()" );
-        console.log( lastConditions );
-        return true;
-      })
-      .then(()=>{
-        renderPage({
-          page: "search_result",
-          action: "index",
-          transitionType: "SLIDE_LEFT"
-        });
-      })
-      .catch((err)=>{
-        console.log( {err} );
+      APP.api.ietopia.user.search_history.request()
+      
+      renderPage({
+        page: "search_result",
+        action: "index",
+        transitionType: "SLIDE_LEFT"
       });
     });
     

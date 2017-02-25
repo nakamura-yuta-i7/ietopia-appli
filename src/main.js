@@ -6,31 +6,35 @@ import "./utils/is";
 import "./utils/deepCopy";
 import "./utils/moment";
 import "./utils/enum";
+global.promise = require("bluebird");
 // 定数等の設定
 global.config = require("./config");
-
-window.onerror = function (msg, file, line, column, err) {
-  console.log( "window.onerror!!!" );
-  console.log(msg + file + ':' + line);
-};
-
-import {Kvs, SearchHistory} from "./IetopiaWebDb";
-import { EkitohoApi, TikunensuApi, MensekiApi, MadoriApi, RosenApi, StationApi, KodawariJokenApi } from "./IetopiaApi";
+import IetopiaApi from "./IetopiaApi";
+import { EkitohoApi, TikunensuApi, 
+  MensekiApi, MadoriApi, RosenApi, 
+  StationApi, KodawariJokenApi } from "./IetopiaApi";
+import { MeApi, SearchHistoryApi, RoomHistoryApi, FavoriteApi } from "./IetopiaApi";
 // グローバル変数
 global.APP = {
+  me: null,
   api: {
     ietopia: {
-      madori: new MadoriApi(),
-      ekitoho: new EkitohoApi(),
-      tikunensu: new TikunensuApi(),
-      menseki: new MensekiApi(),
-      rosen: new RosenApi(),
-      station: new StationApi(),
-      kodawari_joken: new KodawariJokenApi(),
+      master: {
+        madori: new MadoriApi(),
+        ekitoho: new EkitohoApi(),
+        tikunensu: new TikunensuApi(),
+        menseki: new MensekiApi(),
+        rosen: new RosenApi(),
+        station: new StationApi(),
+        kodawari_joken: new KodawariJokenApi(),
+      },
+      user: {
+        me: new MeApi(),
+        search_history: new SearchHistoryApi(),
+        room_history: new RoomHistoryApi(),
+        favorite: new FavoriteApi(),
+      },
     },
-  },
-  db: {
-    Kvs, SearchHistory
   },
   values: {
     yatinSelectBaseOptions: require("./values/yatinSelectBaseOptions.js")
@@ -45,16 +49,6 @@ global.APP = {
   },
 };
 console.log( "global.APP", global.APP );
-
-// 端末情報の取得
-// see: https://docs.monaca.io/ja/reference/cordova_3.5/device/
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
-    console.log( device.cordova );
-    console.log( device.uuid );
-    console.log( {device: device} );
-}
-
 import Dispatcher from "./Dispatcher";
 import queryString from 'query-string';
 global.queryString = queryString;
@@ -74,9 +68,6 @@ global.renderPage = function (params={}) {
   }
   Dispatcher.dispatch( requestParams, transitionType );
 }
-// アプリ初回起動時
-global.renderPage();
-
 // 戻るボタン押した時
 window.onpopstate = function(e) {
   console.log( e );
@@ -85,4 +76,55 @@ window.onpopstate = function(e) {
   qs.transitionType = "BACK";
   global.renderPage(qs);
 }
+// 発生したエラーを最後まで捕捉できなかった場合のエラーハンドリング
+window.onerror = function (msg, file, line, column, err) {
+  console.log( "window.onerror!!!" );
+  console.log(msg + file + ':' + line);
+};
 
+// アプリ起動時
+if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+  document.addEventListener("deviceready", onDeviceReady, false);
+} else {
+  onDeviceReady();
+}
+function onDeviceReady() {
+  
+  //IetopiaApi.logout()
+  promise.resolve()
+  .then( () => IetopiaApi.isloggedIn() )
+  .then( isloggedIn => {
+    if ( isloggedIn == false ) {
+      return IetopiaApi.login( getUUID() );
+    }
+    return global.APP.api.ietopia.user.me.request();
+  })
+  .then( me => {
+    global.me = me;
+    global.renderPage();
+  })
+  .catch((err)=>{
+    throw err;
+  });
+}
+
+function getUUID() {
+  // 端末情報の取得
+  // see: https://docs.monaca.io/ja/reference/cordova_3.5/device/
+  if ( typeof device === "undefined" ) {
+    console.log( "NOT APP !!!!" );
+    while ( true ) {
+      var uuid = prompt("uuid", "test-uuid");
+      if ( uuid.length ) {
+        break;
+      }
+      console.log( "UUID: " + uuid );
+    }
+  } else {
+    console.log( {
+      device: device,
+    } );
+    var uuid = device.uuid;
+  }
+  return uuid;
+}
