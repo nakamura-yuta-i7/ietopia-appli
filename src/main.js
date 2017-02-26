@@ -88,17 +88,18 @@ window.onerror = function (msg, file, line, column, err) {
 };
 
 // アプリ起動時
-// if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-if ( IS_PRODUCTION ) {
+// if ( IS_PRODUCTION ) {
+if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
   document.addEventListener("deviceready", onDeviceReady, false);
 } else {
   onDeviceReady();
 }
 function onDeviceReady() {
   
-  //IetopiaApi.logout()
+  
   promise.resolve()
-  .then( () => IetopiaApi.isloggedIn() )
+  .then( IetopiaApi.logout )
+  .then( IetopiaApi.isloggedIn )
   .then( isloggedIn => {
     if ( isloggedIn == false ) return IetopiaApi.login( getUUID() );
     return global.APP.api.ietopia.user.me.request();
