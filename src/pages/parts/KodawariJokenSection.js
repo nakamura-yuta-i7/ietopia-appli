@@ -7,8 +7,8 @@ export default class KodawariJokenSection extends CheckboxesSection {
     
     var title = "こだわり条件";
     var identifier = "kodawari_joken";
-    var api = global.APP.api.ietopia.master.kodawari_joken;
+    var apiResult = global.APP.master.kodawari_joken;
     
-    super({selectedVals, title, identifier, api});
+    super({selectedVals, title, identifier, apiResult});
   }
 }

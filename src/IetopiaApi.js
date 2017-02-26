@@ -89,6 +89,12 @@ export class KodawariJokenApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/kodawari_joken");
   }
 }
+export class YatinApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/yatin");
+  }
+}
 class IetopiaUserApiBase extends IetopiaApi {
   constructor() {
     super();

@@ -22,12 +22,12 @@ global.$select = function(params) {
   options.forEach( (data) => {
     if ( is("String", data) ) {
       data = {
-        val: data,
+        value: data,
         name: data
       };
     }
-    var $option = $(`<option value="${data.val}">${data.name}</option>`);
-    if ( data.val == selectedVal ) {
+    var $option = $(`<option value="${data.value}">${data.name}</option>`);
+    if ( data.value == selectedVal ) {
       $option.attr("selected", "selected");
     }
     $select.append($option);

@@ -9,20 +9,18 @@ export default class EkitohoSection extends Html {
         <h2>駅徒歩</h2>
       </section>
     `);
-    global.APP.api.ietopia.master.ekitoho.request().then((result)=>{
-      var options = [{
-        val: "",
-        name: "指定なし",
-      }];
-      result.forEach((data)=>{
-        options.push({
-          val: data.value,
-          name: data.name,
-        })
-      });
-      var name = "ekitoho";
-      $ekitohoSection.append( $select({options, selectedVal, name}) );
+    var options = [{
+      val: "",
+      name: "指定なし",
+    }];
+    global.APP.master.ekitoho.forEach((data)=>{
+      options.push({
+        val: data.value,
+        name: data.name,
+      })
     });
+    var name = "ekitoho";
+    $ekitohoSection.append( $select({options, selectedVal, name}) );
     this.$html = $ekitohoSection;
   }
 }

@@ -7,7 +7,7 @@ export default class CheckboxesSection extends Html {
     var title = params.title || "";
     var identifier = params.identifier || "";
     this.identifier = identifier;
-    this.api = params.api || "";
+    this.apiResult = params.apiResult || "";
     this.selectedVals = params.selectedVals || []
     
     var $section = $(`
@@ -26,24 +26,17 @@ export default class CheckboxesSection extends Html {
         </div>
       </div>
     `);
-    this.apiRequest()
-    .then((result)=>{
-      result.forEach((data)=>{
-        var $checkbox = this.buildCheckbox(data);
-        $checkboxes.append($checkbox);
-      });
-      $checkboxesArea.append($checkboxes);
-      $section.append($checkboxesArea);
-      var $removeAllChecks = $checkboxes.find(".remove-all-checks");
-      $removeAllChecks.on("click", ()=>{
-        $section.find(".checked").trigger("click");
-      });
-      
+    this.apiResult.forEach((data)=>{
+      var $checkbox = this.buildCheckbox(data);
+      $checkboxes.append($checkbox);
+    });
+    $checkboxesArea.append($checkboxes);
+    $section.append($checkboxesArea);
+    var $removeAllChecks = $checkboxes.find(".remove-all-checks");
+    $removeAllChecks.on("click", ()=>{
+      $section.find(".checked").trigger("click");
     });
     this.$html = $section
-  }
-  apiRequest(params={}) {
-    return this.api.request(params);
   }
   buildCheckbox(data) {
     var $checkbox = $(`

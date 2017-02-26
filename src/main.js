@@ -12,7 +12,7 @@ global.config = require("./config");
 import IetopiaApi from "./IetopiaApi";
 import { EkitohoApi, TikunensuApi, 
   MensekiApi, MadoriApi, RosenApi, 
-  StationApi, KodawariJokenApi } from "./IetopiaApi";
+  StationApi, KodawariJokenApi, YatinApi } from "./IetopiaApi";
 import { MeApi, SearchHistoryApi, RoomHistoryApi, FavoriteApi } from "./IetopiaApi";
 
 // グローバル変数
@@ -21,7 +21,7 @@ global.APP = {
   search_history: null,
   room_history: null,
   favorite: null,
-  
+  master: {},
   api: {
     ietopia: {
       master: {
@@ -32,6 +32,7 @@ global.APP = {
         rosen: new RosenApi(),
         station: new StationApi(),
         kodawari_joken: new KodawariJokenApi(),
+        yatin: new YatinApi(),
       },
       user: {
         me: new MeApi(),
@@ -40,17 +41,6 @@ global.APP = {
         favorite: new FavoriteApi(),
       },
     },
-  },
-  master: {
-    ekitoho: [],
-    madori: [],
-    menseki: [],
-    rosen: [],
-    station: [],
-    tikunensu: [],
-  },
-  values: {
-    yatinSelectBaseOptions: require("./values/yatinSelectBaseOptions.js")
   },
 };
 
@@ -147,5 +137,12 @@ function loadApi() {
   .then(function() {
     return APP.api.ietopia.user.search_history.get()
     .then( params => global.APP.search_history = params );
+  })
+  .then(()=>{
+    var masters = APP.api.ietopia.master;
+    return promise.all(Object.keys(masters).map(key=>{
+      return masters[key].request()
+      .then( list => global.APP.master[key] = list );
+    }));
   });
 }

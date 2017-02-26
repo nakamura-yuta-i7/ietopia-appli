@@ -9,20 +9,18 @@ export default class TikunenSection extends Html {
         <h2>築年数</h2>
       </section>
     `);
-    global.APP.api.ietopia.master.tikunensu.request().then((result)=>{
-      var options = [{
-        val: "",
-        name: "指定なし",
-      }];
-      result.forEach((data)=>{
-        options.push({
-          val: data.value,
-          name: data.name,
-        })
-      });
-      var name = "tikunensu";
-      $tikunenSection.append( $select({options, selectedVal, name}) );
+    var options = [{
+      value: "",
+      name: "指定なし",
+    }];
+    global.APP.master.tikunensu.forEach((data)=>{
+      options.push({
+        value: data.value,
+        name: data.name,
+      })
     });
+    var name = "tikunensu";
+    $tikunenSection.append( $select({options, selectedVal, name}) );
     this.$html = $tikunenSection;
   }
 }

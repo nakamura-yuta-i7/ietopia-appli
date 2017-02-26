@@ -65,16 +65,16 @@ function getUserInfoSection(params={}) {
   var age = params.age || ""
   var $sexSelect = $select({
     options: [
-      {val:"", name:"--"},
-      {val:"男性", name:"男性"},
-      {val:"女性", name:"女性"},
+      {value:"", name:"--"},
+      {value:"男性", name:"男性"},
+      {value:"女性", name:"女性"},
     ],
     selectedVal: sex,
     name: "sex"
   });
   var $ageSelect = $select({
     options: [
-      { val: "", name: "--" },
+      { value: "", name: "--" },
       "10代","20代","30代","40代","50代","60代","70代","80代","90歳以上"
     ],
     selectedVal: age,

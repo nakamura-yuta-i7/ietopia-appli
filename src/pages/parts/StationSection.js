@@ -7,13 +7,8 @@ export default class StationSection extends CheckboxesSection {
     
     var title = "駅";
     var identifier = "station";
-    var api = global.APP.api.ietopia.master.station;
+    var apiResult = global.APP.master.station;
     
-    super({selectedVals, title, identifier, api});
-  }
-  apiRequest(params={}) {
-    params.group = "name";
-    params.order = "name ASC";
-    return this.api.request(params);
+    super({selectedVals, title, identifier, apiResult});
   }
 }
