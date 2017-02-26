@@ -4,16 +4,20 @@ var path = require('path');
 
 module.exports = function(env) {
   
+  var IS_PRODUCTION = (function() {
+    if ( env != "production" ) {
+      env = "development";
+    }
+    // env: $ ./node_modules/.bin/webpack --env production => production
+    console.log( "webpack --env:", env );
+    return env == "production";
+  })();
+  
+  // var BUNDLE_FILE_NAME = "bundle-" + (IS_PRODUCTION ? "prod" : "dev");
+  
   // 本番環境かどうか
   var definePlugin = new webpack.DefinePlugin({
-    IS_PRODUCTION: (function() {
-      if ( env != "production" ) {
-        env = "development";
-      }
-      // env: $ ./node_modules/.bin/webpack --env production => production
-      console.log( "webpack --env:", env );
-      return env == "production";
-    })(),
+    IS_PRODUCTION: IS_PRODUCTION,
   });
   
   return {
