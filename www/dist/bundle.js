@@ -4716,7 +4716,10 @@ class SearchHistoryApi extends IetopiaMeApiBase {
     this.setApiUrlSufix("/search_history");
   }
   get() {
-    return this.request().then( data => JSON.parse(data.params_json) );
+    return this.request().then( data => {
+      if ( data.params_json ) return JSON.parse(data.params_json);
+      return {};
+    } );
   }
   save(params_json="{}") {
     var url = this.url + "/save";
