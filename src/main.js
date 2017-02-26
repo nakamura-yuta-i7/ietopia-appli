@@ -14,6 +14,7 @@ import { EkitohoApi, TikunensuApi,
   MensekiApi, MadoriApi, RosenApi, 
   StationApi, KodawariJokenApi } from "./IetopiaApi";
 import { MeApi, SearchHistoryApi, RoomHistoryApi, FavoriteApi } from "./IetopiaApi";
+
 // グローバル変数
 global.APP = {
   me: null,
@@ -52,7 +53,7 @@ global.APP = {
     yatinSelectBaseOptions: require("./values/yatinSelectBaseOptions.js")
   },
 };
-console.log( "global.APP", global.APP );
+
 import Dispatcher from "./Dispatcher";
 import queryString from 'query-string';
 global.queryString = queryString;
@@ -87,7 +88,8 @@ window.onerror = function (msg, file, line, column, err) {
 };
 
 // アプリ起動時
-if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+// if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+if ( IS_PRODUCTION ) {
   document.addEventListener("deviceready", onDeviceReady, false);
 } else {
   onDeviceReady();
@@ -106,6 +108,8 @@ function onDeviceReady() {
     return loadApi();
   })
   .then(()=>{
+    console.log( "global.APP", global.APP );
+    console.log( "IS_PRODUCTION", IS_PRODUCTION );
     global.renderPage();
   })
   .catch((err)=>{

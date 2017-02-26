@@ -2,7 +2,9 @@
   "name": "ietopia-appli",
   "version": "1.0.0",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --env production",
+    "build-for-prod": "./node_modules/.bin/webpack --env production",
+    "build-with-master-merge-push": " git checkout master && npm run build-for-prod && git add . && git commit -m 'build' && git push origin master && git checkout dev && git branch ",
+    "build": "npm run build-with-master-merge-push",
     "server:up": "cd www && http-server -d False -a 0.0.0.0 -p 8080 -c1 -o ",
     "webpack:watch": "./node_modules/.bin/webpack --watch ",
     "test": "echo \"Error: no test specified\" && exit 1"
