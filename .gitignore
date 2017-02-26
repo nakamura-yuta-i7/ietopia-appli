@@ -6,4 +6,5 @@ test_*
 .settings/
 
 node_modules
+npm-debug.log
 
