@@ -21280,7 +21280,7 @@ class Dispatcher {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  API_BASE_URL:  true ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
+  API_BASE_URL:  false ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
@@ -23853,7 +23853,7 @@ function onDeviceReady() {
   })
   .then(()=>{
     console.log( "global.APP", global.APP );
-    console.log( "IS_PRODUCTION", true );
+    console.log( "IS_PRODUCTION", false );
     global.renderPage();
   })
   .catch((err)=>{
@@ -23867,7 +23867,8 @@ function getUUID() {
   if ( typeof device === "undefined" ) {
     console.log( "NOT APP !!!!" );
     while ( true ) {
-      var uuid = prompt("uuid", "test-uuid");
+      //var uuid = prompt("uuid", "test-uuid");
+      var uuid = "test-uuid";
       if ( uuid.length ) {
         break;
       }

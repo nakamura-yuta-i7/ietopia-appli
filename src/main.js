@@ -123,7 +123,8 @@ function getUUID() {
   if ( typeof device === "undefined" ) {
     console.log( "NOT APP !!!!" );
     while ( true ) {
-      var uuid = prompt("uuid", "test-uuid");
+      //var uuid = prompt("uuid", "test-uuid");
+      var uuid = "test-uuid";
       if ( uuid.length ) {
         break;
       }
