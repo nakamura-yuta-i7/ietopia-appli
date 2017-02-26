@@ -7504,17 +7504,17 @@ window.onerror = function (msg, file, line, column, err) {
 };
 
 // アプリ起動時
-// if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-if ( false ) {
+// if ( IS_PRODUCTION ) {
+if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
   document.addEventListener("deviceready", onDeviceReady, false);
 } else {
   onDeviceReady();
 }
 function onDeviceReady() {
   
-  //IetopiaApi.logout()
   promise.resolve()
-  .then( () => __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].isloggedIn() )
+  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].logout )
+  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].isloggedIn )
   .then( isloggedIn => {
     if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].login( getUUID() );
     return global.APP.api.ietopia.user.me.request();
