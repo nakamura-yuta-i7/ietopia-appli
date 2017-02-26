@@ -96,6 +96,8 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
 }
 function onDeviceReady() {
   
+  console.log( "koko1" );
+  
   promise.resolve()
   .then( IetopiaApi.logout )
   .then( IetopiaApi.isloggedIn )
