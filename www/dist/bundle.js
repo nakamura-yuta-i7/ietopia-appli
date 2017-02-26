@@ -4593,6 +4593,7 @@ class Html {
   // params.beforeSend = function(xhr) {
   //   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
   // };
+  console.log( params.url );
   return $.ajax(params);
 }
 class IetopiaApi {
@@ -21280,7 +21281,7 @@ class Dispatcher {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  API_BASE_URL:  false ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
+  API_BASE_URL:  true ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
@@ -23828,13 +23829,14 @@ window.onpopstate = function(e) {
 // 発生したエラーを最後まで捕捉できなかった場合のエラーハンドリング
 window.onerror = function (msg, file, line, column, err) {
   console.log( "window.onerror!!!" );
-  console.log(msg + file + ':' + line);
+  console.log( {msg, file, line, column, err} );
 };
 
 // アプリ起動時
 // if ( IS_PRODUCTION ) {
 if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
   document.addEventListener("deviceready", onDeviceReady, false);
+  console.log( "deviceready" );
 } else {
   onDeviceReady();
 }
@@ -23855,7 +23857,7 @@ function onDeviceReady() {
   })
   .then(()=>{
     console.log( "global.APP", global.APP );
-    console.log( "IS_PRODUCTION", false );
+    console.log( "IS_PRODUCTION", true );
     global.renderPage();
   })
   .catch((err)=>{
