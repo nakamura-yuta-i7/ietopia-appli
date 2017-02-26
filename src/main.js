@@ -96,7 +96,6 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
 }
 function onDeviceReady() {
   
-  
   promise.resolve()
   .then( IetopiaApi.logout )
   .then( IetopiaApi.isloggedIn )

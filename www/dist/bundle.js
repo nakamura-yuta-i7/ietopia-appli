@@ -7512,7 +7512,6 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
 }
 function onDeviceReady() {
   
-  
   promise.resolve()
   .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].logout )
   .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].isloggedIn )
