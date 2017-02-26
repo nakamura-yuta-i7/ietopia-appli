@@ -21280,7 +21280,7 @@ class Dispatcher {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  API_BASE_URL:  true ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
+  API_BASE_URL:  false ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
@@ -23840,6 +23840,8 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
 }
 function onDeviceReady() {
   
+  console.log( "koko1" );
+  
   promise.resolve()
   .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].logout )
   .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].isloggedIn )
@@ -23853,7 +23855,7 @@ function onDeviceReady() {
   })
   .then(()=>{
     console.log( "global.APP", global.APP );
-    console.log( "IS_PRODUCTION", true );
+    console.log( "IS_PRODUCTION", false );
     global.renderPage();
   })
   .catch((err)=>{
