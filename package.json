@@ -4,6 +4,7 @@
   "scripts": {
     "build-for-prod": "./node_modules/.bin/webpack --env production",
     "build-push": " git checkout master && git pull origin master && git merge dev && git add . && git commit -m 'tmp-for-merge-dev' && npm run build-for-prod && git add . && git commit -m 'npm run build-for-prod' && git push origin master && git checkout dev && git branch ",
+    "save-dev": " git add src && git commit -m 'save-dev' && git checkout . ",
     "server:up": "cd www && http-server -d False -a 0.0.0.0 -p 8080 -c1 -o ",
     "webpack:watch": "./node_modules/.bin/webpack --watch ",
     "test": "echo \"Error: no test specified\" && exit 1"

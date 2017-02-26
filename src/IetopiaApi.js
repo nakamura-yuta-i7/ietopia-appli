@@ -5,6 +5,7 @@ function ajaxWithSession(params) {
   // params.beforeSend = function(xhr) {
   //   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
   // };
+  console.log( params.url );
   return $.ajax(params);
 }
 export default class IetopiaApi {

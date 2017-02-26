@@ -84,13 +84,14 @@ window.onpopstate = function(e) {
 // 発生したエラーを最後まで捕捉できなかった場合のエラーハンドリング
 window.onerror = function (msg, file, line, column, err) {
   console.log( "window.onerror!!!" );
-  console.log(msg + file + ':' + line);
+  console.log( {msg, file, line, column, err} );
 };
 
 // アプリ起動時
 // if ( IS_PRODUCTION ) {
 if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
   document.addEventListener("deviceready", onDeviceReady, false);
+  console.log( "deviceready" );
 } else {
   onDeviceReady();
 }
