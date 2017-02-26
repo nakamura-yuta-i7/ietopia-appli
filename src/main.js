@@ -17,6 +17,10 @@ import { MeApi, SearchHistoryApi, RoomHistoryApi, FavoriteApi } from "./IetopiaA
 // グローバル変数
 global.APP = {
   me: null,
+  search_history: null,
+  room_history: null,
+  favorite: null,
+  
   api: {
     ietopia: {
       master: {
@@ -36,9 +40,6 @@ global.APP = {
       },
     },
   },
-  values: {
-    yatinSelectBaseOptions: require("./values/yatinSelectBaseOptions.js")
-  },
   master: {
     ekitoho: [],
     madori: [],
@@ -46,6 +47,9 @@ global.APP = {
     rosen: [],
     station: [],
     tikunensu: [],
+  },
+  values: {
+    yatinSelectBaseOptions: require("./values/yatinSelectBaseOptions.js")
   },
 };
 console.log( "global.APP", global.APP );
@@ -94,13 +98,14 @@ function onDeviceReady() {
   promise.resolve()
   .then( () => IetopiaApi.isloggedIn() )
   .then( isloggedIn => {
-    if ( isloggedIn == false ) {
-      return IetopiaApi.login( getUUID() );
-    }
+    if ( isloggedIn == false ) return IetopiaApi.login( getUUID() );
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {
     global.me = me;
+    return loadApi();
+  })
+  .then(()=>{
     global.renderPage();
   })
   .catch((err)=>{
@@ -127,4 +132,12 @@ function getUUID() {
     var uuid = device.uuid;
   }
   return uuid;
+}
+
+function loadApi() {
+  return promise.resolve()
+  .then(function() {
+    return APP.api.ietopia.user.search_history.get()
+    .then( params => global.APP.search_history = params );
+  });
 }

@@ -688,7 +688,7 @@ class Dispatcher {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  API_BASE_URL:  false ? "http://0.0.0.0:8888" : "http://0.0.0.0:8888",
+  API_BASE_URL:  false ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
@@ -6891,7 +6891,7 @@ class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_scss__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search_common_scss__ = __webpack_require__(11);
@@ -6918,6 +6918,12 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
         </div>
       </section>
     `);
+    var $freewordInput = $freewordSection.find("input");
+    $freewordInput.val( global.APP.search_history.word );
+    $freewordInput.on("change", function() {
+      global.APP.search_history.word = $(this).val();
+    });
+    
     $searchForm.append( $freewordSection );
     
     var $rosenStationSection = $(`
@@ -6952,8 +6958,8 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     `);
     $searchForm.append($yatinSection);
     
-    var selectMin = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["a" /* YatinSelectMin */](30000);
-    var selectMax = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["b" /* YatinSelectMax */](400000);
+    var selectMin = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["a" /* YatinSelectMin */]( global.APP.search_history["yatin-min"] );
+    var selectMax = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["b" /* YatinSelectMax */]( global.APP.search_history["yatin-max"] );
     
     $yatinSection.find(".min").append( selectMin.getHtml() );
     $yatinSection.find(".max").append( selectMax.getHtml() );
@@ -7005,11 +7011,16 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       return false;
     });
     
+    // 「検索する」ボタンを押した時
     var $searchButton = $searchForm.find(".btn_search");
     $searchButton.on("click", function() {
       
-      APP.api.ietopia.user.search_history.request()
+      // 検索条件をローカル変数とAPIサーバー側に保管
+      var api = APP.api.ietopia.user.search_history;
+      var params = global.APP.search_history;
+      api.save( JSON.stringify(params) );
       
+      // 画面切り替え
       renderPage({
         page: "search_result",
         action: "index",
@@ -7022,6 +7033,7 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SearchPage;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 28 */
@@ -7421,6 +7433,10 @@ global.config = __webpack_require__(5);
 // グローバル変数
 global.APP = {
   me: null,
+  search_history: null,
+  room_history: null,
+  favorite: null,
+  
   api: {
     ietopia: {
       master: {
@@ -7440,9 +7456,6 @@ global.APP = {
       },
     },
   },
-  values: {
-    yatinSelectBaseOptions: __webpack_require__(52)
-  },
   master: {
     ekitoho: [],
     madori: [],
@@ -7450,6 +7463,9 @@ global.APP = {
     rosen: [],
     station: [],
     tikunensu: [],
+  },
+  values: {
+    yatinSelectBaseOptions: __webpack_require__(52)
   },
 };
 console.log( "global.APP", global.APP );
@@ -7498,13 +7514,14 @@ function onDeviceReady() {
   promise.resolve()
   .then( () => __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].isloggedIn() )
   .then( isloggedIn => {
-    if ( isloggedIn == false ) {
-      return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].login( getUUID() );
-    }
+    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* default */].login( getUUID() );
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {
     global.me = me;
+    return loadApi();
+  })
+  .then(()=>{
     global.renderPage();
   })
   .catch((err)=>{
@@ -7531,6 +7548,14 @@ function getUUID() {
     var uuid = device.uuid;
   }
   return uuid;
+}
+
+function loadApi() {
+  return promise.resolve()
+  .then(function() {
+    return APP.api.ietopia.user.search_history.get()
+    .then( params => global.APP.search_history = params );
+  });
 }
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
@@ -8096,9 +8121,10 @@ class IetopiaApi {
     this.API_URL_SUFIX += sufix;
     this.url = this.API_BASE_URL + this.API_URL_SUFIX;
   }
-  request(params={}, url) {
+  request(params={}, method="GET", url) {
     return ajaxWithSession({
       url: url || this.url,
+      method: method,
       data: params,
     });
   }
@@ -8188,12 +8214,6 @@ class IetopiaUserApiBase extends IetopiaApi {
     super();
     this.API_URL_SUFIX = "/user";
   }
-  request(params={}) {
-    if ( ! params.uuid ) {
-      params.uuid = "uuid-test2";
-    }
-    return super.request(params);
-  }
 }
 class IetopiaMeApiBase extends IetopiaUserApiBase {
   constructor() {
@@ -8210,6 +8230,13 @@ class SearchHistoryApi extends IetopiaMeApiBase {
   constructor() {
     super();
     this.setApiUrlSufix("/search_history");
+  }
+  get() {
+    return this.request().then( data => JSON.parse(data.params_json) );
+  }
+  save(params_json="{}") {
+    var url = this.url + "/save";
+    return this.request({params_json}, "POST", url);
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["i"] = SearchHistoryApi;
@@ -8238,7 +8265,7 @@ class FavoriteApi extends IetopiaMeApiBase {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Html__ = __webpack_require__(53);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Html__ = __webpack_require__(53);
 
 
 class YatinSelect extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
@@ -8253,6 +8280,9 @@ class YatinSelectMin extends YatinSelect {
     var name = "yatin-min";
     this.options.unshift( { val: "", name: "下限なし" } );
     this.$html = $select({options: this.options, selectedVal, name});
+    this.$html.on("change", function() {
+      global.APP.search_history[name] = $(this).val();
+    });
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = YatinSelectMin;
@@ -8263,10 +8293,14 @@ class YatinSelectMax extends YatinSelect {
     var name = "yatin-max";
     this.options.push( { val: "", name: "上限なし" } );
     this.$html = $select({options: this.options , selectedVal, name});
+    this.$html.on("change", function() {
+      global.APP.search_history[name] = $(this).val();
+    });
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["b"] = YatinSelectMax;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 52 */

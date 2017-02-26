@@ -16,9 +16,10 @@ export default class IetopiaApi {
     this.API_URL_SUFIX += sufix;
     this.url = this.API_BASE_URL + this.API_URL_SUFIX;
   }
-  request(params={}, url) {
+  request(params={}, method="GET", url) {
     return ajaxWithSession({
       url: url || this.url,
+      method: method,
       data: params,
     });
   }
@@ -92,12 +93,6 @@ class IetopiaUserApiBase extends IetopiaApi {
     super();
     this.API_URL_SUFIX = "/user";
   }
-  request(params={}) {
-    if ( ! params.uuid ) {
-      params.uuid = "uuid-test2";
-    }
-    return super.request(params);
-  }
 }
 class IetopiaMeApiBase extends IetopiaUserApiBase {
   constructor() {
@@ -112,6 +107,13 @@ export class SearchHistoryApi extends IetopiaMeApiBase {
   constructor() {
     super();
     this.setApiUrlSufix("/search_history");
+  }
+  get() {
+    return this.request().then( data => JSON.parse(data.params_json) );
+  }
+  save(params_json="{}") {
+    var url = this.url + "/save";
+    return this.request({params_json}, "POST", url);
   }
 }
 export class RoomHistoryApi extends IetopiaMeApiBase {

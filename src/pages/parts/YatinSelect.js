@@ -12,6 +12,9 @@ export class YatinSelectMin extends YatinSelect {
     var name = "yatin-min";
     this.options.unshift( { val: "", name: "下限なし" } );
     this.$html = $select({options: this.options, selectedVal, name});
+    this.$html.on("change", function() {
+      global.APP.search_history[name] = $(this).val();
+    });
   }
 }
 export class YatinSelectMax extends YatinSelect {
@@ -20,5 +23,8 @@ export class YatinSelectMax extends YatinSelect {
     var name = "yatin-max";
     this.options.push( { val: "", name: "上限なし" } );
     this.$html = $select({options: this.options , selectedVal, name});
+    this.$html.on("change", function() {
+      global.APP.search_history[name] = $(this).val();
+    });
   }
 }

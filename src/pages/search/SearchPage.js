@@ -19,6 +19,12 @@ export default class SearchPage extends Page {
         </div>
       </section>
     `);
+    var $freewordInput = $freewordSection.find("input");
+    $freewordInput.val( global.APP.search_history.word );
+    $freewordInput.on("change", function() {
+      global.APP.search_history.word = $(this).val();
+    });
+    
     $searchForm.append( $freewordSection );
     
     var $rosenStationSection = $(`
@@ -53,8 +59,8 @@ export default class SearchPage extends Page {
     `);
     $searchForm.append($yatinSection);
     
-    var selectMin = new YatinSelectMin(30000);
-    var selectMax = new YatinSelectMax(400000);
+    var selectMin = new YatinSelectMin( global.APP.search_history["yatin-min"] );
+    var selectMax = new YatinSelectMax( global.APP.search_history["yatin-max"] );
     
     $yatinSection.find(".min").append( selectMin.getHtml() );
     $yatinSection.find(".max").append( selectMax.getHtml() );
@@ -106,11 +112,16 @@ export default class SearchPage extends Page {
       return false;
     });
     
+    // 「検索する」ボタンを押した時
     var $searchButton = $searchForm.find(".btn_search");
     $searchButton.on("click", function() {
       
-      APP.api.ietopia.user.search_history.request()
+      // 検索条件をローカル変数とAPIサーバー側に保管
+      var api = APP.api.ietopia.user.search_history;
+      var params = global.APP.search_history;
+      api.save( JSON.stringify(params) );
       
+      // 画面切り替え
       renderPage({
         page: "search_result",
         action: "index",
