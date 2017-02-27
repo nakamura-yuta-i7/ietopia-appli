@@ -45,7 +45,7 @@ export default class CheckboxesSection extends Html {
         <label>${data.name}</label>
       </div>
     `);
-    $checkbox.checkbox();
+    // $checkbox.checkbox();
     if ( $.inArray(data.value, this.selectedVals) !== -1 ) {
       $checkbox.trigger("click");
     }
