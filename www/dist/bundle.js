@@ -4809,7 +4809,7 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
         <label>${data.name}</label>
       </div>
     `);
-    $checkbox.checkbox();
+    // $checkbox.checkbox();
     if ( $.inArray(data.value, this.selectedVals) !== -1 ) {
       $checkbox.trigger("click");
     }
@@ -21283,7 +21283,7 @@ class Dispatcher {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  API_BASE_URL:  false ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
+  API_BASE_URL:  true ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
   // API_BASE_URL: "https://appli.ietopia-services.com",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
@@ -22691,7 +22691,7 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     `);
     var $inquirySection = $(`<section></section>`);
     $inquirySection.append($inquiryForm);
-    $inquirySection.find(".checkbox").checkbox();
+    // $inquirySection.find(".checkbox").checkbox();
     this.$contents.append($inquirySection);
     
     // 希望のお住いについて
@@ -23810,7 +23810,7 @@ function onDeviceReady() {
   })
   .then(()=>{
     console.log( "global.APP", global.APP );
-    console.log( "IS_PRODUCTION", false );
+    console.log( "IS_PRODUCTION", true );
     global.renderPage();
   })
   .catch((err)=>{
