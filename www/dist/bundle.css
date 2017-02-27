@@ -353,11 +353,6 @@ select {
   line-height: 2.2;
 }
 
-.checkboxes-section .checkboxes .checkbox {
-  -ms-flex-positive: 1;
-      flex-grow: 1;
-}
-
 .checkboxes-section .checkboxes .ui.checkbox.checked label {
   color: #F47F00;
 }
