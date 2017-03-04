@@ -62,7 +62,7 @@ export default class InquiryPage extends Page {
       <form class="inquiry-form ui form">
         <h2>お問い合わせ内容入力</h2>
         
-        <div class="table w100per form-group">
+        <div class="table w100per form-group namae">
           <div class="table-cell">
             <label>お名前</label>
             <div class="ui input" style="margin-right:10px;">
@@ -105,19 +105,21 @@ export default class InquiryPage extends Page {
           </div>
         </div>
         
-        <div class="form-group">
+        <div class="form-group kibou-renraku-group">
           <label>ご希望の連絡方法</label>
           <div class="table w100per">
             <div class="table-cell">
               <div class="ui checkbox">
+                <label>
                 <input type="checkbox" name="kibou_renraku_houhou" value="メール" checked>
-                <label>メール</label>
+                メール</label>
               </div>
             </div>
             <div class="table-cell">
               <div class="ui checkbox">
+                <label>
                 <input type="checkbox" name="kibou_renraku_houhou" value="電話" checked>
-                <label>電話</label>
+                電話</label>
               </div>
             </div>
             <div class="table-cell nowrap">
@@ -184,7 +186,7 @@ export default class InquiryPage extends Page {
         <div class="form-group">
           <label>備考</label>
           <div class="field">
-            <textarea rows="3" name="note"></textarea>
+            <textarea rows="8" name="note"></textarea>
           </div>
         </div>
         

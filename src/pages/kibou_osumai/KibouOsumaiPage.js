@@ -39,7 +39,7 @@ export default class KibouOsumaiPage extends Page {
     var $noteSection = $html("section", {}, $(`
         <h2>その他のご希望</h2>
         <div class="ui form">
-          <textarea rows="5" name="note"></textarea>
+          <textarea rows="8" name="note"></textarea>
         </div>
     `));
     $kibouForm.append($noteSection);
