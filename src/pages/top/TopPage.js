@@ -8,7 +8,8 @@ export default class TopPage extends Page {
     this.displayFooter = false;
     
     var $img = $html("img", {
-      src: require("./img/logo.png")
+      class: "logo-img",
+      src: require("../../../www/img/logo.png")
     });
     this.$logo = $html("div", {
       id: "logo",

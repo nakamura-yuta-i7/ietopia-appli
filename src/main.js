@@ -7,6 +7,7 @@ import "./utils/deepCopy";
 import "./utils/moment";
 import "./utils/enum";
 global.promise = require("bluebird");
+global._ = require("lodash");
 // 定数等の設定
 global.config = require("./config");
 import IetopiaApi from "./IetopiaApi";

@@ -28,8 +28,44 @@
     }
   }
   .inquiry-form {
+    .kibou-renraku-group {
+      .table-cell {
+        select {
+          height: 30px;
+          font-size: 16px;
+        }
+        .ui.checkbox {
+          display: inline-block;
+          label {
+            font-size: 14px;
+            margin: 0px;
+          }
+        }
+        text-align: center;
+        vertical-align: middle;
+        height: 50px;
+      }
+    }
     .form-group {
       margin-bottom: 12px;
+    }
+    .table.namae {
+      .table-cell {
+        width: 50%;
+        input {
+          width: 100%;
+        }
+      }
+    }
+    .fluid {
+      input {
+        width: 100%;
+      }
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
     }
     label {
       display: block;

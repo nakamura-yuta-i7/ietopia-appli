@@ -10,12 +10,12 @@ export default class EkitohoSection extends Html {
       </section>
     `);
     var options = [{
-      val: "",
+      value: "",
       name: "指定なし",
     }];
     global.APP.master.ekitoho.forEach((data)=>{
       options.push({
-        val: data.value,
+        value: data.value,
         name: data.name,
       })
     });

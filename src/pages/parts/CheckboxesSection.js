@@ -9,6 +9,7 @@ export default class CheckboxesSection extends Html {
     this.identifier = identifier;
     this.apiResult = params.apiResult || "";
     this.selectedVals = params.selectedVals || []
+    console.log( "this.selectedVals", this.selectedVals );
     
     var $section = $(`
       <section class="checkboxes-section ${identifier}-section">
@@ -34,20 +35,22 @@ export default class CheckboxesSection extends Html {
     $section.append($checkboxesArea);
     var $removeAllChecks = $checkboxes.find(".remove-all-checks");
     $removeAllChecks.on("click", ()=>{
-      $section.find(".checked").trigger("click");
+      $section.find(":checked").trigger("click");
     });
     this.$html = $section
   }
   buildCheckbox(data) {
     var $checkbox = $(`
       <div class="ui checkbox">
-        <input type="checkbox" name="${this.identifier}[]" value="${data.value}">
-        <label>${data.name}</label>
+        <label>
+          <input type="checkbox" name="${this.identifier}[]" value="${data.value}">
+          ${data.name}
+        </label>
       </div>
     `);
     // $checkbox.checkbox();
     if ( $.inArray(data.value, this.selectedVals) !== -1 ) {
-      $checkbox.trigger("click");
+      $checkbox.find("input").trigger("click");
     }
     return $checkbox;
   }

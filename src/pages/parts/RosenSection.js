@@ -3,19 +3,17 @@ export default class RosenSection extends Html {
   constructor(selectedVal) {
     super();
     
-    var $rosenSelect = $select({
-      options: [
-        { val: "", name: "指定なし" },
-      ],
-      name: "rosen",
-      selectedVal: "",
+    var options = [
+      { value: "", name: "指定なし" },
+    ];
+    global.APP.master.rosen.forEach((data)=>{
+      options.push( data.name );
     });
     
-    global.APP.api.ietopia.master.rosen.request()
-    .then((result)=>{
-      result.forEach((data)=>{
-        $rosenSelect.append( $(`<option>${data.name}</option>`) );
-      });
+    var $rosenSelect = $select({
+      options: options,
+      name: "rosen",
+      selectedVal: global.APP.search_history.rosen || "",
     });
     
     var $rosenSection = $(`
@@ -25,11 +23,13 @@ export default class RosenSection extends Html {
       </section>
     `);
     $rosenSection.find(".form-item").append($rosenSelect);
+    this.$rosenSelect = $rosenSelect;
     this.$html = $rosenSection;
   }
-  setChangeEvent(stationSection) {
-    var $rosenSelect = this.$html.find("select");
-    $rosenSelect.on("change", function() {
-    });
+  getSelectedValue() {
+    return this.$rosenSelect.val();
+  }
+  setChangeEvent(func) {
+    this.$rosenSelect.on("change", func);
   }
 }
