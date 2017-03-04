@@ -21,51 +21,66 @@ export default class SearchFormDetailPage extends Page {
     
     // 間取選択エリア
     var madoriSecrion = new MadoriSection({
-      selectedVals: ["3K"],
+      selectedVals: global.APP.search_history.madori,
     });
     $searchForm.append(madoriSecrion.getHtml());
     
     // 築年数選択エリア
-    var tikunenSection = new TikunenSection({
-      selectedVals: [3],
-    });
+    var tikunenSection = new TikunenSection(
+      global.APP.search_history.tikunensu
+    );
     $searchForm.append(tikunenSection.getHtml());
     
     // 専有面積エリア
     var mensekiSection = new MensekiSection({
-      selectedVals: ["20-30"],
+      selectedVals: global.APP.search_history.menseki,
     });
     $searchForm.append(mensekiSection.getHtml());
     
     // 駅徒歩エリア
-    var ekitohoSection = new EkitohoSection({
-      selectedVals: [5],
-    });
+    var ekitohoSection = new EkitohoSection(
+      global.APP.search_history.ekitoho
+    );
     $searchForm.append(ekitohoSection.getHtml());
     
     // こだわり条件エリア
     var kodawariJokenSection = new KodawariJokenSection({
-      selectedVals: ["BSアンテナ"],
+      selectedVals: global.APP.search_history.kodawari_joken,
     });
     $searchForm.append(kodawariJokenSection.getHtml());
     
-    // 決定ボタンエリア
-    var $submitButtonArea = $(`
-      <div id="submit-btn-area">
-      </div>
-    `);
-    var $submitButton = $(`
-      <div class="search_form_conditions_submit_button">
-        <img width="199" src="img/common/form/search_form_conditions_submit_button.png" style="display:block;">
-      </div>
-    `);
-    $submitButtonArea.append( $submitButton );
-    $submitButton.on("click", function() {
-      history.back();
-    });
+    // // 決定ボタンエリア
+    // var $submitButtonArea = $(`
+    //   <div id="submit-btn-area">
+    //   </div>
+    // `);
+    // var $submitButton = $(`
+    //   <div class="search_form_conditions_submit_button">
+    //     <img width="199" src="img/common/form/search_form_conditions_submit_button.png" style="display:block;">
+    //   </div>
+    // `);
+    // $submitButtonArea.append( $submitButton );
+    // $submitButton.on("click", function() {
+    //   history.back();
+    // });
     
-    $searchForm.append( $submitButtonArea );
+    // $searchForm.append( $submitButtonArea );
     
     this.$contents.html( $searchForm );
+  }
+  postRender() {
+
+    $(".search_form_detail-page .history-back").on("click", function() {
+      
+      // 検索条件をローカル変数とAPIサーバー側に保管
+      var formQs = $(".search_form_detail-page form").serialize();
+      var formParams = global.queryString.parse(formQs);
+      
+      Object.assign(APP.search_history, formParams);
+      
+      var api = global.APP.api.ietopia.user.search_history;
+      api.save( JSON.stringify(global.APP.search_history) );
+    });
+    
   }
 }

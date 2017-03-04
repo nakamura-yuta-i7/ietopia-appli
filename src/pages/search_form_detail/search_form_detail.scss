@@ -1,11 +1,17 @@
 .search_form_detail-page {
   
-  .search-form {
-    margin-bottom: 65px;
-  }
+  // .search-form {
+  //   margin-bottom: 65px;
+  // }
   .search_form_conditions_submit_button {
     display: table;
     margin: 0 0 0 auto;
     cursor: pointer;
+  }
+  
+  .kodawari_joken-section {
+    label {
+      font-size: 12px;
+    }
   }
 }

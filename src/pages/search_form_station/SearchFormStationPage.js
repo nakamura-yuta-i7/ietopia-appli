@@ -65,22 +65,22 @@ export default class SearchFormStationPage extends Page {
     }
     
     
-    // 決定ボタンエリア
-    var $submitButtonArea = $(`
-      <div id="submit-btn-area">
-      </div>
-    `);
-    var $submitButton = $(`
-      <div class="search_form_conditions_submit_button">
-        <img src="img/common/form/search_form_conditions_submit_button.png">
-      </div>
-    `);
-    $submitButtonArea.append( $submitButton );
-    $submitButton.on("click", function() {
-      history.back();
-    });
+    // // 決定ボタンエリア
+    // var $submitButtonArea = $(`
+    //   <div id="submit-btn-area">
+    //   </div>
+    // `);
+    // var $submitButton = $(`
+    //   <div class="search_form_conditions_submit_button">
+    //     <img src="img/common/form/search_form_conditions_submit_button.png">
+    //   </div>
+    // `);
+    // $submitButtonArea.append( $submitButton );
+    // $submitButton.on("click", function() {
+    //   history.back();
+    // });
     
-    $searchForm.append( $submitButtonArea );
+    // $searchForm.append( $submitButtonArea );
     
     this.$contents.html( $searchForm );
   }

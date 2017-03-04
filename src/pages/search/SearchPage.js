@@ -5,6 +5,7 @@ import { YatinSelectMin, YatinSelectMax } from "../parts/YatinSelect";
 
 export default class SearchPage extends Page {
   indexAction() {
+    
     this.headerTitle = "検索";
     var $searchForm = $(`
       <form class="search-form">
@@ -21,9 +22,6 @@ export default class SearchPage extends Page {
     `);
     var $freewordInput = $freewordSection.find("input");
     $freewordInput.val( global.APP.search_history.word );
-    $freewordInput.on("change", function() {
-      global.APP.search_history.word = $(this).val();
-    });
     
     $searchForm.append( $freewordSection );
     
@@ -116,8 +114,10 @@ export default class SearchPage extends Page {
     var $searchButton = $searchForm.find(".btn_search");
     $searchButton.on("click", function() {
       
+      global.APP.search_history.word = $freewordInput.val();
+      
       // 検索条件をローカル変数とAPIサーバー側に保管
-      var api = APP.api.ietopia.user.search_history;
+      var api = global.APP.api.ietopia.user.search_history;
       var params = global.APP.search_history;
       api.save( JSON.stringify(params) );
       

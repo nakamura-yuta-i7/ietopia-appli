@@ -11,6 +11,7 @@ export default class TopPage extends Page {
       class: "logo-img",
       src: require("../../../www/img/logo.png")
     });
+    $img.show();
     this.$logo = $html("div", {
       id: "logo",
     });
