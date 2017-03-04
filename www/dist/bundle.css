@@ -2,11 +2,21 @@ html, body {
   background: #fff;
   color: #4A4A4A;
   height: 100%;
+  padding: 0px;
+  height: 0px;
 }
 
 #app {
   width: 100%;
   height: 100%;
+}
+
+.logo-img {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 256px;
 }
 
 .loading-message {
@@ -164,6 +174,8 @@ footer nav ul li img {
   color: #F47F00;
   font-weight: 900;
   text-align: center;
+  margin-top: 0px;
+  margin-bottom: 12px;
 }
 
 select {
@@ -172,11 +184,22 @@ select {
   padding: 5px;
 }
 
-.ui input, .ui.dropdown {
+label {
+  cursor: pointer;
+}
+
+.ui input[type=text], .ui.dropdown {
   box-sizing: border-box;
   height: 48px;
   border: 1px solid #fff !important;
   font-size: 16px;
+}
+
+textarea {
+  width: 100%;
+  font-size: 14px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .ui.input label, .ui.form label {
@@ -184,8 +207,14 @@ select {
   margin-bottom: 5px;
 }
 
+.ui.input input[type=text], .ui.form input[type=text] {
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
 .ui.input input[type=text], .ui.input textarea, .ui.form input[type=text], .ui.form textarea {
   border: none;
+  border-radius: 4px;
 }
 #logo {
   height: 100%;
@@ -198,7 +227,6 @@ select {
 }
 
 #logo img {
-  width: 70%;
   max-width: 500px;
 }
 
@@ -221,19 +249,25 @@ select {
   width: 100%;
 }
 
+.search-form .ui.input.word input {
+  width: 100%;
+}
+
 .search-form .ui.input.station {
   width: 100%;
+  position: relative;
 }
 
 .search-form .ui.input.station input {
   padding-left: 52px !important;
   cursor: pointer;
+  width: 100%;
 }
 
 .search-form .ui.input.station .icon_train {
   position: absolute;
-  left: 22px;
-  top: 16px;
+  left: 21px;
+  top: 13px;
 }
 
 .search-form .ui.input.station .icon_train img {
@@ -290,9 +324,11 @@ select {
 
 .search-form .ui.input.kodawari {
   width: 100%;
+  position: relative;
 }
 
 .search-form .ui.input.kodawari input {
+  width: 100%;
   padding-left: 52px !important;
   cursor: pointer;
 }
@@ -300,7 +336,7 @@ select {
 .search-form .ui.input.kodawari .icon_list {
   position: absolute;
   left: 18px;
-  top: 15px;
+  top: 12px;
 }
 
 .search-form .ui.input.kodawari .icon_list img {
@@ -336,6 +372,7 @@ select {
   cursor: pointer;
 }
 .checkboxes-section .remove-all-checks {
+  padding: 5px 0px;
   text-align: right;
   font-size: 12px;
 }
@@ -349,8 +386,23 @@ select {
 .checkboxes-section .checkboxes {
   background: #fff;
   border-radius: 4px;
-  padding: 12px 15px;
-  line-height: 2.2;
+  padding: 6px 15px 12px 15px;
+  line-height: 1.5;
+}
+
+.checkboxes-section .checkboxes .checkbox {
+  display: inline-block;
+  padding: 3px 0px;
+}
+
+.checkboxes-section .checkboxes .checkbox label {
+  display: block;
+}
+
+.checkboxes-section .checkboxes .checkbox label input {
+  vertical-align: text-top;
+  display: inline-block;
+  margin-right: 12px;
 }
 
 .checkboxes-section .checkboxes .ui.checkbox.checked label {
@@ -362,7 +414,6 @@ select {
 }
 
 .checkboxes-section .checkboxes .ui.checkbox label {
-  padding-left: 30px;
   color: #4A4A4A;
 }
 .tikunensu-section {
@@ -388,6 +439,7 @@ select {
 .search_form_station-page .search-form select {
   width: 100%;
   height: 48px !important;
+  color: #9A9A9A;
 }
 
 .search_form_station-page .search_form_conditions_submit_button {
@@ -586,8 +638,46 @@ select {
   color: #E70B18;
 }
 
+.inquiry-page .inquiry-form .kibou-renraku-group .table-cell {
+  text-align: center;
+  vertical-align: middle;
+  height: 50px;
+}
+
+.inquiry-page .inquiry-form .kibou-renraku-group .table-cell select {
+  height: 30px;
+  font-size: 16px;
+}
+
+.inquiry-page .inquiry-form .kibou-renraku-group .table-cell .ui.checkbox {
+  display: inline-block;
+}
+
+.inquiry-page .inquiry-form .kibou-renraku-group .table-cell .ui.checkbox label {
+  font-size: 14px;
+  margin: 0px;
+}
+
 .inquiry-page .inquiry-form .form-group {
   margin-bottom: 12px;
+}
+
+.inquiry-page .inquiry-form .table.namae .table-cell {
+  width: 50%;
+}
+
+.inquiry-page .inquiry-form .table.namae .table-cell input {
+  width: 100%;
+}
+
+.inquiry-page .inquiry-form .fluid input {
+  width: 100%;
+}
+
+.inquiry-page .inquiry-form textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
 }
 
 .inquiry-page .inquiry-form label {
