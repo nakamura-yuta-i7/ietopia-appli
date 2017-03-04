@@ -80,16 +80,6 @@ export default class SearchPage extends Page {
     `);
     $searchForm.append( $codawariJokenSection );
     
-    var $submitButtonArea = $(`
-      <div id="submit-btn-area">
-        <div class="btn_search">
-          <img src="img/common/form/btn_search.png">
-        </div>
-      </div>
-    `);
-    
-    $searchForm.append( $submitButtonArea );
-    
     var $stationInput = $searchForm.find("input[name=station]");
     $stationInput.focus(function() {
       $(this).blur();
@@ -110,8 +100,23 @@ export default class SearchPage extends Page {
       return false;
     });
     
+    this.$contents.html( $searchForm );
+    
+  }
+  postRender() {
+    
+    // 検索ボタンエリア
+    var $submitButtonArea = $(`
+      <div id="submit-btn-area">
+        <div class="btn_search">
+          <img src="img/common/form/btn_search.png">
+        </div>
+      </div>
+    `);
+    this.$main.append( $submitButtonArea );
+    
     // 「検索する」ボタンを押した時
-    var $searchButton = $searchForm.find(".btn_search");
+    var $searchButton = $submitButtonArea.find(".btn_search");
     $searchButton.on("click", function() {
       
       global.APP.search_history.word = $freewordInput.val();
@@ -128,7 +133,5 @@ export default class SearchPage extends Page {
         transitionType: "SLIDE_LEFT"
       });
     });
-    
-    this.$contents.html( $searchForm );
   }
 }

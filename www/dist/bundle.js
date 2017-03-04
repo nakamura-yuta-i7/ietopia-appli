@@ -40345,16 +40345,6 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     `);
     $searchForm.append( $codawariJokenSection );
     
-    var $submitButtonArea = $(`
-      <div id="submit-btn-area">
-        <div class="btn_search">
-          <img src="img/common/form/btn_search.png">
-        </div>
-      </div>
-    `);
-    
-    $searchForm.append( $submitButtonArea );
-    
     var $stationInput = $searchForm.find("input[name=station]");
     $stationInput.focus(function() {
       $(this).blur();
@@ -40375,8 +40365,23 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       return false;
     });
     
+    this.$contents.html( $searchForm );
+    
+  }
+  postRender() {
+    
+    // 検索ボタンエリア
+    var $submitButtonArea = $(`
+      <div id="submit-btn-area">
+        <div class="btn_search">
+          <img src="img/common/form/btn_search.png">
+        </div>
+      </div>
+    `);
+    this.$main.append( $submitButtonArea );
+    
     // 「検索する」ボタンを押した時
-    var $searchButton = $searchForm.find(".btn_search");
+    var $searchButton = $submitButtonArea.find(".btn_search");
     $searchButton.on("click", function() {
       
       global.APP.search_history.word = $freewordInput.val();
@@ -40393,8 +40398,6 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
         transitionType: "SLIDE_LEFT"
       });
     });
-    
-    this.$contents.html( $searchForm );
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SearchPage;
@@ -40971,7 +40974,7 @@ function onDeviceReady() {
   })
   .then(()=>{
     console.log( "global.APP", global.APP );
-    console.log( "IS_PRODUCTION", true );
+    console.log( "IS_PRODUCTION", false );
     global.renderPage();
   })
   .catch((err)=>{

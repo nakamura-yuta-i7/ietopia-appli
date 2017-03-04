@@ -239,7 +239,28 @@ textarea {
 }
 .search-page .contents {
   padding: 0px 0px 16px 0px;
-  padding-bottom: 86px;
+  padding-bottom: 72px;
+}
+
+.search-page #submit-btn-area {
+  position: fixed;
+  bottom: 56px;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.search-page #submit-btn-area .btn_search {
+  cursor: pointer;
+}
+
+.search-page #submit-btn-area .btn_search img {
+  width: 199px;
+  display: block;
+  margin: 0 auto;
 }
 
 .search-form .description {
@@ -344,27 +365,6 @@ textarea {
 
 .search-form .ui.input.kodawari .icon_list img {
   width: 20px;
-}
-
-.search-form #submit-btn-area {
-  position: fixed;
-  bottom: 56px;
-  left: 0;
-  box-sizing: border-box;
-  width: 100%;
-  background: #fff;
-  padding: 10px;
-  text-align: center;
-}
-
-.search-form #submit-btn-area .btn_search {
-  cursor: pointer;
-}
-
-.search-form #submit-btn-area .btn_search img {
-  width: 199px;
-  display: block;
-  margin: 0 auto;
 }
 .search_form_detail-page .search_form_conditions_submit_button {
   display: table;
