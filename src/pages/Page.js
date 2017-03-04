@@ -50,7 +50,7 @@ export default class Page {
       var headerTitle = this.displayHeaderTitle
         ? `<h1>${this.headerTitle}</h1>` : ``
       var headerBackButton = this.displayHeaderBackButton
-        ? `<div id="history-back">
+        ? `<div class="history-back">
             <img src="img/common/header/icon_back.png">
             <span>${this.headerBackButtonText}</span>
           </div>` : ``;
@@ -62,7 +62,7 @@ export default class Page {
         </header>
       `);
       
-      var $headerBackButton = $header.find("#history-back");
+      var $headerBackButton = $header.find(".history-back");
       $headerBackButton.on("click", () => {
         history.back();
       });
@@ -86,27 +86,35 @@ export default class Page {
       return `${window.innerWidth}px`;
     }
     
+    var $mainDepth1 = $(".main[depth=1]");
+    var $mainDepth0 = $(".main[depth=0]");
+    
     if ( this.transitionType == "REPLACE" ) {
       $(".main[depth!=0]").remove();
+      
     } else if ( this.transitionType == "BACK" ) {
+      
       if ( $(".main").length > 1 ) {
         // BACKのページ切り替え時
-        $(".main[depth=1]").animate({left: "0px"});
-        $(".main[depth=0]").animate({left: windowWidthPx()}, () => {
-          $(".main[depth=0]").remove();
+        $mainDepth1.animate({left: "0px"});
+        $mainDepth0.animate({left: windowWidthPx()}, () => {
+          $mainDepth0.remove();
         });
         this.refreshMainDepth();
       }
     } else if ( this.transitionType == "SLIDE_LEFT" ) {
+      
       if ( $(".main").length > 1 ) {
         // REPLACE以外のページ切り替え時
-        $(".main[depth=0]").css({left: windowWidthPx()});
-        $(".main[depth=1]").animate({left: "-100px"});
-        $(".main[depth=0]").animate({left: "0px"});
+        $mainDepth0.css({left: windowWidthPx()});
+        $mainDepth1.animate({left: "-100px"});
+        $mainDepth0.animate({left: "0px"});
       }
     }
     this.buildFooter();
+    this.postRender();
   }
+  postRender() {}
   refreshMainDepth() {
     $( $(".main").get().reverse() ).each(function(i) {
       var depth = i;

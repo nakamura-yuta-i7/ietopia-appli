@@ -9,7 +9,6 @@ export default class CheckboxesSection extends Html {
     this.identifier = identifier;
     this.apiResult = params.apiResult || "";
     this.selectedVals = params.selectedVals || []
-    console.log( "this.selectedVals", this.selectedVals );
     
     var $section = $(`
       <section class="checkboxes-section ${identifier}-section">
@@ -43,7 +42,7 @@ export default class CheckboxesSection extends Html {
     var $checkbox = $(`
       <div class="ui checkbox">
         <label>
-          <input type="checkbox" name="${this.identifier}[]" value="${data.value}">
+          <input type="checkbox" name="${this.identifier}" value="${data.value}">
           ${data.name}
         </label>
       </div>

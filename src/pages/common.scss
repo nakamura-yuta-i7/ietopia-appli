@@ -6,6 +6,7 @@ html, body {
   height: 100%;
   padding: 0px;
   height: 0px;
+  font-family: "SF Pro JP", "Apple TP", "SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Apple Legacy Chevron", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "Helvetica Neue", "Helvetica", "Arial";
 }
 #app {
   @include maxWH();
@@ -55,7 +56,7 @@ header {
     top: 12px + $topPointInHeader;
     left:12px;
   }
-  #history-back {
+  .history-back {
     z-index: 99;
     height: $headerHeight;
     position: absolute;
@@ -159,8 +160,9 @@ label {
 .ui input[type=text], .ui.dropdown {
   box-sizing: border-box;
   height: 48px;
-  border: 1px solid #fff !important;
-  font-size: 16px;
+  // border: 1px solid #fff !important;
+  font-size: 15px;
+  -webkit-appearance: none;
 }
 textarea {
   width: 100%;

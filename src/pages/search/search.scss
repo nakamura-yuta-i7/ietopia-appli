@@ -1,5 +1,6 @@
-.contents.search-page {
+.search-page .contents {
   padding: 0px 0px 16px 0px;
+  padding-bottom: 86px;
 }
 
 .search-form {
@@ -30,7 +31,7 @@
     .icon_train {
       position: absolute;
       left:21px;
-      top:13px;
+      top:16px;
       img {
         width: 13px;
       }
@@ -95,7 +96,7 @@
     .icon_list {
       position: absolute;
       left: 18px;
-      top: 12px;
+      top: 14px;
       img {
         width: 20px;
       }
@@ -109,9 +110,10 @@
     bottom: 56px;
     left: 0;
     
+    box-sizing: border-box;
     width: 100%;
     background: #fff;
-    padding: 17px;
+    padding: 10px;
     
     text-align: center;
     

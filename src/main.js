@@ -122,8 +122,8 @@ function getUUID() {
       if ( uuid.length ) {
         break;
       }
-      console.log( "UUID: " + uuid );
     }
+    console.log( "UUID: " + uuid );
   } else {
     console.log( {
       device: device,
