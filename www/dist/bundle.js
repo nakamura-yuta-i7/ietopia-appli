@@ -4460,7 +4460,7 @@ class Page {
       var headerTitle = this.displayHeaderTitle
         ? `<h1>${this.headerTitle}</h1>` : ``
       var headerBackButton = this.displayHeaderBackButton
-        ? `<div id="history-back">
+        ? `<div class="history-back">
             <img src="img/common/header/icon_back.png">
             <span>${this.headerBackButtonText}</span>
           </div>` : ``;
@@ -4472,7 +4472,7 @@ class Page {
         </header>
       `);
       
-      var $headerBackButton = $header.find("#history-back");
+      var $headerBackButton = $header.find(".history-back");
       $headerBackButton.on("click", () => {
         history.back();
       });
@@ -4496,27 +4496,35 @@ class Page {
       return `${window.innerWidth}px`;
     }
     
+    var $mainDepth1 = $(".main[depth=1]");
+    var $mainDepth0 = $(".main[depth=0]");
+    
     if ( this.transitionType == "REPLACE" ) {
       $(".main[depth!=0]").remove();
+      
     } else if ( this.transitionType == "BACK" ) {
+      
       if ( $(".main").length > 1 ) {
         // BACKのページ切り替え時
-        $(".main[depth=1]").animate({left: "0px"});
-        $(".main[depth=0]").animate({left: windowWidthPx()}, () => {
-          $(".main[depth=0]").remove();
+        $mainDepth1.animate({left: "0px"});
+        $mainDepth0.animate({left: windowWidthPx()}, () => {
+          $mainDepth0.remove();
         });
         this.refreshMainDepth();
       }
     } else if ( this.transitionType == "SLIDE_LEFT" ) {
+      
       if ( $(".main").length > 1 ) {
         // REPLACE以外のページ切り替え時
-        $(".main[depth=0]").css({left: windowWidthPx()});
-        $(".main[depth=1]").animate({left: "-100px"});
-        $(".main[depth=0]").animate({left: "0px"});
+        $mainDepth0.css({left: windowWidthPx()});
+        $mainDepth1.animate({left: "-100px"});
+        $mainDepth0.animate({left: "0px"});
       }
     }
     this.buildFooter();
+    this.postRender();
   }
+  postRender() {}
   refreshMainDepth() {
     $( $(".main").get().reverse() ).each(function(i) {
       var depth = i;
@@ -4773,7 +4781,6 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
     this.identifier = identifier;
     this.apiResult = params.apiResult || "";
     this.selectedVals = params.selectedVals || []
-    console.log( "this.selectedVals", this.selectedVals );
     
     var $section = $(`
       <section class="checkboxes-section ${identifier}-section">
@@ -4807,7 +4814,7 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
     var $checkbox = $(`
       <div class="ui checkbox">
         <label>
-          <input type="checkbox" name="${this.identifier}[]" value="${data.value}">
+          <input type="checkbox" name="${this.identifier}" value="${data.value}">
           ${data.name}
         </label>
       </div>
@@ -40263,6 +40270,7 @@ class YatinSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */
 
 class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
   indexAction() {
+    
     this.headerTitle = "検索";
     var $searchForm = $(`
       <form class="search-form">
@@ -40279,9 +40287,6 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     `);
     var $freewordInput = $freewordSection.find("input");
     $freewordInput.val( global.APP.search_history.word );
-    $freewordInput.on("change", function() {
-      global.APP.search_history.word = $(this).val();
-    });
     
     $searchForm.append( $freewordSection );
     
@@ -40374,8 +40379,10 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     var $searchButton = $searchForm.find(".btn_search");
     $searchButton.on("click", function() {
       
+      global.APP.search_history.word = $freewordInput.val();
+      
       // 検索条件をローカル変数とAPIサーバー側に保管
-      var api = APP.api.ietopia.user.search_history;
+      var api = global.APP.api.ietopia.user.search_history;
       var params = global.APP.search_history;
       api.save( JSON.stringify(params) );
       
@@ -40399,7 +40406,7 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_form_detail_scss__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_form_detail_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search_form_detail_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__parts_MadoriSection__ = __webpack_require__(118);
@@ -40430,56 +40437,72 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
     
     // 間取選択エリア
     var madoriSecrion = new __WEBPACK_IMPORTED_MODULE_2__parts_MadoriSection__["a" /* default */]({
-      selectedVals: ["3K"],
+      selectedVals: global.APP.search_history.madori,
     });
     $searchForm.append(madoriSecrion.getHtml());
     
     // 築年数選択エリア
-    var tikunenSection = new __WEBPACK_IMPORTED_MODULE_3__parts_TikunenSection__["a" /* default */]({
-      selectedVals: [3],
-    });
+    var tikunenSection = new __WEBPACK_IMPORTED_MODULE_3__parts_TikunenSection__["a" /* default */](
+      global.APP.search_history.tikunensu
+    );
     $searchForm.append(tikunenSection.getHtml());
     
     // 専有面積エリア
     var mensekiSection = new __WEBPACK_IMPORTED_MODULE_4__parts_MensekiSection__["a" /* default */]({
-      selectedVals: ["20-30"],
+      selectedVals: global.APP.search_history.menseki,
     });
     $searchForm.append(mensekiSection.getHtml());
     
     // 駅徒歩エリア
-    var ekitohoSection = new __WEBPACK_IMPORTED_MODULE_5__parts_EkitohoSection__["a" /* default */]({
-      selectedVals: [5],
-    });
+    var ekitohoSection = new __WEBPACK_IMPORTED_MODULE_5__parts_EkitohoSection__["a" /* default */](
+      global.APP.search_history.ekitoho
+    );
     $searchForm.append(ekitohoSection.getHtml());
     
     // こだわり条件エリア
     var kodawariJokenSection = new __WEBPACK_IMPORTED_MODULE_6__parts_KodawariJokenSection__["a" /* default */]({
-      selectedVals: ["BSアンテナ"],
+      selectedVals: global.APP.search_history.kodawari_joken,
     });
     $searchForm.append(kodawariJokenSection.getHtml());
     
-    // 決定ボタンエリア
-    var $submitButtonArea = $(`
-      <div id="submit-btn-area">
-      </div>
-    `);
-    var $submitButton = $(`
-      <div class="search_form_conditions_submit_button">
-        <img width="199" src="img/common/form/search_form_conditions_submit_button.png" style="display:block;">
-      </div>
-    `);
-    $submitButtonArea.append( $submitButton );
-    $submitButton.on("click", function() {
-      history.back();
-    });
+    // // 決定ボタンエリア
+    // var $submitButtonArea = $(`
+    //   <div id="submit-btn-area">
+    //   </div>
+    // `);
+    // var $submitButton = $(`
+    //   <div class="search_form_conditions_submit_button">
+    //     <img width="199" src="img/common/form/search_form_conditions_submit_button.png" style="display:block;">
+    //   </div>
+    // `);
+    // $submitButtonArea.append( $submitButton );
+    // $submitButton.on("click", function() {
+    //   history.back();
+    // });
     
-    $searchForm.append( $submitButtonArea );
+    // $searchForm.append( $submitButtonArea );
     
     this.$contents.html( $searchForm );
+  }
+  postRender() {
+
+    $(".search_form_detail-page .history-back").on("click", function() {
+      
+      // 検索条件をローカル変数とAPIサーバー側に保管
+      var formQs = $(".search_form_detail-page form").serialize();
+      var formParams = global.queryString.parse(formQs);
+      
+      Object.assign(APP.search_history, formParams);
+      
+      var api = global.APP.api.ietopia.user.search_history;
+      api.save( JSON.stringify(global.APP.search_history) );
+    });
+    
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SearchFormDetailPage;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 179 */
@@ -40560,22 +40583,22 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
     }
     
     
-    // 決定ボタンエリア
-    var $submitButtonArea = $(`
-      <div id="submit-btn-area">
-      </div>
-    `);
-    var $submitButton = $(`
-      <div class="search_form_conditions_submit_button">
-        <img src="img/common/form/search_form_conditions_submit_button.png">
-      </div>
-    `);
-    $submitButtonArea.append( $submitButton );
-    $submitButton.on("click", function() {
-      history.back();
-    });
+    // // 決定ボタンエリア
+    // var $submitButtonArea = $(`
+    //   <div id="submit-btn-area">
+    //   </div>
+    // `);
+    // var $submitButton = $(`
+    //   <div class="search_form_conditions_submit_button">
+    //     <img src="img/common/form/search_form_conditions_submit_button.png">
+    //   </div>
+    // `);
+    // $submitButtonArea.append( $submitButton );
+    // $submitButton.on("click", function() {
+    //   history.back();
+    // });
     
-    $searchForm.append( $submitButtonArea );
+    // $searchForm.append( $submitButtonArea );
     
     this.$contents.html( $searchForm );
   }
@@ -40762,6 +40785,7 @@ class TopPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
       class: "logo-img",
       src: __webpack_require__(161)
     });
+    $img.show();
     this.$logo = $html("div", {
       id: "logo",
     });
@@ -40966,8 +40990,8 @@ function getUUID() {
       if ( uuid.length ) {
         break;
       }
-      console.log( "UUID: " + uuid );
     }
+    console.log( "UUID: " + uuid );
   } else {
     console.log( {
       device: device,

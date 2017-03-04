@@ -1,9 +1,11 @@
+@charset "UTF-8";
 html, body {
   background: #fff;
   color: #4A4A4A;
   height: 100%;
   padding: 0px;
   height: 0px;
+  font-family: "SF Pro JP", "Apple TP", "SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Apple Legacy Chevron", "Hiragino Kaku Gothic Pro", "\30D2\30E9\30AE\30CE\89D2\30B4   Pro W3", "\30E1\30A4\30EA\30AA", "Meiryo", "\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF", "Helvetica Neue", "Helvetica", "Arial";
 }
 
 #app {
@@ -72,7 +74,7 @@ header #logo_s img {
   width: 100%;
 }
 
-header #history-back {
+header .history-back {
   z-index: 99;
   height: 72px;
   position: absolute;
@@ -83,12 +85,12 @@ header #history-back {
   cursor: pointer;
 }
 
-header #history-back img {
+header .history-back img {
   width: 15px;
   vertical-align: middle;
 }
 
-header #history-back span {
+header .history-back span {
   font-weight: 100;
   vertical-align: middle;
 }
@@ -191,8 +193,8 @@ label {
 .ui input[type=text], .ui.dropdown {
   box-sizing: border-box;
   height: 48px;
-  border: 1px solid #fff !important;
-  font-size: 16px;
+  font-size: 15px;
+  -webkit-appearance: none;
 }
 
 textarea {
@@ -235,8 +237,9 @@ textarea {
   width: 100%;
   height: 100%;
 }
-.contents.search-page {
+.search-page .contents {
   padding: 0px 0px 16px 0px;
+  padding-bottom: 86px;
 }
 
 .search-form .description {
@@ -267,7 +270,7 @@ textarea {
 .search-form .ui.input.station .icon_train {
   position: absolute;
   left: 21px;
-  top: 13px;
+  top: 16px;
 }
 
 .search-form .ui.input.station .icon_train img {
@@ -336,7 +339,7 @@ textarea {
 .search-form .ui.input.kodawari .icon_list {
   position: absolute;
   left: 18px;
-  top: 12px;
+  top: 14px;
 }
 
 .search-form .ui.input.kodawari .icon_list img {
@@ -347,9 +350,10 @@ textarea {
   position: fixed;
   bottom: 56px;
   left: 0;
+  box-sizing: border-box;
   width: 100%;
   background: #fff;
-  padding: 17px;
+  padding: 10px;
   text-align: center;
 }
 
@@ -362,14 +366,14 @@ textarea {
   display: block;
   margin: 0 auto;
 }
-.search_form_detail-page .search-form {
-  margin-bottom: 65px;
-}
-
 .search_form_detail-page .search_form_conditions_submit_button {
   display: table;
   margin: 0 0 0 auto;
   cursor: pointer;
+}
+
+.search_form_detail-page .kodawari_joken-section label {
+  font-size: 12px;
 }
 .checkboxes-section .remove-all-checks {
   padding: 5px 0px;
@@ -430,10 +434,6 @@ textarea {
 }
 .contents.search-form-station-page {
   padding: 0px 0px 16px 0px;
-}
-
-.search_form_station-page .search-form {
-  margin-bottom: 65px;
 }
 
 .search_form_station-page .search-form select {
