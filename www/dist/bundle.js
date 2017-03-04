@@ -40355,8 +40355,9 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       return false;
     });
     
-    var $stationInput = $searchForm.find("input[name=kodawari]");
-    $stationInput.focus(function() {
+    // 路線・駅選択画面に遷移
+    var $kodawariInput = $searchForm.find("input[name=kodawari]");
+    $kodawariInput.focus(function() {
       $(this).blur();
       renderPage({
         page: "search_form_detail",
@@ -40366,9 +40367,6 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     });
     
     this.$contents.html( $searchForm );
-    
-  }
-  postRender() {
     
     // 検索ボタンエリア
     var $submitButtonArea = $(`

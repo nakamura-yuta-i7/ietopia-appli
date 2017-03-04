@@ -90,8 +90,9 @@ export default class SearchPage extends Page {
       return false;
     });
     
-    var $stationInput = $searchForm.find("input[name=kodawari]");
-    $stationInput.focus(function() {
+    // 路線・駅選択画面に遷移
+    var $kodawariInput = $searchForm.find("input[name=kodawari]");
+    $kodawariInput.focus(function() {
       $(this).blur();
       renderPage({
         page: "search_form_detail",
@@ -101,9 +102,6 @@ export default class SearchPage extends Page {
     });
     
     this.$contents.html( $searchForm );
-    
-  }
-  postRender() {
     
     // 検索ボタンエリア
     var $submitButtonArea = $(`
