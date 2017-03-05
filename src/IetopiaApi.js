@@ -137,4 +137,29 @@ export class FavoriteApi extends IetopiaMeApiBase {
     super();
     this.setApiUrlSufix("/favorite");
   }
+  list() {
+    var url = this.url + "/list";
+    return this.request({}, "GET", url);
+  }
+  save(room_id) {
+    var url = this.url + "/save";
+    return this.request({room_id}, "GET", url);
+  }
+  delete(room_id) {
+    var url = this.url + "/delete";
+    return this.request({room_id}, "GET", url);
+  }
+}
+export class IetopiaRoomApi extends IetopiaApi {
+  constructor() {
+    super();
+  }
+  list(params) {
+    var url = this.url + "/room/list";
+    return this.request(params, "GET", url);
+  }
+  get(room_id) {
+    var url = this.url + "/room/detail";
+    return this.request({id: room_id}, "GET", url);
+  }
 }

@@ -1,6 +1,6 @@
 // 家とぴあAPI:基点URL
 module.exports = {
-  // API_BASE_URL: IS_PRODUCTION ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
+  //API_BASE_URL: IS_PRODUCTION ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
   API_BASE_URL: "https://appli.ietopia-services.com",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",

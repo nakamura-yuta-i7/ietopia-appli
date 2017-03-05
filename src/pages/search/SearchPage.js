@@ -29,7 +29,7 @@ export default class SearchPage extends Page {
       <section>
         <h2>路線・駅</h2>
         <div class="ui left icon input station">
-          <input type="text" name="station" placeholder="指定なし">
+          <input type="text" name="station" placeholder="指定なし" readonly="readonly">
           <div class="icon_train">
             <img src="img/common/form/icon_train.png">
           </div>
@@ -39,6 +39,14 @@ export default class SearchPage extends Page {
         </div>
       </section>
     `);
+    var $stationInput = $rosenStationSection.find("input[name=station]");
+    refreshRosenStationInput($stationInput);
+    
+    $rosenStationSection.find(".icon_remove").on("click", function() {
+      global.APP.search_history.rosen = null;
+      global.APP.search_history.station = null;
+      refreshRosenStationInput($stationInput);
+    });
     $searchForm.append( $rosenStationSection );
     
     var $yatinSection = $(`
@@ -68,7 +76,7 @@ export default class SearchPage extends Page {
         <h2>条件・こだわり</h2>
         <div class="description">間取や面積、駅徒歩、設備などこだわりポイントを指定</div>
         <div class="ui left icon input kodawari">
-          <input type="text" name="kodawari" placeholder="指定なし">
+          <input type="text" name="kodawari" placeholder="指定なし" readonly="readonly">
           <div class="icon_list">
             <img src="img/common/form/icon_list.png">
           </div>
@@ -78,10 +86,18 @@ export default class SearchPage extends Page {
         </div>
       </section>
     `);
+    $codawariJokenSection.find(".icon_remove").on("click", function() {
+      global.APP.search_history.tikunensu = "";
+      global.APP.search_history.ekitoho = "";
+      global.APP.search_history.menseki = [];
+      global.APP.search_history.madori = [];
+      global.APP.search_history.kodawari_joken = [];
+      refreshKodawariInput($searchForm.find("input[name=kodawari]"));
+    });
     $searchForm.append( $codawariJokenSection );
     
     var $stationInput = $searchForm.find("input[name=station]");
-    $stationInput.focus(function() {
+    $stationInput.click(function() {
       $(this).blur();
       renderPage({
         page: "search_form_station",
@@ -90,9 +106,9 @@ export default class SearchPage extends Page {
       return false;
     });
     
-    // 路線・駅選択画面に遷移
+    // こだわり条件選択画面に遷移
     var $kodawariInput = $searchForm.find("input[name=kodawari]");
-    $kodawariInput.focus(function() {
+    $kodawariInput.click(function() {
       $(this).blur();
       renderPage({
         page: "search_form_detail",
@@ -100,6 +116,7 @@ export default class SearchPage extends Page {
       });
       return false;
     });
+    refreshKodawariInput($kodawariInput);
     
     this.$contents.html( $searchForm );
     
@@ -133,3 +150,59 @@ export default class SearchPage extends Page {
     });
   }
 }
+global.refreshRosenStationInput = function($stationInput) {
+  console.log( "refreshRosenStationInput", global.APP.search_history );
+  $stationInput.val( (function() {
+    var rosen = global.APP.search_history.rosen || "";
+    var stations = global.APP.search_history.station || [];
+    if ( rosen.length && stations.length ) rosen += ": ";
+    var strings = rosen + stations.join(",");
+    strings = strings.length > 20 ? strings.substr(0,20)+"..." : strings;
+    strings = strings.length == 0 ? "指定なし" : strings;
+    return strings;
+  })() );
+}
+global.refreshKodawariInput = function($kodawariInput) {
+  console.log( "refreshKodawariInput", global.APP.search_history );
+  $kodawariInput.val( (function() {
+    var madori = global.APP.search_history.madori;
+    var tikunensu = global.APP.search_history.tikunensu || "";
+    var menseki = deepCopy( global.APP.search_history.menseki || [] );
+    var ekitoho = global.APP.search_history.ekitoho || "";
+    var kodawari_joken = (global.APP.search_history.kodawari_joken || []).concat().join(",");
+    
+    madori = (madori || []).concat().join(",");
+    
+    if (tikunensu.length) tikunensu = getTikunensuName(tikunensu);
+    if (menseki.length) menseki = menseki.map(function(key) {
+      return getMensekiName(key);
+    });
+    menseki = menseki.join(",");
+    if (ekitoho.length) ekitoho = getEkitohoName(ekitoho);
+    
+    var arr = [];
+    if ( madori.length ) arr.push(madori);
+    if ( tikunensu.length ) arr.push(tikunensu);
+    if ( menseki.length ) arr.push(menseki);
+    if ( ekitoho.length ) arr.push(ekitoho);
+    if ( kodawari_joken.length ) arr.push(kodawari_joken);
+    
+    var strings = arr.join(" ");
+    strings = strings.length > 20 ? strings.substr(0,20)+"..." : strings;
+    strings = strings.length == 0 ? "指定なし" : strings;
+    return strings;
+  })() );
+}
+global.getTikunensuName = function(key) {
+  var item = _.find(global.APP.master.tikunensu, {value: key});
+  return item ? item.name : false
+}
+global.getMensekiName = function(key) {
+  var item = _.find(global.APP.master.menseki, {value: key});
+  return item ? item.name : false
+}
+global.getEkitohoName = function(key) {
+  var item = _.find(global.APP.master.ekitoho, {value: key});
+  return item ? item.name : false
+}
+

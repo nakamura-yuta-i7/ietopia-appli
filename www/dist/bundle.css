@@ -574,6 +574,28 @@ textarea {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0045484d', endColorstr='#a8000000',GradientType=0 );
   /* IE6-9 */
 }
+.room-page header .room-sub-menu {
+  position: absolute;
+  top: 20px;
+  right: 0px;
+}
+
+.room-page header .room-sub-menu .favorite {
+  position: absolute;
+  top: 17px;
+  right: 14px;
+  cursor: pointer;
+}
+
+.room-page header .room-sub-menu .favorite img {
+  display: inline-block;
+}
+
+.room-page .contents .name {
+  font-size: 13px;
+  font-weight: 900;
+  color: #F47F00;
+}
 .special-page .contents {
   padding: 16px 13px;
 }

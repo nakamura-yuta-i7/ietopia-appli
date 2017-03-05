@@ -15,16 +15,18 @@ import { EkitohoApi, TikunensuApi,
   MensekiApi, MadoriApi, RosenApi, 
   StationApi, KodawariJokenApi, YatinApi } from "./IetopiaApi";
 import { MeApi, SearchHistoryApi, RoomHistoryApi, FavoriteApi } from "./IetopiaApi";
+import { IetopiaRoomApi } from "./IetopiaApi";
 
 // グローバル変数
 global.APP = {
-  me: null,
-  search_history: null,
+  me: null, // ログインした後に入れる
+  search_history: null, // 検索条件を変更したり検索した時に入れる
   room_history: null,
   favorite: null,
   master: {},
   api: {
     ietopia: {
+      room: new IetopiaRoomApi(),
       master: {
         madori: new MadoriApi(),
         ekitoho: new EkitohoApi(),
@@ -49,7 +51,7 @@ import Dispatcher from "./Dispatcher";
 import queryString from 'query-string';
 global.queryString = queryString;
 global.renderPage = function (params={}) {
-  const transitionType = params.transitionType || "REPLACE"
+  const transitionType = params.transitionType || "REPLACE";
   const qs = queryString.parse(location.search);
   const page   = params.page   || qs.page || "top";
   const action = params.action || qs.action || "index";
@@ -138,6 +140,10 @@ function loadApi() {
   .then(function() {
     return APP.api.ietopia.user.search_history.get()
     .then( params => global.APP.search_history = params );
+  })
+  .then(function() {
+    return APP.api.ietopia.user.favorite.list()
+    .then( list => global.APP.favorite = list );
   })
   .then(()=>{
     var masters = APP.api.ietopia.master;

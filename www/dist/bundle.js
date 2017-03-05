@@ -4637,7 +4637,7 @@ class IetopiaApi {
     });
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["m"] = IetopiaApi;
+/* harmony export (immutable) */ __webpack_exports__["n"] = IetopiaApi;
 
 class IetopiaMasterApiBase extends IetopiaApi {
   constructor() {
@@ -4651,7 +4651,7 @@ class StationApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/station");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["f"] = StationApi;
+/* harmony export (immutable) */ __webpack_exports__["g"] = StationApi;
 
 class MadoriApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4659,7 +4659,7 @@ class MadoriApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/madori");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = MadoriApi;
+/* harmony export (immutable) */ __webpack_exports__["b"] = MadoriApi;
 
 class TikunensuApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4667,7 +4667,7 @@ class TikunensuApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/tikunensu");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["c"] = TikunensuApi;
+/* harmony export (immutable) */ __webpack_exports__["d"] = TikunensuApi;
 
 class EkitohoApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4675,7 +4675,7 @@ class EkitohoApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/ekitoho");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["b"] = EkitohoApi;
+/* harmony export (immutable) */ __webpack_exports__["c"] = EkitohoApi;
 
 class MensekiApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4683,7 +4683,7 @@ class MensekiApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/menseki");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["d"] = MensekiApi;
+/* harmony export (immutable) */ __webpack_exports__["e"] = MensekiApi;
 
 class RosenApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4691,7 +4691,7 @@ class RosenApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/rosen");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["e"] = RosenApi;
+/* harmony export (immutable) */ __webpack_exports__["f"] = RosenApi;
 
 class KodawariJokenApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4699,7 +4699,7 @@ class KodawariJokenApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/kodawari_joken");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["g"] = KodawariJokenApi;
+/* harmony export (immutable) */ __webpack_exports__["h"] = KodawariJokenApi;
 
 class YatinApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4707,7 +4707,7 @@ class YatinApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/yatin");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["h"] = YatinApi;
+/* harmony export (immutable) */ __webpack_exports__["i"] = YatinApi;
 
 class IetopiaUserApiBase extends IetopiaApi {
   constructor() {
@@ -4724,7 +4724,7 @@ class IetopiaMeApiBase extends IetopiaUserApiBase {
 class MeApi extends IetopiaMeApiBase {
   
 }
-/* harmony export (immutable) */ __webpack_exports__["i"] = MeApi;
+/* harmony export (immutable) */ __webpack_exports__["j"] = MeApi;
 
 class SearchHistoryApi extends IetopiaMeApiBase {
   constructor() {
@@ -4742,7 +4742,7 @@ class SearchHistoryApi extends IetopiaMeApiBase {
     return this.request({params_json}, "POST", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["j"] = SearchHistoryApi;
+/* harmony export (immutable) */ __webpack_exports__["k"] = SearchHistoryApi;
 
 class RoomHistoryApi extends IetopiaMeApiBase {
   constructor() {
@@ -4750,15 +4750,42 @@ class RoomHistoryApi extends IetopiaMeApiBase {
     this.setApiUrlSufix("/room_history");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["k"] = RoomHistoryApi;
+/* harmony export (immutable) */ __webpack_exports__["l"] = RoomHistoryApi;
 
 class FavoriteApi extends IetopiaMeApiBase {
   constructor() {
     super();
     this.setApiUrlSufix("/favorite");
   }
+  list() {
+    var url = this.url + "/list";
+    return this.request({}, "GET", url);
+  }
+  save(room_id) {
+    var url = this.url + "/save";
+    return this.request({room_id}, "GET", url);
+  }
+  delete(room_id) {
+    var url = this.url + "/delete";
+    return this.request({room_id}, "GET", url);
+  }
 }
-/* harmony export (immutable) */ __webpack_exports__["l"] = FavoriteApi;
+/* harmony export (immutable) */ __webpack_exports__["m"] = FavoriteApi;
+
+class IetopiaRoomApi extends IetopiaApi {
+  constructor() {
+    super();
+  }
+  list(params) {
+    var url = this.url + "/room/list";
+    return this.request(params, "GET", url);
+  }
+  get(room_id) {
+    var url = this.url + "/room/detail";
+    return this.request({id: room_id}, "GET", url);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = IetopiaRoomApi;
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
@@ -38413,7 +38440,7 @@ class Dispatcher {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  // API_BASE_URL: IS_PRODUCTION ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
+  //API_BASE_URL: IS_PRODUCTION ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
   API_BASE_URL: "https://appli.ietopia-services.com",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
@@ -39471,15 +39498,17 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfYAAADKCAYAAABX
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_search_form_detail_SearchFormDetailPage__ = __webpack_require__(178);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_search_form_station_SearchFormStationPage__ = __webpack_require__(179);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_search_result_SearchResultPage__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_special_SpecialPage__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_news_NewsPage__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_favorite_FavoritePage__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_mypage_MyPagePage__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_inquiry_InqueryPage__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_history_HistoryPage__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_kibou_osumai_KibouOsumaiPage__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_info_InfoPage__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_kiyaku_KiyakuPage__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_room_RoomPage__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_special_SpecialPage__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_news_NewsPage__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_favorite_FavoritePage__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_mypage_MyPagePage__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_inquiry_InqueryPage__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_history_HistoryPage__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_kibou_osumai_KibouOsumaiPage__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_info_InfoPage__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_kiyaku_KiyakuPage__ = __webpack_require__(168);
+
 
 
 
@@ -39509,15 +39538,16 @@ class Router {
       case "search_form_detail" : return new __WEBPACK_IMPORTED_MODULE_2__pages_search_form_detail_SearchFormDetailPage__["a" /* default */](this.requestParams, this.transitionType);
       case "search_form_station": return new __WEBPACK_IMPORTED_MODULE_3__pages_search_form_station_SearchFormStationPage__["a" /* default */](this.requestParams, this.transitionType);
       case "search_result"      : return new __WEBPACK_IMPORTED_MODULE_4__pages_search_result_SearchResultPage__["a" /* default */](this.requestParams, this.transitionType);
-      case "special"            : return new __WEBPACK_IMPORTED_MODULE_5__pages_special_SpecialPage__["a" /* default */](this.requestParams, this.transitionType);
-      case "news"               : return new __WEBPACK_IMPORTED_MODULE_6__pages_news_NewsPage__["a" /* default */](this.requestParams, this.transitionType);
-      case "favorite"           : return new __WEBPACK_IMPORTED_MODULE_7__pages_favorite_FavoritePage__["a" /* default */](this.requestParams, this.transitionType);
-      case "mypage"             : return new __WEBPACK_IMPORTED_MODULE_8__pages_mypage_MyPagePage__["a" /* default */](this.requestParams, this.transitionType);
-      case "inquiry"            : return new __WEBPACK_IMPORTED_MODULE_9__pages_inquiry_InqueryPage__["a" /* default */](this.requestParams, this.transitionType);
-      case "history"            : return new __WEBPACK_IMPORTED_MODULE_10__pages_history_HistoryPage__["a" /* default */](this.requestParams, this.transitionType);
-      case "kibou_osumai"       : return new __WEBPACK_IMPORTED_MODULE_11__pages_kibou_osumai_KibouOsumaiPage__["a" /* default */](this.requestParams, this.transitionType);
-      case "info"               : return new __WEBPACK_IMPORTED_MODULE_12__pages_info_InfoPage__["a" /* default */](this.requestParams, this.transitionType);
-      case "kiyaku"             : return new __WEBPACK_IMPORTED_MODULE_13__pages_kiyaku_KiyakuPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "room"               : return new __WEBPACK_IMPORTED_MODULE_5__pages_room_RoomPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "special"            : return new __WEBPACK_IMPORTED_MODULE_6__pages_special_SpecialPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "news"               : return new __WEBPACK_IMPORTED_MODULE_7__pages_news_NewsPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "favorite"           : return new __WEBPACK_IMPORTED_MODULE_8__pages_favorite_FavoritePage__["a" /* default */](this.requestParams, this.transitionType);
+      case "mypage"             : return new __WEBPACK_IMPORTED_MODULE_9__pages_mypage_MyPagePage__["a" /* default */](this.requestParams, this.transitionType);
+      case "inquiry"            : return new __WEBPACK_IMPORTED_MODULE_10__pages_inquiry_InqueryPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "history"            : return new __WEBPACK_IMPORTED_MODULE_11__pages_history_HistoryPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "kibou_osumai"       : return new __WEBPACK_IMPORTED_MODULE_12__pages_kibou_osumai_KibouOsumaiPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "info"               : return new __WEBPACK_IMPORTED_MODULE_13__pages_info_InfoPage__["a" /* default */](this.requestParams, this.transitionType);
+      case "kiyaku"             : return new __WEBPACK_IMPORTED_MODULE_14__pages_kiyaku_KiyakuPage__["a" /* default */](this.requestParams, this.transitionType);
       default:
         throw Error("Not found.");
     }
@@ -40294,7 +40324,7 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       <section>
         <h2>路線・駅</h2>
         <div class="ui left icon input station">
-          <input type="text" name="station" placeholder="指定なし">
+          <input type="text" name="station" placeholder="指定なし" readonly="readonly">
           <div class="icon_train">
             <img src="img/common/form/icon_train.png">
           </div>
@@ -40304,6 +40334,14 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
         </div>
       </section>
     `);
+    var $stationInput = $rosenStationSection.find("input[name=station]");
+    refreshRosenStationInput($stationInput);
+    
+    $rosenStationSection.find(".icon_remove").on("click", function() {
+      global.APP.search_history.rosen = null;
+      global.APP.search_history.station = null;
+      refreshRosenStationInput($stationInput);
+    });
     $searchForm.append( $rosenStationSection );
     
     var $yatinSection = $(`
@@ -40333,7 +40371,7 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
         <h2>条件・こだわり</h2>
         <div class="description">間取や面積、駅徒歩、設備などこだわりポイントを指定</div>
         <div class="ui left icon input kodawari">
-          <input type="text" name="kodawari" placeholder="指定なし">
+          <input type="text" name="kodawari" placeholder="指定なし" readonly="readonly">
           <div class="icon_list">
             <img src="img/common/form/icon_list.png">
           </div>
@@ -40343,10 +40381,18 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
         </div>
       </section>
     `);
+    $codawariJokenSection.find(".icon_remove").on("click", function() {
+      global.APP.search_history.tikunensu = "";
+      global.APP.search_history.ekitoho = "";
+      global.APP.search_history.menseki = [];
+      global.APP.search_history.madori = [];
+      global.APP.search_history.kodawari_joken = [];
+      refreshKodawariInput($searchForm.find("input[name=kodawari]"));
+    });
     $searchForm.append( $codawariJokenSection );
     
     var $stationInput = $searchForm.find("input[name=station]");
-    $stationInput.focus(function() {
+    $stationInput.click(function() {
       $(this).blur();
       renderPage({
         page: "search_form_station",
@@ -40355,9 +40401,9 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       return false;
     });
     
-    // 路線・駅選択画面に遷移
+    // こだわり条件選択画面に遷移
     var $kodawariInput = $searchForm.find("input[name=kodawari]");
-    $kodawariInput.focus(function() {
+    $kodawariInput.click(function() {
       $(this).blur();
       renderPage({
         page: "search_form_detail",
@@ -40365,6 +40411,7 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       });
       return false;
     });
+    refreshKodawariInput($kodawariInput);
     
     this.$contents.html( $searchForm );
     
@@ -40399,6 +40446,63 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SearchPage;
+
+global.refreshRosenStationInput = function($stationInput) {
+  console.log( "refreshRosenStationInput", global.APP.search_history );
+  $stationInput.val( (function() {
+    var rosen = global.APP.search_history.rosen || "";
+    var stations = global.APP.search_history.station || [];
+    if ( rosen.length && stations.length ) rosen += ": ";
+    var strings = rosen + stations.join(",");
+    strings = strings.length > 20 ? strings.substr(0,20)+"..." : strings;
+    strings = strings.length == 0 ? "指定なし" : strings;
+    return strings;
+  })() );
+}
+global.refreshKodawariInput = function($kodawariInput) {
+  console.log( "refreshKodawariInput", global.APP.search_history );
+  $kodawariInput.val( (function() {
+    var madori = global.APP.search_history.madori;
+    var tikunensu = global.APP.search_history.tikunensu || "";
+    var menseki = deepCopy( global.APP.search_history.menseki || [] );
+    var ekitoho = global.APP.search_history.ekitoho || "";
+    var kodawari_joken = (global.APP.search_history.kodawari_joken || []).concat().join(",");
+    
+    madori = (madori || []).concat().join(",");
+    
+    if (tikunensu.length) tikunensu = getTikunensuName(tikunensu);
+    if (menseki.length) menseki = menseki.map(function(key) {
+      return getMensekiName(key);
+    });
+    menseki = menseki.join(",");
+    if (ekitoho.length) ekitoho = getEkitohoName(ekitoho);
+    
+    var arr = [];
+    if ( madori.length ) arr.push(madori);
+    if ( tikunensu.length ) arr.push(tikunensu);
+    if ( menseki.length ) arr.push(menseki);
+    if ( ekitoho.length ) arr.push(ekitoho);
+    if ( kodawari_joken.length ) arr.push(kodawari_joken);
+    
+    var strings = arr.join(" ");
+    strings = strings.length > 20 ? strings.substr(0,20)+"..." : strings;
+    strings = strings.length == 0 ? "指定なし" : strings;
+    return strings;
+  })() );
+}
+global.getTikunensuName = function(key) {
+  var item = _.find(global.APP.master.tikunensu, {value: key});
+  return item ? item.name : false
+}
+global.getMensekiName = function(key) {
+  var item = _.find(global.APP.master.menseki, {value: key});
+  return item ? item.name : false
+}
+global.getEkitohoName = function(key) {
+  var item = _.find(global.APP.master.ekitoho, {value: key});
+  return item ? item.name : false
+}
+
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
@@ -40486,17 +40590,30 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
     this.$contents.html( $searchForm );
   }
   postRender() {
-
+    
     $(".search_form_detail-page .history-back").on("click", function() {
       
       // 検索条件をローカル変数とAPIサーバー側に保管
       var formQs = $(".search_form_detail-page form").serialize();
       var formParams = global.queryString.parse(formQs);
+      formParams.madori = forceArray(formParams.madori);
+      formParams.menseki = forceArray(formParams.menseki);
+      formParams.kodawari_joken = forceArray(formParams.kodawari_joken);
+      
+      function forceArray(val) {
+        val = typeof val === "undefined" ? [] : val;
+        val = val.length == 0 ? [] : val;
+        val = Array.isArray(val) ? val : [val];
+        return val;
+      }
       
       Object.assign(APP.search_history, formParams);
       
       var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(global.APP.search_history) );
+      
+      var $kodawariInput = $(".search-page input[name=kodawari]");
+      refreshKodawariInput($kodawariInput);
     });
     
   }
@@ -40547,20 +40664,18 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
     
     renderStationSection();
     rosenSection.setChangeEvent(function() {
-      saveSearchHistory();
       renderStationSection();
     });
     
     // 駅選択チェックボックスエリア
     function renderStationSection() {
-      console.log( "global.APP.search_history.station", global.APP.search_history.station );
+      
       var stationSection = new __WEBPACK_IMPORTED_MODULE_3__parts_StationSection__["a" /* default */]({
         selectedVals: global.APP.search_history.station || [],
         rosen: rosenSection.getSelectedValue()
       });
       var $html = stationSection.getHtml();
       var $checkboxes = $html.find("input[type=checkbox]");
-      $checkboxes.on("change", saveSearchHistory);
       $stationArea.html(null);
       $stationArea.append( $html );
       
@@ -40573,14 +40688,6 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
         });
         return values;
       })();
-    }
-    function saveSearchHistory() {
-      // 検索条件をローカル変数とAPIサーバー側に保管
-      var api = APP.api.ietopia.user.search_history;
-      var params = global.APP.search_history;
-      params.rosen = rosenSection.getSelectedValue();
-      params.station = getStationCheckedVals();
-      api.save( JSON.stringify(params) );
     }
     
     
@@ -40603,6 +40710,25 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
     
     this.$contents.html( $searchForm );
   }
+  postRender() {
+
+    $(".search_form_station-page .history-back").on("click", function() {
+      
+      // 検索条件をローカル変数とAPIサーバー側に保管
+      var formQs = $(".search_form_station-page form").serialize();
+      var formParams = global.queryString.parse(formQs);
+      formParams.station = formParams.station ? formParams.station : [];
+      formParams.station = Array.isArray(formParams.station) ? formParams.station : [formParams.station];
+      
+      Object.assign(APP.search_history, formParams);
+      
+      var api = global.APP.api.ietopia.user.search_history;
+      api.save( JSON.stringify(global.APP.search_history) );
+      
+      global.refreshRosenStationInput($(".search-page input[name=station]"));
+    });
+    
+  }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SearchFormStationPage;
 
@@ -40616,6 +40742,9 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_result_scss__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_result_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search_result_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__ = __webpack_require__(186);
+
+
 
 
 
@@ -40646,80 +40775,10 @@ class SearchResultPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* defaul
     this.$headerOriginalContents.append( $sortButton );
     this.$headerOriginalContents.append( $filterButton );
     
-    var $roomList = $(`<div class="room-list"></div>`);
-    this.$contents.append( $roomList );
-    
-    this.requestList()
-    .then( (rooms) => {
-      rooms.forEach( (room) => {
-        var $room = this.createRoomElem(room);
-        $roomList.append($room);
-      } );
-    } )
-    .catch( (err) => {
-      console.error( err );
-    } );
-  }
-  // 部屋要素を構築
-  createRoomElem(room) {
-    // 部屋
-    var $room = $(`<div class="room">`);
-    // 外観写真
-    var $gaikanImage = ( () => {
-      var gaikanImageMainUrl = room.gaikan_images.count == 0 ?
-          "" : // 外観写真が無い場合
-          room.gaikan_image_main ; // 外観写真（メイン）
-      return $(`<img class="main-img" src="${gaikanImageMainUrl}">`);
-    } )();
-    $room.append( $gaikanImage );
-    // 半透明グラデーション背景
-    var $bg = $(`<div class="bg"></div>`);
-    $room.append( $bg );
-    // お気に入り登録スターアイコン
-    var $starImg = $(`<img src="img/common/room-list/icon_star_off.png">`);
-    var $starDiv = $(`<div class="star"></div>`);
-    $starDiv.append( $starImg );
-    $starDiv.on("click", () => {
-      console.log( "お気に入りに登録しました: ", room.id );
-      return false;
+    __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__["a" /* default */].findAll(global.APP.search_history)
+    .then( $roomList => {
+      this.$contents.append( $roomList );
     });
-    $room.append( $starDiv );
-    // 家賃＆間取／面積
-    var $yatinMadoriDiv = $(`<div class="yatin-madori"></div>`);
-    // 家賃
-    var $yatinDiv = $(`<div class="yatin">
-      <span class="yatin-int">${room.yatin_int/10000}</span>
-      <span class="manyen">万円</span>
-    </div>`);
-    $yatinMadoriDiv.append( $yatinDiv );
-    // 間取／面積
-    var $madoriDiv = $(`<div class="madori-menseki">
-      <span class="madori">${room.madori}</span>
-      / <span class="menseki">${room.senyumenseki}</span>
-    </div>`);
-    $yatinMadoriDiv.append( $madoriDiv );
-    $room.append( $yatinMadoriDiv );
-    // 交通(１行目)
-    var $kotuDiv = $(`<div class="kotu">
-      <span>${room.kotu_first_line}</span>
-    </div>`);
-    $room.append( $kotuDiv );
-    // 部屋タップで詳細ページに遷移
-    $room.on("click", () => {
-      $.ajax({
-        url: global.config.API_BASE_URL + "/api/room/detail?id=" + room.id,
-        dataType: "json",
-      }).then( (room) => {
-        console.log( room );
-      } );
-    });
-    return $room;
-  }
-  requestList() {
-    return $.ajax({
-      url: global.config.API_BASE_URL + "/api/room/list",
-      dataType: "json",
-    })
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SearchResultPage;
@@ -40885,30 +40944,32 @@ global.config = __webpack_require__(123);
 
 
 
+
 // グローバル変数
 global.APP = {
-  me: null,
-  search_history: null,
+  me: null, // ログインした後に入れる
+  search_history: null, // 検索条件を変更したり検索した時に入れる
   room_history: null,
   favorite: null,
   master: {},
   api: {
     ietopia: {
+      room: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["a" /* IetopiaRoomApi */](),
       master: {
-        madori: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["a" /* MadoriApi */](),
-        ekitoho: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["b" /* EkitohoApi */](),
-        tikunensu: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["c" /* TikunensuApi */](),
-        menseki: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["d" /* MensekiApi */](),
-        rosen: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["e" /* RosenApi */](),
-        station: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["f" /* StationApi */](),
-        kodawari_joken: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["g" /* KodawariJokenApi */](),
-        yatin: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["h" /* YatinApi */](),
+        madori: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["b" /* MadoriApi */](),
+        ekitoho: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["c" /* EkitohoApi */](),
+        tikunensu: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["d" /* TikunensuApi */](),
+        menseki: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["e" /* MensekiApi */](),
+        rosen: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["f" /* RosenApi */](),
+        station: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["g" /* StationApi */](),
+        kodawari_joken: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["h" /* KodawariJokenApi */](),
+        yatin: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["i" /* YatinApi */](),
       },
       user: {
-        me: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["i" /* MeApi */](),
-        search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["j" /* SearchHistoryApi */](),
-        room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["k" /* RoomHistoryApi */](),
-        favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* FavoriteApi */](),
+        me: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["j" /* MeApi */](),
+        search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["k" /* SearchHistoryApi */](),
+        room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* RoomHistoryApi */](),
+        favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* FavoriteApi */](),
       },
     },
   },
@@ -40918,7 +40979,7 @@ global.APP = {
 
 global.queryString = __WEBPACK_IMPORTED_MODULE_7_query_string___default.a;
 global.renderPage = function (params={}) {
-  const transitionType = params.transitionType || "REPLACE"
+  const transitionType = params.transitionType || "REPLACE";
   const qs = __WEBPACK_IMPORTED_MODULE_7_query_string___default.a.parse(location.search);
   const page   = params.page   || qs.page || "top";
   const action = params.action || qs.action || "index";
@@ -40960,10 +41021,10 @@ function onDeviceReady() {
   console.log( "koko1" );
   
   promise.resolve()
-  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* default */].logout )
-  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* default */].isloggedIn )
+  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* default */].logout )
+  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* default */].isloggedIn )
   .then( isloggedIn => {
-    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* default */].login( getUUID() );
+    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* default */].login( getUUID() );
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {
@@ -41008,6 +41069,10 @@ function loadApi() {
     return APP.api.ietopia.user.search_history.get()
     .then( params => global.APP.search_history = params );
   })
+  .then(function() {
+    return APP.api.ietopia.user.favorite.list()
+    .then( list => global.APP.favorite = list );
+  })
   .then(()=>{
     var masters = APP.api.ietopia.master;
     return promise.all(Object.keys(masters).map(key=>{
@@ -41017,6 +41082,363 @@ function loadApi() {
   });
 }
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 185 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parts_FavoriteButton__ = __webpack_require__(189);
+
+
+class RoomItem {
+  // 部屋要素を構築
+  static createElem(room) {
+    // 部屋
+    var $room = $(`<div class="room">`);
+    // 外観写真
+    var $gaikanImage = ( () => {
+      var gaikanImageMainUrl = room.gaikan_images.count == 0 ?
+          "" : // 外観写真が無い場合
+          room.gaikan_image_main ; // 外観写真（メイン）
+      return $(`<img class="main-img" src="${gaikanImageMainUrl}">`);
+    } )();
+    $room.append( $gaikanImage );
+    // 半透明グラデーション背景
+    var $bg = $(`<div class="bg"></div>`);
+    $room.append( $bg );
+    // お気に入り登録スターアイコン
+    var $starDiv = new __WEBPACK_IMPORTED_MODULE_0__parts_FavoriteButton__["a" /* default */]({room_id: room.id}).getHtml();
+    $room.append( $starDiv );
+    // 家賃＆間取／面積
+    var $yatinMadoriDiv = $(`<div class="yatin-madori"></div>`);
+    // 家賃
+    var $yatinDiv = $(`<div class="yatin">
+      <span class="yatin-int">${room.yatin_int/10000}</span>
+      <span class="manyen">万円</span>
+    </div>`);
+    $yatinMadoriDiv.append( $yatinDiv );
+    // 間取／面積
+    var $madoriDiv = $(`<div class="madori-menseki">
+      <span class="madori">${room.madori}</span>
+      / <span class="menseki">${room.senyumenseki}</span>
+    </div>`);
+    $yatinMadoriDiv.append( $madoriDiv );
+    $room.append( $yatinMadoriDiv );
+    // 交通(１行目)
+    var $kotuDiv = $(`<div class="kotu">
+      <span>${room.kotu_first_line}</span>
+    </div>`);
+    $room.append( $kotuDiv );
+    // 部屋タップで詳細ページに遷移
+    $room.on("click", () => {
+      
+      // 画面切り替え
+      renderPage({
+        page: "room",
+        transitionType: "SLIDE_LEFT",
+        requests: {
+          room_id: room.id
+        }
+      });
+    });
+    return $room;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = RoomItem;
+
+
+/***/ }),
+/* 186 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__RoomItem__ = __webpack_require__(185);
+
+
+class RoomList {
+  static findAll(searchParams) {
+    var $roomList = $(`<div class="room-list"></div>`);
+    
+    return RoomList.requestList(searchParams)
+    .then( (rooms) => {
+      rooms.forEach( (room) => {
+        var $room = __WEBPACK_IMPORTED_MODULE_0__RoomItem__["a" /* default */].createElem(room);
+        $roomList.append($room);
+      } );
+      if ( rooms.length == 0 ) {
+        $roomList.append( $(`
+          <div>検索条件にヒットする物件がありませんでした。</div>
+        `) );
+      }
+      return $roomList;
+    } );
+  }
+  static requestList(searchParams) {
+    return global.APP.api.ietopia.room.list(searchParams);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = RoomList;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 187 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__room_scss__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__room_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__room_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__parts_FavoriteButton__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__RoomImagesArea__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__MainDataArea__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__MapArea__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__SetubiJokenArea__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__DetailDataArea__ = __webpack_require__(195);
+
+
+
+
+
+
+
+
+
+class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  indexAction() {
+    // ヘッダーパネルの設定
+    this.headerTitle = "物件詳細";
+    this.headerBackButtonText = `一覧`
+    this.displayHeaderBackButton = true;
+    this.displayHeaderLogoS = false;
+    
+    // 部屋IDは参照の仕方がめんどくさいのでここでメモしておく
+    var room_id = this.requests.room_id;
+    // 部屋API
+    var api = global.APP.api.ietopia.room;
+    
+    // お気に入り登録ボタン
+    this.$headerOriginalContents = $(`
+      <div class="room-sub-menu">
+      </div>
+    `);
+    var $favoriteBtn = new __WEBPACK_IMPORTED_MODULE_2__parts_FavoriteButton__["a" /* default */]({room_id}).getHtml();
+    this.$headerOriginalContents.append( $favoriteBtn );
+    
+    // 部屋詳細ページの土台
+    var $roomContents = $(`
+      <div class="room-contents">
+        部屋id: ${room_id}
+      </div>
+    `);
+    
+    api.get(room_id)
+    .then(data=>{
+      console.log( data );
+      
+      // 画像リスト
+      $roomContents.append(
+        new __WEBPACK_IMPORTED_MODULE_3__RoomImagesArea__["a" /* default */](data).getHtml() );
+      
+      // メイン情報
+      $roomContents.append(
+        new __WEBPACK_IMPORTED_MODULE_4__MainDataArea__["a" /* default */](data).getHtml() );
+      
+      // 地図エリア
+      $roomContents.append(
+        new __WEBPACK_IMPORTED_MODULE_5__MapArea__["a" /* default */](data).getHtml() );
+      
+      // 担当者からのコメント
+      // 設備・条件
+      $roomContents.append(
+        new __WEBPACK_IMPORTED_MODULE_6__SetubiJokenArea__["a" /* default */](data).getHtml() );
+      
+      // 物件詳細情報
+      $roomContents.append(
+        new __WEBPACK_IMPORTED_MODULE_7__DetailDataArea__["a" /* default */](data).getHtml() );
+      
+      // 部屋情報HTMLをセット
+      this.$contents.html( $roomContents );
+    });
+  }
+  postRender() {
+    // お問い合わせエリア: ここから
+    var $inquiryArea = $(`
+      <div class="inquiry-area">電話・メール</div>
+    `);
+    // 電話でお問い合わせボタン
+    
+    // メールでお問い合わせボタン
+    
+    // エリアに追加
+    this.$contents.after( $inquiryArea );
+    // お問い合わせエリア: ここまで
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = RoomPage;
+
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 189 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Html__ = __webpack_require__(3);
+
+class FavoriteButton extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
+  constructor(params={}) {
+    super();
+    var room_id = params.room_id;
+    
+    var $favoriteBtn = $(`
+        <div class="favorite star">
+          <img src="${getfavoriteIconSrc(room_id)}" height="22">
+        </div>`);
+    $favoriteBtn.on("click", function() {
+      (function() {
+        return hasFavorite(room_id) ?
+          global.APP.api.ietopia.user.favorite.delete(room_id) :
+          global.APP.api.ietopia.user.favorite.save(room_id)
+      })()
+      .then(()=>{
+        return global.APP.api.ietopia.user.favorite.list()
+        .then( list => global.APP.favorite = list );
+      })
+      .then(()=>{
+        var src = getfavoriteIconSrc(room_id);
+        $(this).find("img").attr("src", src);
+      });
+      return false;
+    });
+    this.$html = $favoriteBtn;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = FavoriteButton;
+
+function getfavoriteIconSrc(room_id) {
+  var found = hasFavorite(room_id);
+  var name = found ? "icon_star_on" : "icon_star_off";
+  return `img/common/room-list/${name}.png`;
+}
+function hasFavorite(room_id) {
+  return _.includes(global.APP.favorite || [], room_id);
+}
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 190 */,
+/* 191 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parts_Html__ = __webpack_require__(3);
+
+class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default */] {
+  constructor(data={}) {
+    super();
+    var gaikan_images = data.gaikan_images;
+    var naikan_images = data.naikan_images;
+    
+    this.$html = $(`<div>RoomImagesArea</div>`);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = RoomImagesArea;
+
+
+/***/ }),
+/* 192 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parts_Html__ = __webpack_require__(3);
+
+class MainDataArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default */] {
+  constructor(data={}) {
+    super();
+    // 建物名・部屋番号
+    
+    // キャッチコピー
+    
+    // 間取・面積
+    
+    // 賃料
+    
+    // 管理費・共益費
+    
+    // 敷金
+    
+    // 礼金
+    
+    // 所在地
+    
+    // 交通
+    
+    this.$html = $(`<div>MainDataArea</div>`);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = MainDataArea;
+
+
+/***/ }),
+/* 193 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parts_Html__ = __webpack_require__(3);
+
+class MapArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default */] {
+  constructor(data={}) {
+    super();
+
+    this.$html = $(`<div>MapArea</div>`);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = MapArea;
+
+
+/***/ }),
+/* 194 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parts_Html__ = __webpack_require__(3);
+
+class SetubiJokenArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default */] {
+  constructor(data={}) {
+    super();
+    // 担当者からのコメント
+    // 設備・条件
+    this.$html = $(`<div>SetubiJokenArea</div>`);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = SetubiJokenArea;
+
+
+/***/ }),
+/* 195 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parts_Html__ = __webpack_require__(3);
+
+class DetailDataArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default */] {
+  constructor(data={}) {
+    super();
+
+    this.$html = $(`<div>DetailDataArea</div>`);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = DetailDataArea;
+
 
 /***/ })
 /******/ ]);

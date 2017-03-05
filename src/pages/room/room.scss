@@ -1,0 +1,25 @@
+.room-page {
+  header {
+    .room-sub-menu {
+      position: absolute;
+      top: 20px;
+      right: 0px;
+      .favorite {
+        position: absolute;
+        top: 17px;
+        right: 14px;
+        cursor: pointer;
+        img {
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .contents {
+    .name {
+      font-size: 13px;
+      font-weight: 900;
+      color: #F47F00;
+    }
+  }
+}

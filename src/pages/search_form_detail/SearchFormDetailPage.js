@@ -69,17 +69,30 @@ export default class SearchFormDetailPage extends Page {
     this.$contents.html( $searchForm );
   }
   postRender() {
-
+    
     $(".search_form_detail-page .history-back").on("click", function() {
       
       // 検索条件をローカル変数とAPIサーバー側に保管
       var formQs = $(".search_form_detail-page form").serialize();
       var formParams = global.queryString.parse(formQs);
+      formParams.madori = forceArray(formParams.madori);
+      formParams.menseki = forceArray(formParams.menseki);
+      formParams.kodawari_joken = forceArray(formParams.kodawari_joken);
+      
+      function forceArray(val) {
+        val = typeof val === "undefined" ? [] : val;
+        val = val.length == 0 ? [] : val;
+        val = Array.isArray(val) ? val : [val];
+        return val;
+      }
       
       Object.assign(APP.search_history, formParams);
       
       var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(global.APP.search_history) );
+      
+      var $kodawariInput = $(".search-page input[name=kodawari]");
+      refreshKodawariInput($kodawariInput);
     });
     
   }

@@ -28,20 +28,18 @@ export default class SearchFormStationPage extends Page {
     
     renderStationSection();
     rosenSection.setChangeEvent(function() {
-      saveSearchHistory();
       renderStationSection();
     });
     
     // 駅選択チェックボックスエリア
     function renderStationSection() {
-      console.log( "global.APP.search_history.station", global.APP.search_history.station );
+      
       var stationSection = new StationSection({
         selectedVals: global.APP.search_history.station || [],
         rosen: rosenSection.getSelectedValue()
       });
       var $html = stationSection.getHtml();
       var $checkboxes = $html.find("input[type=checkbox]");
-      $checkboxes.on("change", saveSearchHistory);
       $stationArea.html(null);
       $stationArea.append( $html );
       
@@ -54,14 +52,6 @@ export default class SearchFormStationPage extends Page {
         });
         return values;
       })();
-    }
-    function saveSearchHistory() {
-      // 検索条件をローカル変数とAPIサーバー側に保管
-      var api = APP.api.ietopia.user.search_history;
-      var params = global.APP.search_history;
-      params.rosen = rosenSection.getSelectedValue();
-      params.station = getStationCheckedVals();
-      api.save( JSON.stringify(params) );
     }
     
     
@@ -83,5 +73,24 @@ export default class SearchFormStationPage extends Page {
     // $searchForm.append( $submitButtonArea );
     
     this.$contents.html( $searchForm );
+  }
+  postRender() {
+
+    $(".search_form_station-page .history-back").on("click", function() {
+      
+      // 検索条件をローカル変数とAPIサーバー側に保管
+      var formQs = $(".search_form_station-page form").serialize();
+      var formParams = global.queryString.parse(formQs);
+      formParams.station = formParams.station ? formParams.station : [];
+      formParams.station = Array.isArray(formParams.station) ? formParams.station : [formParams.station];
+      
+      Object.assign(APP.search_history, formParams);
+      
+      var api = global.APP.api.ietopia.user.search_history;
+      api.save( JSON.stringify(global.APP.search_history) );
+      
+      global.refreshRosenStationInput($(".search-page input[name=station]"));
+    });
+    
   }
 }
