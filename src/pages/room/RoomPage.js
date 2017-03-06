@@ -31,12 +31,13 @@ export default class RoomPage extends Page {
     // 部屋詳細ページの土台
     var $roomContents = $(`
       <div class="room-contents">
-        部屋id: ${room_id}
       </div>
     `);
     
     api.get(room_id)
     .then(data=>{
+      
+      console.log( "RoomData" );
       console.log( data );
       
       // 画像リスト

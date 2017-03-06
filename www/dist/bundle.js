@@ -41021,7 +41021,7 @@ function onDeviceReady() {
   console.log( "koko1" );
   
   promise.resolve()
-  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* default */].logout )
+  // .then( IetopiaApi.logout )
   .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* default */].isloggedIn )
   .then( isloggedIn => {
     if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* default */].login( getUUID() );
@@ -41229,12 +41229,13 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     // 部屋詳細ページの土台
     var $roomContents = $(`
       <div class="room-contents">
-        部屋id: ${room_id}
       </div>
     `);
     
     api.get(room_id)
     .then(data=>{
+      
+      console.log( "RoomData" );
       console.log( data );
       
       // 画像リスト
@@ -41345,10 +41346,71 @@ function hasFavorite(room_id) {
 class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default */] {
   constructor(data={}) {
     super();
-    var gaikan_images = data.gaikan_images;
-    var naikan_images = data.naikan_images;
+    var gaikan_images = data.gaikan_images || [];
+    var naikan_images = data.naikan_images || [];
     
-    this.$html = $(`<div>RoomImagesArea</div>`);
+    var image_first = gaikan_images.length ? 
+      (function() {
+        return gaikan_images[0];
+      })() : 
+      (function() {
+        return naikan_images[0];
+      })();
+      
+    // console.log( {image_first} );
+    // => iamge(sample object)
+    // gaikanImageId: "2162"
+    // thumId: "a582d4f33efcf46805153866e94cee7b"
+    // thumSmallUrl: "http://www.ietopia.jp/img/cache/64x48_a582d4f33efcf46805153866e94cee7b.jpg"
+    // thumBigUrl: "http://www.ietopia.jp/img/cache/480x360_a582d4f33efcf46805153866e94cee7b.jpg"
+    
+    var $imagesArea = $(`
+      <div class="images-area"></div>
+    `);
+    var $mainImage = $(`
+      <div class="main-image">
+        <img src="${image_first.thumBigUrl}">
+      </div>
+    `);
+    var $thumsArea = $(`
+      <div class="thums-area"></div>
+    `);
+    $imagesArea.append($mainImage);
+    $imagesArea.append($thumsArea);
+    
+    // サムネイル写真一覧は外観＆内観
+    var i = 0;
+    var thumImgs = _.concat(gaikan_images, naikan_images).map(imgObj=>{
+      i += 1;
+      var selected = i == 1 ? "selected": "";
+      var thumUrl = imgObj.thumSmallUrl;
+      var thumBigUrl = imgObj.thumBigUrl;
+      var $thumImg = $(`
+        <div class="thum ${selected}">
+          <img src="${thumUrl}">
+        </div>
+      `);
+      var $thumBigImg = $(`
+        <img src="${thumBigUrl}">
+      `);
+      $thumImg.on("click", function() {
+        // クリックしたらメイン写真エリアに表示
+        $mainImage.html( $thumBigImg );
+        // 選択中のサムネイルからクラス削除しクリックしたものにクラスを付与
+        var className = "selected";
+        $thumsArea.find(".selected").removeClass(className);
+        var $clickedThumImg = $(this);
+        $clickedThumImg.addClass(className);
+        // クリックした画像がサムネイルエリアの先頭あたりにスクロールして移動するように
+        var x = $clickedThumImg.offset().left + ( $thumsArea.scrollLeft() ) - 120;
+        console.log( {x} );
+        $thumsArea.animate({scrollLeft: x});
+      });
+      return $thumImg;
+    });
+    $thumsArea.append(thumImgs);
+    
+    this.$html = $imagesArea;
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = RoomImagesArea;
@@ -41365,24 +41427,101 @@ class MainDataArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* defa
   constructor(data={}) {
     super();
     // 建物名・部屋番号
-    
+    var $name = $(`
+      <h2 class="name">
+        ${data.name}
+        <a href="${data.detail_url}">URL</a>
+      </h2>
+    `);
     // キャッチコピー
+    var $catchcopy = $(`
+      <div class="catchcopy">${data.catchcopy}</div>
+    `);
     
+    var $layoutTable = $(`
+      <div class="layout-table table w100per">
+        <div class="left table-cell"></div>
+        <div class="right table-cell"></div>
+      </div>
+    `);
+    var $left = $layoutTable.find(".left");
+    var $right = $layoutTable.find(".right");
+    
+    // セル:左
     // 間取・面積
+    var $madori_menseki = $(`
+      <div class="madori_menseki">
+        <span class="type">間取・面積</span>
+        <span class="val">${data.madori}/${data.senyumenseki}</span>
+      </div>
+    `);
+    
+    $left.append($madori_menseki);
     
     // 賃料
+    var $tinryo = $(`
+      <div class="tinryo">
+        <span class="type">賃料</span>
+        <span class="val">
+          <span class="yatin">${data.yatin_int/10000}</span>
+          <span class="manyen">万円</span>
+        </span>
+      </div>
+    `);
+    $left.append($tinryo);
     
     // 管理費・共益費
+    var $kanrihi_kyoekihi = $(`
+      <div class="kanrihi_kyoekihi">
+        <div class="type">管理費・共益費</div>
+        <div class="val">${data.kanrihi_kyoekihi}</div>
+      </div>
+    `);
+    $left.append($kanrihi_kyoekihi);
     
-    // 敷金
+    // 敷金/礼金
+    var $shikikin_reikin = $(`
+      <div class="shikikin_reikin"></div>
+    `);
+    var $shikikin = $(`
+      <div class="sikikin">
+        <span class="type">敷金</span>
+        <span class="val">${data.sikikin}</span>
+      </div>
+    `);
+    var $reikin = $(`
+      <div class="reikin">
+        <span class="type">礼金</span>
+        <span class="val">${data.reikin}</span>
+      </div>
+    `);
+    $shikikin_reikin.append($shikikin);
+    $shikikin_reikin.append($reikin);
+    $left.append($shikikin_reikin);
     
-    // 礼金
-    
+    // セル:右
     // 所在地
+    var $shozaiti = $(`
+      <div class="shozaiti">
+        <h3>所在地</h3>
+        <span class="val">${data.shozaiti}</span>
+      </div>
+    `);
+    $right.append($shozaiti);
     
     // 交通
+    var $kotu = $(`
+      <div class="kotu">
+        <h3>交通</h3>
+        <div class="val">${data.kotu.replace(/分/g,"分<br>")}</div>
+      </div>
+    `);
+    $right.append($kotu);
     
-    this.$html = $(`<div>MainDataArea</div>`);
+    this.$html = $(`<div class="main-data-area"></div>`);
+    this.$html.append($name);
+    this.$html.append($catchcopy);
+    this.$html.append($layoutTable);
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = MainDataArea;
@@ -41398,8 +41537,82 @@ class MainDataArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* defa
 class MapArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default */] {
   constructor(data={}) {
     super();
-
-    this.$html = $(`<div>MapArea</div>`);
+    
+    // 住所をメモ
+    var shozaiti = data.shozaiti;
+    
+    // 地図・ストリートビュー用エリア
+    var $mapArea = $(`
+      <div class="map-area">
+      </div>
+    `);
+    var $mapStreetViewButtonArea = $(`
+      <div class="map-street-view-button-area button-combi-area">
+        <div class="map-street-view-button button-combi">
+          <div class="button left map tapped">マップ</div>
+          <div class="button right street">ストリートビュー</div>
+        </div>
+      </div>
+    `);
+    
+    var $map = $(`
+      <div id="map">
+      </div>
+    `);
+    
+    var $streetView = $(`
+      <div id="street-view">
+      </div>
+    `);
+    
+    var $mapBtn = $mapStreetViewButtonArea.find(".map");
+    var $streetBtn = $mapStreetViewButtonArea.find(".street");
+    
+    $mapBtn.on("click", function() {
+      $mapBtn.addClass("tapped");
+      $streetBtn.removeClass("tapped");
+      $map.show();
+      // $streetView.hide();
+    });
+    $streetBtn.on("click", function() {
+      $mapBtn.removeClass("tapped");
+      $streetBtn.addClass("tapped");
+      $map.hide();
+      // $streetView.show();
+    });
+    $mapArea.append($mapStreetViewButtonArea);
+    $mapArea.append($map);
+    $mapArea.append($streetView);
+    
+    this.$html = $mapArea;
+    
+    setTimeout(function() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: {lat: -34.397, lng: 150.644}
+      });
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({address: shozaiti}, function(results, status) {
+        if ( status === google.maps.GeocoderStatus.OK ) {
+          var fenway = results[0].geometry.location;
+          map.setCenter(fenway);
+          var marker = new google.maps.Marker({
+            map: map,
+            position: fenway
+          });
+          var streetView = document.getElementById('street-view');
+          var panorama = new google.maps.StreetViewPanorama(
+            streetView, {
+            position: fenway,
+            pov: {
+              heading: 34,
+              pitch: 10
+            }
+          });
+          // $(streetView).hide();
+        }
+      });
+    }, 1000);
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = MapArea;
@@ -41416,8 +41629,38 @@ class SetubiJokenArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* d
   constructor(data={}) {
     super();
     // 担当者からのコメント
+    var $comment = $(`
+      <div class="comment">
+        <h3>担当者からのコメント</h3>
+        <div class="text">
+          ${data.comment}
+        </div>
+      </div>
+    `);
     // 設備・条件
-    this.$html = $(`<div>SetubiJokenArea</div>`);
+    var setubi_jokens = data.setubi_joken.split("、");
+    var master = APP.master.kodawari_joken.map(row=>row.name);
+    var items = master.map(name=>{
+      var found = _.includes(setubi_jokens, name);
+      var checked = found ? "checked" : "";
+      var $item = $(`
+        <div class="item ${checked}">${name}</div>
+      `);
+      return $item;
+    });
+    
+    var $setubi_joken = $(`
+      <div class="setubi_joken">
+        <h3>設備・条件</h3>
+        <div class="items"></div>
+      </div>
+    `);
+    var $itemsArea = $setubi_joken.find(".items");
+    $itemsArea.append( items );
+    
+    this.$html = $(`<div class="setubi-joken-area"></div>`);
+    this.$html.append($comment);
+    this.$html.append($setubi_joken);
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SetubiJokenArea;
@@ -41433,8 +41676,56 @@ class SetubiJokenArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* d
 class DetailDataArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default */] {
   constructor(data={}) {
     super();
-
-    this.$html = $(`<div>DetailDataArea</div>`);
+    
+    var useKeysWithName = [
+      { name: "価格", key: "kakaku" },
+      { name: "更新料", key: "koushinryo" },
+      { name: "その他費用", key: "sonota_hiyo" },
+      { name: "保険料", key: "hokenryo" },
+      { name: "契約期間", key: "keiyakukikan" },
+      { name: "保証金", key: "hoshokin" },
+      { name: "償却・敷引", key: "shokyaku_sikihiki" },
+      { name: "バルコニー", key: "balcony" },
+      { name: "物件種別", key: "bukken_shubetu" },
+      { name: "築年月(築年数)", key: "tikunensu" },
+      { name: "方位", key: "houi" },
+      { name: "構造", key: "kozo" },
+      { name: "所在階/階建", key: "shozoikai" },
+      { name: "総戸数", key: "sotosu" },
+      { name: "間取り内訳", key: "madori_utiwake" },
+      { name: "バルコニー面積", key: "balcony_menseki" },
+      { name: "駐車場", key: "chushajo" },
+      { name: "引渡", key: "hikiwatashi" },
+      { name: "現況(予定年月)", key: "genjo" },
+      { name: "管理", key: "kanri" },
+      { name: "備考", key: "bikou" },
+      { name: "周辺施設", key: "shuhenshisetu" },
+      { name: "取引態様", key: "torihikitaiyo" },
+    ];
+    
+    // 詳細情報
+    var $detailDataArea = $(`
+      <div class="detail-data-area">
+        <h3>詳細情報</h3>
+      </div>
+    `);
+    var $table = $(`<table class="detail-table"></table>`);
+    $detailDataArea.append($table);
+    
+    var TRs = useKeysWithName.map( keyWithName => {
+      var name = keyWithName.name;
+      var key = keyWithName.key;
+      var val = data[key];
+      if ( key == "bikou" ) {
+        val = val.replace(/\n/g, "<br>");
+      }
+      return $(`<tr>
+        <th>${name}</th><td>${val}</td>
+      </tr>`);
+    });
+    $table.append(TRs);
+    
+    this.$html = $detailDataArea;
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = DetailDataArea;

@@ -93,7 +93,7 @@ function onDeviceReady() {
   console.log( "koko1" );
   
   promise.resolve()
-  .then( IetopiaApi.logout )
+  // .then( IetopiaApi.logout )
   .then( IetopiaApi.isloggedIn )
   .then( isloggedIn => {
     if ( isloggedIn == false ) return IetopiaApi.login( getUUID() );

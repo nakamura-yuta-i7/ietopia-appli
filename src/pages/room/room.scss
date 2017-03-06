@@ -16,10 +16,194 @@
     }
   }
   .contents {
-    .name {
+    background: #fff;
+    font-size: 11px;
+    h2 {
+      text-align: left;
       font-size: 13px;
       font-weight: 900;
       color: #F47F00;
     }
+    h3 {
+      margin-top: 0px;
+      margin-bottom: 5px;
+      font-size: 11px;
+      color: #F47F00;
+    }
+    .images-area {
+      .main-image {
+        img {
+          width: 100%;
+          display: block;
+        }
+      }
+      .thums-area {
+        box-sizing: border-box;
+        padding: 4px 0px 4px 4px;
+        white-space: nowrap;
+        width: 100%;
+        background: #000000;
+        height: 56px;
+        
+        overflow-y: hidden;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-scrolling: touch;
+        
+        .thum {
+          cursor: pointer;
+          height: 48px;
+          box-sizing: border-box;
+          display: inline-table;
+          margin-right: 4px;
+          img {
+            display: block;
+            height: 48px;
+          }
+        }
+        .thum.selected {
+          img {
+            
+            outline: 2px solid #F47F00;
+            outline-offset: -2px;
+          }
+        }
+      }
+      
+    } //.images-area
+    
+    .main-data-area {
+      padding: 14px;
+      .catchcopy {
+        margin-bottom: 20px;
+      }
+      .table-cell {
+        vertical-align: top;
+      }
+      .left {
+        .type {
+          font-size: 10px;
+          font-weight: 900;
+          color: #9B9B9B;
+        }
+        .val {
+          font-size: 9px;
+        }
+        .type {
+          margin-right: 5px;
+        }
+        .madori_menseki {
+          .val {
+            font-size: 11px;
+          }
+        }
+        .tinryo {
+          padding: 10px 0px;
+          .val {
+            .yatin {
+              font-size: 22px;
+              font-weight: 900;
+              color: #F47F00;
+            }
+            .manyen {
+              font-size: 11px;
+              font-weight: 900;
+              
+            }
+          }
+        }
+        .kanrihi_kyoekihi {
+          display: inline-table;
+          margin-right: 10px;
+        }
+        .shikikin_reikin {
+          display: inline-table;
+        }
+      }
+      .right {
+        
+      }
+      .shozaiti {
+        margin-bottom: 15px;
+        font-size: 9px;
+      }
+      .kotu {
+        font-size: 9px;
+      }
+    } //.main-data-area
+    
+    .map-area {
+      position: relative;
+      #map {
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        height: 320px;
+      }
+      #street-view {
+        height: 320px;
+      }
+    } //.map-area
+    
+    .setubi-joken-area {
+      padding: 14px;
+      .comment {
+        margin-bottom: 20px;
+      }
+      .items {
+        .item {
+          font-size: 10;
+          font-weight: 900;
+          padding: 3px 10px;
+          color: #9B9B9B;
+          width: calc( 50% - 3px );
+          margin-bottom: 6px;
+          display: inline-block;
+          border-radius: 2px;
+          border: 1px solid #F2F2F2;
+          box-sizing: border-box;
+          &:nth-child(2n) {
+            margin-left: 6px;
+          }
+        }
+        .item.checked {
+          color: #F47F00;
+          border: none;
+          background: #FFE8CE;
+          border: 1px solid #FFE8CE;
+        }
+      }
+    } //.setubi-joken-area
+    
+    .detail-data-area {
+      padding: 14px;
+      table {
+        width: 100%;
+        border-collapse: separate;
+        
+        th ,td {
+          padding: 3px;
+          
+        }
+        th {
+          vertical-align: top;
+          text-align: right;
+          padding-right: 15px;
+          font-weight: 900;
+          white-space: nowrap;
+        }
+        td {
+          border-bottom: 1px solid #F2F2F2;
+        }
+        tr {
+          
+          &:nth-child(odd) {
+            th {
+              background: #F2F2F2;
+            }
+          }
+        }
+      }
+    } //.detail-data-area
   }
 }

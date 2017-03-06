@@ -76,7 +76,6 @@ header #logo_s img {
 
 header .history-back {
   z-index: 99;
-  height: 72px;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -217,6 +216,42 @@ textarea {
 .ui.input input[type=text], .ui.input textarea, .ui.form input[type=text], .ui.form textarea {
   border: none;
   border-radius: 4px;
+}
+
+.button-combi-area {
+  padding: 14px;
+}
+
+.button-combi {
+  border: 1px solid #F47F00;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  zoom: 1;
+}
+
+.button-combi .button {
+  text-align: center;
+  cursor: pointer;
+  color: #F47F00;
+  padding: 4px;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 50%;
+}
+
+.button-combi .button.tapped {
+  background: #F47F00;
+  color: #fff;
+}
+
+.button-combi .button.left {
+  float: left;
+}
+
+.button-combi .button.right {
+  float: right;
 }
 #logo {
   height: 100%;
@@ -591,10 +626,198 @@ textarea {
   display: inline-block;
 }
 
-.room-page .contents .name {
+.room-page .contents {
+  background: #fff;
+  font-size: 11px;
+}
+
+.room-page .contents h2 {
+  text-align: left;
   font-size: 13px;
   font-weight: 900;
   color: #F47F00;
+}
+
+.room-page .contents h3 {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  font-size: 11px;
+  color: #F47F00;
+}
+
+.room-page .contents .images-area .main-image img {
+  width: 100%;
+  display: block;
+}
+
+.room-page .contents .images-area .thums-area {
+  box-sizing: border-box;
+  padding: 4px 0px 4px 4px;
+  white-space: nowrap;
+  width: 100%;
+  background: #000000;
+  height: 56px;
+  overflow-y: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+.room-page .contents .images-area .thums-area .thum {
+  cursor: pointer;
+  height: 48px;
+  box-sizing: border-box;
+  display: inline-table;
+  margin-right: 4px;
+}
+
+.room-page .contents .images-area .thums-area .thum img {
+  display: block;
+  height: 48px;
+}
+
+.room-page .contents .images-area .thums-area .thum.selected img {
+  outline: 2px solid #F47F00;
+  outline-offset: -2px;
+}
+
+.room-page .contents .main-data-area {
+  padding: 14px;
+}
+
+.room-page .contents .main-data-area .catchcopy {
+  margin-bottom: 20px;
+}
+
+.room-page .contents .main-data-area .table-cell {
+  vertical-align: top;
+}
+
+.room-page .contents .main-data-area .left .type {
+  font-size: 10px;
+  font-weight: 900;
+  color: #9B9B9B;
+}
+
+.room-page .contents .main-data-area .left .val {
+  font-size: 9px;
+}
+
+.room-page .contents .main-data-area .left .type {
+  margin-right: 5px;
+}
+
+.room-page .contents .main-data-area .left .madori_menseki .val {
+  font-size: 11px;
+}
+
+.room-page .contents .main-data-area .left .tinryo {
+  padding: 10px 0px;
+}
+
+.room-page .contents .main-data-area .left .tinryo .val .yatin {
+  font-size: 22px;
+  font-weight: 900;
+  color: #F47F00;
+}
+
+.room-page .contents .main-data-area .left .tinryo .val .manyen {
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.room-page .contents .main-data-area .left .kanrihi_kyoekihi {
+  display: inline-table;
+  margin-right: 10px;
+}
+
+.room-page .contents .main-data-area .left .shikikin_reikin {
+  display: inline-table;
+}
+
+.room-page .contents .main-data-area .shozaiti {
+  margin-bottom: 15px;
+  font-size: 9px;
+}
+
+.room-page .contents .main-data-area .kotu {
+  font-size: 9px;
+}
+
+.room-page .contents .map-area {
+  position: relative;
+}
+
+.room-page .contents .map-area #map {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 320px;
+}
+
+.room-page .contents .map-area #street-view {
+  height: 320px;
+}
+
+.room-page .contents .setubi-joken-area {
+  padding: 14px;
+}
+
+.room-page .contents .setubi-joken-area .comment {
+  margin-bottom: 20px;
+}
+
+.room-page .contents .setubi-joken-area .items .item {
+  font-size: 10;
+  font-weight: 900;
+  padding: 3px 10px;
+  color: #9B9B9B;
+  width: calc( 50% - 3px);
+  margin-bottom: 6px;
+  display: inline-block;
+  border-radius: 2px;
+  border: 1px solid #F2F2F2;
+  box-sizing: border-box;
+}
+
+.room-page .contents .setubi-joken-area .items .item:nth-child(2n) {
+  margin-left: 6px;
+}
+
+.room-page .contents .setubi-joken-area .items .item.checked {
+  color: #F47F00;
+  border: none;
+  background: #FFE8CE;
+  border: 1px solid #FFE8CE;
+}
+
+.room-page .contents .detail-data-area {
+  padding: 14px;
+}
+
+.room-page .contents .detail-data-area table {
+  width: 100%;
+  border-collapse: separate;
+}
+
+.room-page .contents .detail-data-area table th, .room-page .contents .detail-data-area table td {
+  padding: 3px;
+}
+
+.room-page .contents .detail-data-area table th {
+  vertical-align: top;
+  text-align: right;
+  padding-right: 15px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.room-page .contents .detail-data-area table td {
+  border-bottom: 1px solid #F2F2F2;
+}
+
+.room-page .contents .detail-data-area table tr:nth-child(odd) th {
+  background: #F2F2F2;
 }
 .special-page .contents {
   padding: 16px 13px;

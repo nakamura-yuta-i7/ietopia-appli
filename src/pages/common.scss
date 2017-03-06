@@ -58,7 +58,7 @@ header {
   }
   .history-back {
     z-index: 99;
-    height: $headerHeight;
+    // height: $headerHeight;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -183,5 +183,38 @@ textarea {
   input[type=text], textarea {
     border: none;
     border-radius: 4px;
+  }
+}
+
+.button-combi-area {
+  padding: 14px;
+}
+.button-combi {
+  border: 1px solid #F47F00;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 100%;
+  
+  overflow: hidden;
+  zoom: 1;
+  
+  .button {
+    text-align: center;
+    cursor: pointer;
+    color: #F47F00;
+    padding: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 50%;
+  }
+  .button.tapped {
+    background: #F47F00;
+    color: #fff;
+  }
+  .button.left {
+    float: left;
+  }
+  .button.right {
+    float: right;
   }
 }
