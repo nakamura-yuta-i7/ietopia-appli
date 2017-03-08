@@ -819,6 +819,29 @@ textarea {
 .room-page .contents .detail-data-area table tr:nth-child(odd) th {
   background: #F2F2F2;
 }
+
+.room-page .inquiry-area {
+  position: fixed;
+  bottom: 56px;
+  left: 0px;
+  width: 100%;
+  height: 62px;
+  background: #fff;
+  z-index: 10;
+  padding: 13px;
+  box-sizing: border-box;
+  min-width: 370px;
+}
+
+.room-page .inquiry-area .inquiry-tel-btn {
+  cursor: pointer;
+  float: left;
+}
+
+.room-page .inquiry-area .inquiry-mail-btn {
+  cursor: pointer;
+  float: right;
+}
 .special-page .contents {
   padding: 16px 13px;
 }

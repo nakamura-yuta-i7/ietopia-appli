@@ -41266,11 +41266,18 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
   postRender() {
     // お問い合わせエリア: ここから
     var $inquiryArea = $(`
-      <div class="inquiry-area">電話・メール</div>
+      <div class="inquiry-area">
+        <img class="inquiry-tel-btn" src="img/room/inquiry-tel-btn.png" width="270">
+        <img class="inquiry-mail-btn" src="img/room/inquiry-mail-btn.png" width="68">
+      </div>
     `);
     // 電話でお問い合わせボタン
+    var $inquiryTelBtn = $inquiryArea.find(".inquiry-tel-btn");
+    
     
     // メールでお問い合わせボタン
+    var $inquiryMailBtn = $inquiryArea.find(".inquiry-mail-btn");
+    
     
     // エリアに追加
     this.$contents.after( $inquiryArea );
