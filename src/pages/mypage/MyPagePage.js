@@ -38,7 +38,7 @@ export default class MyPagePage extends Page {
       var type = data.type;
       var action = data.action;
       var $menu = $(`<div class="menu menu-${type}"><img src="img/mypage/mypage_menu_${type}.png"></div>`);
-      $menu.on("click", action);
+      $menu.on("tap", action);
       $menus.append($menu);
     });
     this.$contents.append( $menus );

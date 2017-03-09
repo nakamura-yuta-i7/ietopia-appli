@@ -83,7 +83,7 @@ export default class RoomPage extends Page {
     
     // メールでお問い合わせボタン
     var $inquiryMailBtn = $inquiryArea.find(".inquiry-mail-btn");
-    $inquiryMailBtn.on("click", function() {
+    $inquiryMailBtn.on("tap", function() {
       // 画面切り替え
       renderPage({
         page: "inquiry",

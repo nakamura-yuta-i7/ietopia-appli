@@ -24,7 +24,7 @@ export default class TopPage extends Page {
     }, 2000);
     
     // タップしたらすぐにページ遷移
-    this.$logo.on("click", () => {
+    this.$logo.on("tap", () => {
       this.gotoNextPage();
       clearTimeout( timer );
     });

@@ -60,7 +60,7 @@ export default class SearchFormDetailPage extends Page {
     //   </div>
     // `);
     // $submitButtonArea.append( $submitButton );
-    // $submitButton.on("click", function() {
+    // $submitButton.on("tap", function() {
     //   history.back();
     // });
     
@@ -70,7 +70,7 @@ export default class SearchFormDetailPage extends Page {
   }
   postRender() {
     
-    $(".search_form_detail-page .history-back").on("click", function() {
+    $(".search_form_detail-page .history-back").on("tap", function() {
       
       // 検索条件をローカル変数とAPIサーバー側に保管
       var formQs = $(".search_form_detail-page form").serialize();

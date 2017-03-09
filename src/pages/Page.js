@@ -63,7 +63,7 @@ export default class Page {
       `);
       
       var $headerBackButton = $header.find(".history-back");
-      $headerBackButton.on("click", () => {
+      $headerBackButton.on("tap", () => {
         history.back();
       });
       if ( this.$headerOriginalContents.length ) {
@@ -150,7 +150,7 @@ export default class Page {
       </footer>
     `);
     
-    $footer.find("li").on("click", function() {
+    $footer.find("li").on("tap", function() {
       var page = $(this).attr("class");
       renderPage({ page: page });
     });
