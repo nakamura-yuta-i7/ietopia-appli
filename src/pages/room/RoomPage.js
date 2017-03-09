@@ -17,6 +17,7 @@ export default class RoomPage extends Page {
     
     // 部屋IDは参照の仕方がめんどくさいのでここでメモしておく
     var room_id = this.requests.room_id;
+    this.room_id = room_id;
     // 部屋API
     var api = global.APP.api.ietopia.room;
     
@@ -66,6 +67,9 @@ export default class RoomPage extends Page {
     });
   }
   postRender() {
+    
+    var room_id = this.room_id;
+    
     // お問い合わせエリア: ここから
     var $inquiryArea = $(`
       <div class="inquiry-area">
@@ -79,7 +83,16 @@ export default class RoomPage extends Page {
     
     // メールでお問い合わせボタン
     var $inquiryMailBtn = $inquiryArea.find(".inquiry-mail-btn");
-    
+    $inquiryMailBtn.on("click", function() {
+      // 画面切り替え
+      renderPage({
+        page: "inquiry",
+        transitionType: "SLIDE_LEFT",
+        requests: {
+          room_id: room_id
+        }
+      });
+    });
     
     // エリアに追加
     this.$contents.after( $inquiryArea );

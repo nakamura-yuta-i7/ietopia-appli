@@ -41215,6 +41215,7 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     
     // 部屋IDは参照の仕方がめんどくさいのでここでメモしておく
     var room_id = this.requests.room_id;
+    this.room_id = room_id;
     // 部屋API
     var api = global.APP.api.ietopia.room;
     
@@ -41264,6 +41265,9 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     });
   }
   postRender() {
+    
+    var room_id = this.room_id;
+    
     // お問い合わせエリア: ここから
     var $inquiryArea = $(`
       <div class="inquiry-area">
@@ -41277,7 +41281,16 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     
     // メールでお問い合わせボタン
     var $inquiryMailBtn = $inquiryArea.find(".inquiry-mail-btn");
-    
+    $inquiryMailBtn.on("click", function() {
+      // 画面切り替え
+      renderPage({
+        page: "inquiry",
+        transitionType: "SLIDE_LEFT",
+        requests: {
+          room_id: room_id
+        }
+      });
+    });
     
     // エリアに追加
     this.$contents.after( $inquiryArea );
