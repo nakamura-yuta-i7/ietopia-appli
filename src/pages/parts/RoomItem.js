@@ -51,6 +51,7 @@ export default class RoomItem {
         }
       });
       return false;
+      
     });
     return $room;
   }

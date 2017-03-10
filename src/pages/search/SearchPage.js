@@ -132,7 +132,7 @@ export default class SearchPage extends Page {
     
     // 「検索する」ボタンを押した時
     var $searchButton = $submitButtonArea.find(".btn_search");
-    $searchButton.on("click", function() {
+    $searchButton.on("tap", function() {
       
       global.APP.search_history.word = $freewordInput.val();
       

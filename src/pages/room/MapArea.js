@@ -33,13 +33,13 @@ export default class MapArea extends Html {
     var $mapBtn = $mapStreetViewButtonArea.find(".map");
     var $streetBtn = $mapStreetViewButtonArea.find(".street");
     
-    $mapBtn.on("click", function() {
+    $mapBtn.on("tap", function() {
       $mapBtn.addClass("tapped");
       $streetBtn.removeClass("tapped");
       $map.show();
       // $streetView.hide();
     });
-    $streetBtn.on("click", function() {
+    $streetBtn.on("tap", function() {
       $mapBtn.removeClass("tapped");
       $streetBtn.addClass("tapped");
       $map.hide();
