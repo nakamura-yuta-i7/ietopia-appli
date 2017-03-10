@@ -63,8 +63,9 @@ export default class Page {
       `);
       
       var $headerBackButton = $header.find(".history-back");
-      $headerBackButton.on("click", () => {
+      $headerBackButton.on("tap", () => {
         history.back();
+        return false;
       });
       if ( this.$headerOriginalContents.length ) {
         $header.append( this.$headerOriginalContents );
