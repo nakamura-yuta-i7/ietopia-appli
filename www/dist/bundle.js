@@ -4473,9 +4473,8 @@ class Page {
       `);
       
       var $headerBackButton = $header.find(".history-back");
-      $headerBackButton.on("tap", () => {
+      $headerBackButton.on("click", () => {
         history.back();
-        return false;
       });
       if ( this.$headerOriginalContents.length ) {
         $header.append( this.$headerOriginalContents );
@@ -41132,7 +41131,7 @@ class RoomItem {
     </div>`);
     $room.append( $kotuDiv );
     // 部屋タップで詳細ページに遷移
-    $room.on("tap", () => {
+    $room.on("click", () => {
       
       // 画面切り替え
       renderPage({
@@ -41142,8 +41141,6 @@ class RoomItem {
           room_id: room.id
         }
       });
-      return false;
-      
     });
     return $room;
   }
