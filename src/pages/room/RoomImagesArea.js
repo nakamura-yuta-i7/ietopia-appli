@@ -49,7 +49,7 @@ export default class RoomImagesArea extends Html {
       var $thumBigImg = $(`
         <img src="${thumBigUrl}">
       `);
-      $thumImg.on("tap", function() {
+      $thumImg.on("click", function() {
         // クリックしたらメイン写真エリアに表示
         $mainImage.html( $thumBigImg );
         // 選択中のサムネイルからクラス削除しクリックしたものにクラスを付与

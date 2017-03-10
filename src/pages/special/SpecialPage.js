@@ -16,7 +16,7 @@ export default class SpecialPage extends Page {
         <div class="banner"><img src="img/special/banner_family.png"></div>
       </div>
     `);
-    $banners.on("tap", () => {
+    $banners.on("click", () => {
       renderPage({
         page: "search_result",
         transitionType: "SLIDE_LEFT"

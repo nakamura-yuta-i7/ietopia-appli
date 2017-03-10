@@ -4832,8 +4832,8 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
     $checkboxesArea.append($checkboxes);
     $section.append($checkboxesArea);
     var $removeAllChecks = $checkboxes.find(".remove-all-checks");
-    $removeAllChecks.on("tap", ()=>{
-      $section.find(":checked").trigger("tap");
+    $removeAllChecks.on("click", ()=>{
+      $section.find(":checked").trigger("click");
     });
     this.$html = $section
   }
@@ -4848,7 +4848,7 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
     `);
     // $checkbox.checkbox();
     if ( $.inArray(data.value, this.selectedVals) !== -1 ) {
-      $checkbox.find("input").trigger("tap");
+      $checkbox.find("input").trigger("click");
     }
     return $checkbox;
   }
@@ -39644,7 +39644,7 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
         <img src="img/common/header/icon_phone.png">
       </div>`);
     this.$headerOriginalContents = $callTelDiv;
-    $callTelDiv.on("tap", () => {
+    $callTelDiv.on("click", () => {
       // 電話をかける場合のダイアログを表示
       var $modalContents = $(`
         <div class="modal-bukken-content">
@@ -39664,7 +39664,7 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
       modal.open();
       
       var $telButton = $modalContents.find(".call-tel");
-      $telButton.on("tap", () => {
+      $telButton.on("click", () => {
         location.href = `tel:${config.IETOPIA_TEL}`;
         modal.close();
       });
@@ -39851,7 +39851,7 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
       </section>
     `);
     var $submitButton = $submitArea.find(".submit-button");
-    $submitButton.on("tap", () => {
+    $submitButton.on("click", () => {
       console.log( $inquiryForm.serialize() );
     });
     this.$contents.append($submitArea);
@@ -40049,7 +40049,7 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       var type = data.type;
       var action = data.action;
       var $menu = $(`<div class="menu menu-${type}"><img src="img/mypage/mypage_menu_${type}.png"></div>`);
-      $menu.on("tap", action);
+      $menu.on("click", action);
       $menus.append($menu);
     });
     this.$contents.append( $menus );
@@ -40581,7 +40581,7 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
     //   </div>
     // `);
     // $submitButtonArea.append( $submitButton );
-    // $submitButton.on("tap", function() {
+    // $submitButton.on("click", function() {
     //   history.back();
     // });
     
@@ -40591,7 +40591,7 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
   }
   postRender() {
     
-    $(".search_form_detail-page .history-back").on("tap", function() {
+    $(".search_form_detail-page .history-back").on("click", function() {
       
       // 検索条件をローカル変数とAPIサーバー側に保管
       var formQs = $(".search_form_detail-page form").serialize();
@@ -40702,7 +40702,7 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
     //   </div>
     // `);
     // $submitButtonArea.append( $submitButton );
-    // $submitButton.on("tap", function() {
+    // $submitButton.on("click", function() {
     //   history.back();
     // });
     
@@ -40712,7 +40712,7 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
   }
   postRender() {
 
-    $(".search_form_station-page .history-back").on("tap", function() {
+    $(".search_form_station-page .history-back").on("click", function() {
       
       // 検索条件をローカル変数とAPIサーバー側に保管
       var formQs = $(".search_form_station-page form").serialize();
@@ -40765,7 +40765,7 @@ class SearchResultPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* defaul
         </div>`);
     var $sortButton = $(`<div id="sort-button">並び替え</div>`);
     var $filterButton = $(`<div id="filter-button">絞り込み</div>`);
-    $filterButton.on("tap", () => {
+    $filterButton.on("click", () => {
       renderPage({
         page: "search"
       });
@@ -40811,7 +40811,7 @@ class SpecialPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
         <div class="banner"><img src="img/special/banner_family.png"></div>
       </div>
     `);
-    $banners.on("tap", () => {
+    $banners.on("click", () => {
       renderPage({
         page: "search_result",
         transitionType: "SLIDE_LEFT"
@@ -40858,7 +40858,7 @@ class TopPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     }, 2000);
     
     // タップしたらすぐにページ遷移
-    this.$logo.on("tap", () => {
+    this.$logo.on("click", () => {
       this.gotoNextPage();
       clearTimeout( timer );
     });
@@ -40901,7 +40901,7 @@ class ModalDialog {
     this.$modalWrapper.remove();
   }
   renderBgLayer() {
-    this.$modalBg.on("tap", () => {
+    this.$modalBg.on("click", () => {
       this.close();
     });
     this.$modalWrapper.append(this.$modalBg);
@@ -41281,7 +41281,7 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     
     // メールでお問い合わせボタン
     var $inquiryMailBtn = $inquiryArea.find(".inquiry-mail-btn");
-    $inquiryMailBtn.on("tap", function() {
+    $inquiryMailBtn.on("click", function() {
       // 画面切り替え
       renderPage({
         page: "inquiry",
@@ -41324,7 +41324,7 @@ class FavoriteButton extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
         <div class="favorite star">
           <img src="${getfavoriteIconSrc(room_id)}" height="22">
         </div>`);
-    $favoriteBtn.on("tap", function() {
+    $favoriteBtn.on("click", function() {
       (function() {
         return hasFavorite(room_id) ?
           global.APP.api.ietopia.user.favorite.delete(room_id) :
@@ -41413,7 +41413,7 @@ class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* de
       var $thumBigImg = $(`
         <img src="${thumBigUrl}">
       `);
-      $thumImg.on("tap", function() {
+      $thumImg.on("click", function() {
         // クリックしたらメイン写真エリアに表示
         $mainImage.html( $thumBigImg );
         // 選択中のサムネイルからクラス削除しクリックしたものにクラスを付与
@@ -41588,13 +41588,13 @@ class MapArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default *
     var $mapBtn = $mapStreetViewButtonArea.find(".map");
     var $streetBtn = $mapStreetViewButtonArea.find(".street");
     
-    $mapBtn.on("tap", function() {
+    $mapBtn.on("click", function() {
       $mapBtn.addClass("tapped");
       $streetBtn.removeClass("tapped");
       $map.show();
       // $streetView.hide();
     });
-    $streetBtn.on("tap", function() {
+    $streetBtn.on("click", function() {
       $mapBtn.removeClass("tapped");
       $streetBtn.addClass("tapped");
       $map.hide();

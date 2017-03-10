@@ -19,7 +19,7 @@ export default class ModalDialog {
     this.$modalWrapper.remove();
   }
   renderBgLayer() {
-    this.$modalBg.on("tap", () => {
+    this.$modalBg.on("click", () => {
       this.close();
     });
     this.$modalWrapper.append(this.$modalBg);

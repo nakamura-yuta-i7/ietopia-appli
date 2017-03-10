@@ -13,7 +13,7 @@ export default class InquiryPage extends Page {
         <img src="img/common/header/icon_phone.png">
       </div>`);
     this.$headerOriginalContents = $callTelDiv;
-    $callTelDiv.on("tap", () => {
+    $callTelDiv.on("click", () => {
       // 電話をかける場合のダイアログを表示
       var $modalContents = $(`
         <div class="modal-bukken-content">
@@ -33,7 +33,7 @@ export default class InquiryPage extends Page {
       modal.open();
       
       var $telButton = $modalContents.find(".call-tel");
-      $telButton.on("tap", () => {
+      $telButton.on("click", () => {
         location.href = `tel:${config.IETOPIA_TEL}`;
         modal.close();
       });
@@ -220,7 +220,7 @@ export default class InquiryPage extends Page {
       </section>
     `);
     var $submitButton = $submitArea.find(".submit-button");
-    $submitButton.on("tap", () => {
+    $submitButton.on("click", () => {
       console.log( $inquiryForm.serialize() );
     });
     this.$contents.append($submitArea);

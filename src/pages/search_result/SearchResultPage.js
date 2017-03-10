@@ -20,7 +20,7 @@ export default class SearchResultPage extends Page {
         </div>`);
     var $sortButton = $(`<div id="sort-button">並び替え</div>`);
     var $filterButton = $(`<div id="filter-button">絞り込み</div>`);
-    $filterButton.on("tap", () => {
+    $filterButton.on("click", () => {
       renderPage({
         page: "search"
       });

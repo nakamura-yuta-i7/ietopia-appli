@@ -33,8 +33,8 @@ export default class CheckboxesSection extends Html {
     $checkboxesArea.append($checkboxes);
     $section.append($checkboxesArea);
     var $removeAllChecks = $checkboxes.find(".remove-all-checks");
-    $removeAllChecks.on("tap", ()=>{
-      $section.find(":checked").trigger("tap");
+    $removeAllChecks.on("click", ()=>{
+      $section.find(":checked").trigger("click");
     });
     this.$html = $section
   }
@@ -49,7 +49,7 @@ export default class CheckboxesSection extends Html {
     `);
     // $checkbox.checkbox();
     if ( $.inArray(data.value, this.selectedVals) !== -1 ) {
-      $checkbox.find("input").trigger("tap");
+      $checkbox.find("input").trigger("click");
     }
     return $checkbox;
   }
