@@ -40427,7 +40427,7 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     
     // 「検索する」ボタンを押した時
     var $searchButton = $submitButtonArea.find(".btn_search");
-    $searchButton.on("tap", function() {
+    $searchButton.tappable(function() {
       
       global.APP.search_history.word = $freewordInput.val();
       
@@ -41131,7 +41131,7 @@ class RoomItem {
     </div>`);
     $room.append( $kotuDiv );
     // 部屋タップで詳細ページに遷移
-    $room.on("click", () => {
+    $room.tappable(() => {
       
       // 画面切り替え
       renderPage({
