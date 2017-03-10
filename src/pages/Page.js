@@ -150,7 +150,7 @@ export default class Page {
       </footer>
     `);
     
-    $footer.find("li").on("tap", function() {
+    $footer.find("li").on("click", function() {
       var page = $(this).attr("class");
       renderPage({ page: page });
     });

@@ -4560,7 +4560,7 @@ class Page {
       </footer>
     `);
     
-    $footer.find("li").on("tap", function() {
+    $footer.find("li").on("click", function() {
       var page = $(this).attr("class");
       renderPage({ page: page });
     });
@@ -41131,7 +41131,7 @@ class RoomItem {
     </div>`);
     $room.append( $kotuDiv );
     // 部屋タップで詳細ページに遷移
-    $room.tappable(() => {
+    $room.tappable( () => {
       
       // 画面切り替え
       renderPage({
