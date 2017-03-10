@@ -4473,7 +4473,7 @@ class Page {
       `);
       
       var $headerBackButton = $header.find(".history-back");
-      $headerBackButton.tappable( () => {
+      $headerBackButton.on("click", () => {
         history.back();
       });
       if ( this.$headerOriginalContents.length ) {
@@ -4560,7 +4560,7 @@ class Page {
       </footer>
     `);
     
-    $footer.find("li").tappable(function() {
+    $footer.find("li").on("click", function() {
       var page = $(this).attr("class");
       renderPage({ page: page });
     });
@@ -40427,7 +40427,7 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     
     // 「検索する」ボタンを押した時
     var $searchButton = $submitButtonArea.find(".btn_search");
-    $searchButton.tappable(function() {
+    $searchButton.on("click", function() {
       
       global.APP.search_history.word = $freewordInput.val();
       
