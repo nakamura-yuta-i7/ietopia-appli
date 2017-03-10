@@ -41131,7 +41131,7 @@ class RoomItem {
     </div>`);
     $room.append( $kotuDiv );
     // 部屋タップで詳細ページに遷移
-    $room.tappable( () => {
+    $room.on("click", () => {
       
       // 画面切り替え
       renderPage({
