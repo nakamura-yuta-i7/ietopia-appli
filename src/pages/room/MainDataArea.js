@@ -6,7 +6,6 @@ export default class MainDataArea extends Html {
     var $name = $(`
       <h2 class="name">
         ${data.name}
-        <a href="${data.detail_url}">URL</a>
       </h2>
     `);
     // キャッチコピー

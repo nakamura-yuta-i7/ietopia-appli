@@ -1,42 +1,23 @@
 import Page from '../Page';
 import './inquiry.scss';
-import ModalDialog from '../../utils/ModalDialog';
+import TelModal from '../parts/TelModal';
 
 export default class InquiryPage extends Page {
   indexAction() {
-    this.headerTitle = "お問い合わせ"
+    this.headerTitle = "お問い合わせ";
     this.displayHeaderLogoS = false;
     this.displayHeaderBackButton = true;
     
     // 電話をかけるアイコンについて
-    var $callTelDiv = $(`<div class="call-tel">
+    var $callTelDiv = $(`
+      <div class="call-tel">
         <img src="img/common/header/icon_phone.png">
-      </div>`);
+      </div>
+    `);
     this.$headerOriginalContents = $callTelDiv;
     $callTelDiv.on("click", () => {
       // 電話をかける場合のダイアログを表示
-      var $modalContents = $(`
-        <div class="modal-bukken-content">
-          <div class="title">担当者にお繋ぎいたします</div>
-          <div class="bukken">
-            <div class="bukken-no">物件番号: </div>
-            <div class="bukken-name">サンプル物件名:ウエストパークタワー池袋,(WEST PARK TOWER IKEBUKURO),【ペット可,仲介手数料無料キャンペーン中】</div>
-            <div class="bukken-info">15.7万円：1DK/35.65m²</div>
-          </div>
-          <div class="call-tel">
-            <img src="img/common/form/call_tel_icon_text_button.png" width="158">
-          </div>
-        </div>
-      `);
-      
-      var modal = new ModalDialog($modalContents);
-      modal.open();
-      
-      var $telButton = $modalContents.find(".call-tel");
-      $telButton.on("click", () => {
-        location.href = `tel:${config.IETOPIA_TEL}`;
-        modal.close();
-      });
+      new TelModal();
     });
     
     // お問い合わせ説明エリアについて

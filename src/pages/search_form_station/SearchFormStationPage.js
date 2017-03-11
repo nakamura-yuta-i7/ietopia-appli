@@ -4,6 +4,7 @@ import queryString from 'queryString';
 
 import StationSection from "../parts/StationSection";
 import RosenSection from "../parts/RosenSection";
+import HitCount from "../parts/HitCount";
 
 export default class SearchFormStationPage extends Page {
   indexAction() {
@@ -12,12 +13,22 @@ export default class SearchFormStationPage extends Page {
     this.displayHeaderBackButton = true;
     this.displayHeaderLogoS = false;
     
+    this.hitCount = null;
+    
     var $searchForm = $(`
       <form class="search-form">
         <div id="rosen-area"></div>
         <div id="station-area"></div>
       </form>
     `);
+    $searchForm.change(()=>{
+      var formQs = $searchForm.serialize();
+      var formParams = global.queryString.parse(formQs);
+      formParams.station = formParams.station ? formParams.station : [];
+      formParams.station = Array.isArray(formParams.station) ? formParams.station : [formParams.station];
+      Object.assign(APP.search_history, formParams);
+      this.hitCount.refresh();
+    });
     var $rosenArea = $searchForm.find("#rosen-area");
     var $stationArea = $searchForm.find("#station-area");
     
@@ -27,7 +38,7 @@ export default class SearchFormStationPage extends Page {
     $rosenArea.append( rosenSection.getHtml() );
     
     renderStationSection();
-    rosenSection.setChangeEvent(function() {
+    rosenSection.setChangeEvent(()=>{
       renderStationSection();
     });
     
@@ -42,7 +53,6 @@ export default class SearchFormStationPage extends Page {
       var $checkboxes = $html.find("input[type=checkbox]");
       $stationArea.html(null);
       $stationArea.append( $html );
-      
     }
     function getStationCheckedVals() {
       return (function() {
@@ -75,16 +85,11 @@ export default class SearchFormStationPage extends Page {
     this.$contents.html( $searchForm );
   }
   postRender() {
+    
+    var $parent = this.$main;
+    this.hitCount = new HitCount($parent);
 
     $(".search_form_station-page .history-back").on("click", function() {
-      
-      // 検索条件をローカル変数とAPIサーバー側に保管
-      var formQs = $(".search_form_station-page form").serialize();
-      var formParams = global.queryString.parse(formQs);
-      formParams.station = formParams.station ? formParams.station : [];
-      formParams.station = Array.isArray(formParams.station) ? formParams.station : [formParams.station];
-      
-      Object.assign(APP.search_history, formParams);
       
       var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(global.APP.search_history) );

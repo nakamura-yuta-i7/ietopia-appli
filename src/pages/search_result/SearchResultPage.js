@@ -15,9 +15,10 @@ export default class SearchResultPage extends Page {
     `);
     var $countDiv = $(`
         <div id="count">
-          <span id="val">505</span>
+          <span id="val">--</span>
           <span id="ken">件</span>
         </div>`);
+    var $countVal = $countDiv.find("#val");
     var $sortButton = $(`<div id="sort-button">並び替え</div>`);
     var $filterButton = $(`<div id="filter-button">絞り込み</div>`);
     $filterButton.on("click", () => {
@@ -30,7 +31,7 @@ export default class SearchResultPage extends Page {
     this.$headerOriginalContents.append( $sortButton );
     this.$headerOriginalContents.append( $filterButton );
     
-    RoomList.findAll(global.APP.search_history)
+    RoomList.findAll(global.APP.search_history, $countVal)
     .then( $roomList => {
       this.$contents.append( $roomList );
     });

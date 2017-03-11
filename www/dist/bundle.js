@@ -4509,8 +4509,8 @@ class Page {
         $mainDepth1.animate({left: "0px"});
         $mainDepth0.animate({left: windowWidthPx()}, () => {
           $mainDepth0.remove();
+          this.refreshMainDepth();
         });
-        this.refreshMainDepth();
       }
     } else if ( this.transitionType == "SLIDE_LEFT" ) {
       
@@ -4597,7 +4597,6 @@ class Html {
 /* WEBPACK VAR INJECTION */(function(global) {function ajaxWithSession(params) {
   params.xhrFields = {withCredentials: true};
   params.dataType = "json";
-  
   // params.beforeSend = function(xhr) {
   //   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
   // };
@@ -4637,7 +4636,7 @@ class IetopiaApi {
     });
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["n"] = IetopiaApi;
+/* harmony export (immutable) */ __webpack_exports__["o"] = IetopiaApi;
 
 class IetopiaMasterApiBase extends IetopiaApi {
   constructor() {
@@ -4645,13 +4644,21 @@ class IetopiaMasterApiBase extends IetopiaApi {
     this.API_URL_SUFIX = "/master";
   }
 }
+class IetopiaMasterAllApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/all");
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["b"] = IetopiaMasterAllApi;
+
 class StationApi extends IetopiaMasterApiBase {
   constructor() {
     super();
     this.setApiUrlSufix("/station");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["g"] = StationApi;
+/* harmony export (immutable) */ __webpack_exports__["h"] = StationApi;
 
 class MadoriApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4659,7 +4666,7 @@ class MadoriApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/madori");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["b"] = MadoriApi;
+/* harmony export (immutable) */ __webpack_exports__["c"] = MadoriApi;
 
 class TikunensuApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4667,7 +4674,7 @@ class TikunensuApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/tikunensu");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["d"] = TikunensuApi;
+/* harmony export (immutable) */ __webpack_exports__["e"] = TikunensuApi;
 
 class EkitohoApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4675,7 +4682,7 @@ class EkitohoApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/ekitoho");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["c"] = EkitohoApi;
+/* harmony export (immutable) */ __webpack_exports__["d"] = EkitohoApi;
 
 class MensekiApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4683,7 +4690,7 @@ class MensekiApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/menseki");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["e"] = MensekiApi;
+/* harmony export (immutable) */ __webpack_exports__["f"] = MensekiApi;
 
 class RosenApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4691,7 +4698,7 @@ class RosenApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/rosen");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["f"] = RosenApi;
+/* harmony export (immutable) */ __webpack_exports__["g"] = RosenApi;
 
 class KodawariJokenApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4699,7 +4706,7 @@ class KodawariJokenApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/kodawari_joken");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["h"] = KodawariJokenApi;
+/* harmony export (immutable) */ __webpack_exports__["i"] = KodawariJokenApi;
 
 class YatinApi extends IetopiaMasterApiBase {
   constructor() {
@@ -4707,7 +4714,7 @@ class YatinApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/yatin");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["i"] = YatinApi;
+/* harmony export (immutable) */ __webpack_exports__["j"] = YatinApi;
 
 class IetopiaUserApiBase extends IetopiaApi {
   constructor() {
@@ -4724,7 +4731,7 @@ class IetopiaMeApiBase extends IetopiaUserApiBase {
 class MeApi extends IetopiaMeApiBase {
   
 }
-/* harmony export (immutable) */ __webpack_exports__["j"] = MeApi;
+/* harmony export (immutable) */ __webpack_exports__["k"] = MeApi;
 
 class SearchHistoryApi extends IetopiaMeApiBase {
   constructor() {
@@ -4742,7 +4749,7 @@ class SearchHistoryApi extends IetopiaMeApiBase {
     return this.request({params_json}, "POST", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["k"] = SearchHistoryApi;
+/* harmony export (immutable) */ __webpack_exports__["l"] = SearchHistoryApi;
 
 class RoomHistoryApi extends IetopiaMeApiBase {
   constructor() {
@@ -4750,7 +4757,7 @@ class RoomHistoryApi extends IetopiaMeApiBase {
     this.setApiUrlSufix("/room_history");
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["l"] = RoomHistoryApi;
+/* harmony export (immutable) */ __webpack_exports__["m"] = RoomHistoryApi;
 
 class FavoriteApi extends IetopiaMeApiBase {
   constructor() {
@@ -4770,7 +4777,7 @@ class FavoriteApi extends IetopiaMeApiBase {
     return this.request({room_id}, "GET", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["m"] = FavoriteApi;
+/* harmony export (immutable) */ __webpack_exports__["n"] = FavoriteApi;
 
 class IetopiaRoomApi extends IetopiaApi {
   constructor() {
@@ -4783,6 +4790,10 @@ class IetopiaRoomApi extends IetopiaApi {
   get(room_id) {
     var url = this.url + "/room/detail";
     return this.request({id: room_id}, "GET", url);
+  }
+  count(params) {
+    var url = this.url + "/room/count";
+    return this.request(params, "GET", url);
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = IetopiaRoomApi;
@@ -4835,7 +4846,7 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
     $removeAllChecks.on("click", ()=>{
       $section.find(":checked").trigger("click");
     });
-    this.$html = $section
+    this.$html = $section;
   }
   buildCheckbox(data) {
     var $checkbox = $(`
@@ -38707,12 +38718,7 @@ module.exports = Enum;
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 152 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
+/* 152 */,
 /* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39628,46 +39634,27 @@ class InfoPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inquiry_scss__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inquiry_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__inquiry_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_ModalDialog__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__parts_TelModal__ = __webpack_require__(198);
 
 
 
 
 class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
   indexAction() {
-    this.headerTitle = "お問い合わせ"
+    this.headerTitle = "お問い合わせ";
     this.displayHeaderLogoS = false;
     this.displayHeaderBackButton = true;
     
     // 電話をかけるアイコンについて
-    var $callTelDiv = $(`<div class="call-tel">
+    var $callTelDiv = $(`
+      <div class="call-tel">
         <img src="img/common/header/icon_phone.png">
-      </div>`);
+      </div>
+    `);
     this.$headerOriginalContents = $callTelDiv;
     $callTelDiv.on("click", () => {
       // 電話をかける場合のダイアログを表示
-      var $modalContents = $(`
-        <div class="modal-bukken-content">
-          <div class="title">担当者にお繋ぎいたします</div>
-          <div class="bukken">
-            <div class="bukken-no">物件番号: </div>
-            <div class="bukken-name">サンプル物件名:ウエストパークタワー池袋,(WEST PARK TOWER IKEBUKURO),【ペット可,仲介手数料無料キャンペーン中】</div>
-            <div class="bukken-info">15.7万円：1DK/35.65m²</div>
-          </div>
-          <div class="call-tel">
-            <img src="img/common/form/call_tel_icon_text_button.png" width="158">
-          </div>
-        </div>
-      `);
-      
-      var modal = new __WEBPACK_IMPORTED_MODULE_2__utils_ModalDialog__["a" /* default */]($modalContents);
-      modal.open();
-      
-      var $telButton = $modalContents.find(".call-tel");
-      $telButton.on("click", () => {
-        location.href = `tel:${config.IETOPIA_TEL}`;
-        modal.close();
-      });
+      new __WEBPACK_IMPORTED_MODULE_2__parts_TelModal__["a" /* default */]();
     });
     
     // お問い合わせ説明エリアについて
@@ -40293,12 +40280,19 @@ class YatinSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search_common_scss__ = __webpack_require__(145);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search_common_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__search_common_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__parts_HitCount__ = __webpack_require__(203);
+
 
 
 
 
 
 class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
+  postRender() {
+    var $parent = this.$main;
+    this.hitCount = new __WEBPACK_IMPORTED_MODULE_4__parts_HitCount__["a" /* default */]($parent);
+    global.APP.search_page.hit_count_instance = this.hitCount;
+  }
   indexAction() {
     
     this.headerTitle = "検索";
@@ -40337,11 +40331,6 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     var $stationInput = $rosenStationSection.find("input[name=station]");
     refreshRosenStationInput($stationInput);
     
-    $rosenStationSection.find(".icon_remove").on("click", function() {
-      global.APP.search_history.rosen = null;
-      global.APP.search_history.station = null;
-      refreshRosenStationInput($stationInput);
-    });
     $searchForm.append( $rosenStationSection );
     
     var $yatinSection = $(`
@@ -40360,11 +40349,11 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     `);
     $searchForm.append($yatinSection);
     
-    var selectMin = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["a" /* YatinSelectMin */]( global.APP.search_history["yatin-min"] );
-    var selectMax = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["b" /* YatinSelectMax */]( global.APP.search_history["yatin-max"] );
+    var $selectMin = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["a" /* YatinSelectMin */]( global.APP.search_history["yatin-min"] ).getHtml();
+    var $selectMax = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["b" /* YatinSelectMax */]( global.APP.search_history["yatin-max"] ).getHtml();
     
-    $yatinSection.find(".min").append( selectMin.getHtml() );
-    $yatinSection.find(".max").append( selectMax.getHtml() );
+    $yatinSection.find(".min").append( $selectMin );
+    $yatinSection.find(".max").append( $selectMax );
     
     var $codawariJokenSection = $(`
       <section>
@@ -40381,14 +40370,6 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
         </div>
       </section>
     `);
-    $codawariJokenSection.find(".icon_remove").on("click", function() {
-      global.APP.search_history.tikunensu = "";
-      global.APP.search_history.ekitoho = "";
-      global.APP.search_history.menseki = [];
-      global.APP.search_history.madori = [];
-      global.APP.search_history.kodawari_joken = [];
-      refreshKodawariInput($searchForm.find("input[name=kodawari]"));
-    });
     $searchForm.append( $codawariJokenSection );
     
     var $stationInput = $searchForm.find("input[name=station]");
@@ -40415,6 +40396,32 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     
     this.$contents.html( $searchForm );
     
+    
+    // 条件変更したらヒット件数更新
+    $freewordInput.on("change", ()=>{
+      global.APP.search_history.word = $freewordInput.val();
+      this.hitCount.refresh();
+    });
+    $selectMin.on("change", ()=> this.hitCount.refresh() );
+    $selectMax.on("change", ()=> this.hitCount.refresh() );
+    
+    $rosenStationSection.find(".icon_remove").on("click", ()=> {
+      global.APP.search_history.rosen = null;
+      global.APP.search_history.station = null;
+      refreshRosenStationInput($stationInput);
+      this.hitCount.refresh();
+    });
+    $codawariJokenSection.find(".icon_remove").on("click", ()=> {
+      global.APP.search_history.tikunensu = "";
+      global.APP.search_history.ekitoho = "";
+      global.APP.search_history.menseki = [];
+      global.APP.search_history.madori = [];
+      global.APP.search_history.kodawari_joken = [];
+      refreshKodawariInput($searchForm.find("input[name=kodawari]"));
+      this.hitCount.refresh();
+    });
+    
+    
     // 検索ボタンエリア
     var $submitButtonArea = $(`
       <div id="submit-btn-area">
@@ -40429,11 +40436,10 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     var $searchButton = $submitButtonArea.find(".btn_search");
     $searchButton.on("click", function() {
       
-      global.APP.search_history.word = $freewordInput.val();
-      
       // 検索条件をローカル変数とAPIサーバー側に保管
-      var api = global.APP.api.ietopia.user.search_history;
       var params = global.APP.search_history;
+      
+      var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(params) );
       
       // 画面切り替え
@@ -40519,6 +40525,8 @@ global.getEkitohoName = function(key) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__parts_MensekiSection__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__parts_EkitohoSection__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__parts_KodawariJokenSection__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__parts_HitCount__ = __webpack_require__(203);
+
 
 
 
@@ -40535,10 +40543,29 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
     this.displayHeaderBackButton = true;
     this.displayHeaderLogoS = false;
     
+    this.hitCount = null;
+    
     var $searchForm = $(`
       <form class="search-form">
       </form>
     `);
+    $searchForm.change(()=>{
+      var formQs = $searchForm.serialize();
+      var formParams = global.queryString.parse(formQs);
+      formParams.madori = forceArray(formParams.madori);
+      formParams.menseki = forceArray(formParams.menseki);
+      formParams.kodawari_joken = forceArray(formParams.kodawari_joken);
+      
+      function forceArray(val) {
+        val = typeof val === "undefined" ? [] : val;
+        val = val.length == 0 ? [] : val;
+        val = Array.isArray(val) ? val : [val];
+        return val;
+      }
+      Object.assign(APP.search_history, formParams);
+      
+      this.hitCount.refresh();
+    });
     
     // 間取選択エリア
     var madoriSecrion = new __WEBPACK_IMPORTED_MODULE_2__parts_MadoriSection__["a" /* default */]({
@@ -40591,24 +40618,12 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
   }
   postRender() {
     
+    var $parent = this.$main;
+    this.hitCount = new __WEBPACK_IMPORTED_MODULE_7__parts_HitCount__["a" /* default */]($parent);
+    
     $(".search_form_detail-page .history-back").on("click", function() {
       
       // 検索条件をローカル変数とAPIサーバー側に保管
-      var formQs = $(".search_form_detail-page form").serialize();
-      var formParams = global.queryString.parse(formQs);
-      formParams.madori = forceArray(formParams.madori);
-      formParams.menseki = forceArray(formParams.menseki);
-      formParams.kodawari_joken = forceArray(formParams.kodawari_joken);
-      
-      function forceArray(val) {
-        val = typeof val === "undefined" ? [] : val;
-        val = val.length == 0 ? [] : val;
-        val = Array.isArray(val) ? val : [val];
-        return val;
-      }
-      
-      Object.assign(APP.search_history, formParams);
-      
       var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(global.APP.search_history) );
       
@@ -40634,6 +40649,8 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_queryString___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_queryString__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__parts_StationSection__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__parts_RosenSection__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__parts_HitCount__ = __webpack_require__(203);
+
 
 
 
@@ -40648,12 +40665,22 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
     this.displayHeaderBackButton = true;
     this.displayHeaderLogoS = false;
     
+    this.hitCount = null;
+    
     var $searchForm = $(`
       <form class="search-form">
         <div id="rosen-area"></div>
         <div id="station-area"></div>
       </form>
     `);
+    $searchForm.change(()=>{
+      var formQs = $searchForm.serialize();
+      var formParams = global.queryString.parse(formQs);
+      formParams.station = formParams.station ? formParams.station : [];
+      formParams.station = Array.isArray(formParams.station) ? formParams.station : [formParams.station];
+      Object.assign(APP.search_history, formParams);
+      this.hitCount.refresh();
+    });
     var $rosenArea = $searchForm.find("#rosen-area");
     var $stationArea = $searchForm.find("#station-area");
     
@@ -40663,7 +40690,7 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
     $rosenArea.append( rosenSection.getHtml() );
     
     renderStationSection();
-    rosenSection.setChangeEvent(function() {
+    rosenSection.setChangeEvent(()=>{
       renderStationSection();
     });
     
@@ -40678,7 +40705,6 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
       var $checkboxes = $html.find("input[type=checkbox]");
       $stationArea.html(null);
       $stationArea.append( $html );
-      
     }
     function getStationCheckedVals() {
       return (function() {
@@ -40711,16 +40737,11 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
     this.$contents.html( $searchForm );
   }
   postRender() {
+    
+    var $parent = this.$main;
+    this.hitCount = new __WEBPACK_IMPORTED_MODULE_5__parts_HitCount__["a" /* default */]($parent);
 
     $(".search_form_station-page .history-back").on("click", function() {
-      
-      // 検索条件をローカル変数とAPIサーバー側に保管
-      var formQs = $(".search_form_station-page form").serialize();
-      var formParams = global.queryString.parse(formQs);
-      formParams.station = formParams.station ? formParams.station : [];
-      formParams.station = Array.isArray(formParams.station) ? formParams.station : [formParams.station];
-      
-      Object.assign(APP.search_history, formParams);
       
       var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(global.APP.search_history) );
@@ -40760,9 +40781,10 @@ class SearchResultPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* defaul
     `);
     var $countDiv = $(`
         <div id="count">
-          <span id="val">505</span>
+          <span id="val">--</span>
           <span id="ken">件</span>
         </div>`);
+    var $countVal = $countDiv.find("#val");
     var $sortButton = $(`<div id="sort-button">並び替え</div>`);
     var $filterButton = $(`<div id="filter-button">絞り込み</div>`);
     $filterButton.on("click", () => {
@@ -40775,7 +40797,7 @@ class SearchResultPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* defaul
     this.$headerOriginalContents.append( $sortButton );
     this.$headerOriginalContents.append( $filterButton );
     
-    __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__["a" /* default */].findAll(global.APP.search_history)
+    __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__["a" /* default */].findAll(global.APP.search_history, $countVal)
     .then( $roomList => {
       this.$contents.append( $roomList );
     });
@@ -40874,43 +40896,7 @@ class TopPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 
 
 /***/ }),
-/* 183 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_dialog_scss__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_dialog_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_dialog_scss__);
-
-
-class ModalDialog {
-  constructor($contents) {
-    this.$contents = $(`<div class="modal-contents"></div>`);
-    this.$contents.append($contents);
-    this.$modalWrapper = $(`<div class="modal-wrapper"></div>`);
-    this.$modalBg = $(`<div class="modal-bg-layer"></div>`);
-  }
-  open() {
-    this.renderContents();
-    this.renderBgLayer();
-    $("body").append(this.$modalWrapper);
-  }
-  renderContents() {
-    this.$modalWrapper.append(this.$contents);
-  }
-  close() {
-    this.$modalWrapper.remove();
-  }
-  renderBgLayer() {
-    this.$modalBg.on("click", () => {
-      this.close();
-    });
-    this.$modalWrapper.append(this.$modalBg);
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = ModalDialog;
-
-
-/***/ }),
+/* 183 */,
 /* 184 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -40928,6 +40914,7 @@ class ModalDialog {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Dispatcher__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_query_string__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_query_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_query_string__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_uuid__ = __webpack_require__(199);
 // JQuery.easing: 設定
 jQuery.easing.def = "easeOutExpo";
 // 便利関数群ロード
@@ -40947,6 +40934,9 @@ global.config = __webpack_require__(123);
 
 // グローバル変数
 global.APP = {
+  search_page: {
+    hit_count_instance: null,
+  },
   me: null, // ログインした後に入れる
   search_history: null, // 検索条件を変更したり検索した時に入れる
   room_history: null,
@@ -40956,20 +40946,21 @@ global.APP = {
     ietopia: {
       room: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["a" /* IetopiaRoomApi */](),
       master: {
-        madori: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["b" /* MadoriApi */](),
-        ekitoho: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["c" /* EkitohoApi */](),
-        tikunensu: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["d" /* TikunensuApi */](),
-        menseki: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["e" /* MensekiApi */](),
-        rosen: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["f" /* RosenApi */](),
-        station: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["g" /* StationApi */](),
-        kodawari_joken: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["h" /* KodawariJokenApi */](),
-        yatin: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["i" /* YatinApi */](),
+        all: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["b" /* IetopiaMasterAllApi */](),
+        madori: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["c" /* MadoriApi */](),
+        ekitoho: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["d" /* EkitohoApi */](),
+        tikunensu: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["e" /* TikunensuApi */](),
+        menseki: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["f" /* MensekiApi */](),
+        rosen: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["g" /* RosenApi */](),
+        station: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["h" /* StationApi */](),
+        kodawari_joken: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["i" /* KodawariJokenApi */](),
+        yatin: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["j" /* YatinApi */](),
       },
       user: {
-        me: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["j" /* MeApi */](),
-        search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["k" /* SearchHistoryApi */](),
-        room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* RoomHistoryApi */](),
-        favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* FavoriteApi */](),
+        me: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["k" /* MeApi */](),
+        search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* SearchHistoryApi */](),
+        room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* RoomHistoryApi */](),
+        favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* FavoriteApi */](),
       },
     },
   },
@@ -40996,10 +40987,18 @@ global.renderPage = function (params={}) {
 }
 // 戻るボタン押した時
 window.onpopstate = function(e) {
-  console.log( e );
   // ページ読み込み、描画処理
   var qs = __WEBPACK_IMPORTED_MODULE_7_query_string___default.a.parse(location.search);
   qs.transitionType = "BACK";
+  
+  console.log("onpopstate");
+  console.log({qs});
+  
+  // if ( qs.page == "search" && qs.action == "index" ) {
+  //   var hitCountInstance = global.APP.search_page.hit_count_instance;
+  //   if ( hitCountInstance ) hitCountInstance.refresh();
+  // }
+  
   global.renderPage(qs);
 }
 // 発生したエラーを最後まで捕捉できなかった場合のエラーハンドリング
@@ -41010,26 +41009,34 @@ window.onerror = function (msg, file, line, column, err) {
 
 // アプリ起動時
 // if ( IS_PRODUCTION ) {
-if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+function isMobile() {
+  return navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
+}
+if ( isMobile() ) {
   document.addEventListener("deviceready", onDeviceReady, false);
   console.log( "deviceready" );
 } else {
   onDeviceReady();
 }
+
+
 function onDeviceReady() {
-  
-  console.log( "koko1" );
+  console.log( "onDeviceReady" );
   
   promise.resolve()
   // .then( IetopiaApi.logout )
-  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* default */].isloggedIn )
+  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["o" /* default */].isloggedIn )
   .then( isloggedIn => {
-    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* default */].login( getUUID() );
+    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["o" /* default */].login( __WEBPACK_IMPORTED_MODULE_8__utils_uuid__["a" /* default */].get() );
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {
     global.me = me;
-    return loadApi();
+    global.APP.search_history = me.search_history;
+    global.APP.favorite       = me.favorite;
+    var allMaster = APP.api.ietopia.master.all;
+    return allMaster.request()
+    .then( list => global.APP.master = list );
   })
   .then(()=>{
     console.log( "global.APP", global.APP );
@@ -41041,46 +41048,6 @@ function onDeviceReady() {
   });
 }
 
-function getUUID() {
-  // 端末情報の取得
-  // see: https://docs.monaca.io/ja/reference/cordova_3.5/device/
-  if ( typeof device === "undefined" || ! device.uuid ) {
-    console.log( "NOT APP !!!!" );
-    while ( true ) {
-      //var uuid = prompt("uuid", "test-uuid");
-      var uuid = "test-uuid";
-      if ( uuid.length ) {
-        break;
-      }
-    }
-    console.log( "UUID: " + uuid );
-  } else {
-    console.log( {
-      device: device,
-    } );
-    var uuid = device.uuid;
-  }
-  return uuid;
-}
-
-function loadApi() {
-  return promise.resolve()
-  .then(function() {
-    return APP.api.ietopia.user.search_history.get()
-    .then( params => global.APP.search_history = params );
-  })
-  .then(function() {
-    return APP.api.ietopia.user.favorite.list()
-    .then( list => global.APP.favorite = list );
-  })
-  .then(()=>{
-    var masters = APP.api.ietopia.master;
-    return promise.all(Object.keys(masters).map(key=>{
-      return masters[key].request()
-      .then( list => global.APP.master[key] = list );
-    }));
-  });
-}
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
@@ -41157,18 +41124,24 @@ class RoomItem {
 
 
 class RoomList {
-  static findAll(searchParams) {
+  static findAll(searchParams, $countVal) {
     var $roomList = $(`<div class="room-list"></div>`);
     
     return RoomList.requestList(searchParams)
-    .then( (rooms) => {
+    .then( (result) => {
+      var count = result.count;
+      $countVal.html(count);
+      
+      var rooms = result.list;
       rooms.forEach( (room) => {
         var $room = __WEBPACK_IMPORTED_MODULE_0__RoomItem__["a" /* default */].createElem(room);
         $roomList.append($room);
       } );
       if ( rooms.length == 0 ) {
         $roomList.append( $(`
-          <div>検索条件にヒットする物件がありませんでした。</div>
+          <div class="not-found-search-result">
+            検索条件にヒットする物件がありませんでした。
+          </div>
         `) );
       }
       return $roomList;
@@ -41191,11 +41164,13 @@ class RoomList {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__room_scss__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__room_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__room_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__parts_FavoriteButton__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__RoomImagesArea__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__MainDataArea__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__MapArea__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__SetubiJokenArea__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__DetailDataArea__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__parts_TelModal__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RoomImagesArea__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__MainDataArea__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__MapArea__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__SetubiJokenArea__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__DetailDataArea__ = __webpack_require__(195);
+
 
 
 
@@ -41216,6 +41191,7 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     // 部屋IDは参照の仕方がめんどくさいのでここでメモしておく
     var room_id = this.requests.room_id;
     this.room_id = room_id;
+    
     // 部屋API
     var api = global.APP.api.ietopia.room;
     
@@ -41233,32 +41209,36 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
       </div>
     `);
     
+    this.room = {};
+    
     api.get(room_id)
     .then(data=>{
       
       console.log( "RoomData" );
       console.log( data );
       
+      this.room = data;
+      
       // 画像リスト
       $roomContents.append(
-        new __WEBPACK_IMPORTED_MODULE_3__RoomImagesArea__["a" /* default */](data).getHtml() );
+        new __WEBPACK_IMPORTED_MODULE_4__RoomImagesArea__["a" /* default */](data).getHtml() );
       
       // メイン情報
       $roomContents.append(
-        new __WEBPACK_IMPORTED_MODULE_4__MainDataArea__["a" /* default */](data).getHtml() );
+        new __WEBPACK_IMPORTED_MODULE_5__MainDataArea__["a" /* default */](data).getHtml() );
       
       // 地図エリア
       $roomContents.append(
-        new __WEBPACK_IMPORTED_MODULE_5__MapArea__["a" /* default */](data).getHtml() );
+        new __WEBPACK_IMPORTED_MODULE_6__MapArea__["a" /* default */](data).getHtml() );
       
       // 担当者からのコメント
       // 設備・条件
       $roomContents.append(
-        new __WEBPACK_IMPORTED_MODULE_6__SetubiJokenArea__["a" /* default */](data).getHtml() );
+        new __WEBPACK_IMPORTED_MODULE_7__SetubiJokenArea__["a" /* default */](data).getHtml() );
       
       // 物件詳細情報
       $roomContents.append(
-        new __WEBPACK_IMPORTED_MODULE_7__DetailDataArea__["a" /* default */](data).getHtml() );
+        new __WEBPACK_IMPORTED_MODULE_8__DetailDataArea__["a" /* default */](data).getHtml() );
       
       // 部屋情報HTMLをセット
       this.$contents.html( $roomContents );
@@ -41277,7 +41257,9 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     `);
     // 電話でお問い合わせボタン
     var $inquiryTelBtn = $inquiryArea.find(".inquiry-tel-btn");
-    
+    $inquiryTelBtn.on("click", () => {
+      new __WEBPACK_IMPORTED_MODULE_3__parts_TelModal__["a" /* default */]({bukken: this.room});
+    });
     
     // メールでお問い合わせボタン
     var $inquiryMailBtn = $inquiryArea.find(".inquiry-mail-btn");
@@ -41450,7 +41432,6 @@ class MainDataArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* defa
     var $name = $(`
       <h2 class="name">
         ${data.name}
-        <a href="${data.detail_url}">URL</a>
       </h2>
     `);
     // キャッチコピー
@@ -41750,6 +41731,178 @@ class DetailDataArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* de
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = DetailDataArea;
 
+
+/***/ }),
+/* 196 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 197 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_dialog_scss__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modal_dialog_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modal_dialog_scss__);
+
+
+class ModalDialog {
+  constructor($contents) {
+    this.$contents = $(`<div class="modal-contents"></div>`);
+    this.$contents.append($contents);
+    this.$modalWrapper = $(`<div class="modal-wrapper"></div>`);
+    this.$modalBg = $(`<div class="modal-bg-layer"></div>`);
+  }
+  open() {
+    this.renderContents();
+    this.renderBgLayer();
+    $("body").append(this.$modalWrapper);
+  }
+  renderContents() {
+    this.$modalWrapper.append(this.$contents);
+  }
+  close() {
+    this.$modalWrapper.remove();
+  }
+  renderBgLayer() {
+    this.$modalBg.on("click", () => {
+      this.close();
+    });
+    this.$modalWrapper.append(this.$modalBg);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ModalDialog;
+
+
+/***/ }),
+/* 198 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Html__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ModalDialog__ = __webpack_require__(197);
+
+
+
+class TelModal extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
+  constructor(params={}) {
+    super();
+    
+    
+    var bukkenDiv = params.bukken ? `
+      <div class="bukken">
+        <div class="bukken-no">物件番号: ${params.bukken.id}</div>
+        <div class="bukken-name">${params.bukken.name}</div>
+        <div class="bukken-info">${params.bukken.tinryo}：${params.bukken.madori}/${params.bukken.senyumenseki}</div>
+      </div>
+    ` : "" ;
+    
+    var $modalContents = $(`
+      <div class="modal-bukken-content">
+        <div class="title">担当者にお繋ぎいたします</div>
+        ${bukkenDiv}
+        <div class="call-tel">
+          <img src="img/common/form/call_tel_icon_text_button.png" width="158">
+        </div>
+      </div>
+    `);
+    
+    var modal = new __WEBPACK_IMPORTED_MODULE_1__ModalDialog__["a" /* default */]($modalContents);
+    modal.open();
+    
+    var $telButton = $modalContents.find(".call-tel");
+    $telButton.on("click", () => {
+      location.href = `tel:${config.IETOPIA_TEL}`;
+      modal.close();
+    });
+    this.$html = $modalContents;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = TelModal;
+
+
+/***/ }),
+/* 199 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class UUID {
+  static get() {
+    // 端末情報の取得
+    // see: https://docs.monaca.io/ja/reference/cordova_3.5/device/
+    if ( typeof device === "undefined" || ! device.uuid ) {
+      console.log( "NOT APP !!!!" );
+      while ( true ) {
+        //var uuid = prompt("uuid", "test-uuid");
+        var uuid = "test-uuid";
+        if ( uuid.length ) {
+          break;
+        }
+      }
+      console.log( "UUID: " + uuid );
+    } else {
+      console.log( {
+        device: device,
+      } );
+      var uuid = device.uuid;
+    }
+    return uuid;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = UUID;
+
+
+/***/ }),
+/* 200 */,
+/* 201 */,
+/* 202 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 203 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hit_count_scss__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hit_count_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__hit_count_scss__);
+
+
+class HitCount {
+  constructor($parent) {
+    var $hitCount = $(`
+      <div class="hit-count">
+        <div class="heading">条件にマッチ</div>
+        <div class="data">
+          <span class="value">--</span>
+          <span class="ken">件</span>
+        </div>
+      </div>
+    `);
+    this.$hitCount = $hitCount.find(".value");
+    $parent.append($hitCount);
+    
+    this._reflectCount();
+  }
+  _reflectCount() {
+    this._getCount()
+    .then( count => this.$hitCount.text(count) );
+  }
+  _getCount() {
+    var params = global.APP.search_history;
+    return global.APP.api.ietopia.room.count(params);
+  }
+  refresh() {
+    console.log( "HitCount.refresh()" );
+    this._getCount()
+    .then( count => $(".hit-count").find(".value").text(count) );
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = HitCount;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ })
 /******/ ]);

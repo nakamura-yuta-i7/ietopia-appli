@@ -1,6 +1,7 @@
 import Page from '../Page';
 import "./room.scss";
 import FavoriteButton from "../parts/FavoriteButton";
+import TelModal from '../parts/TelModal';
 import RoomImagesArea from "./RoomImagesArea";
 import MainDataArea from "./MainDataArea";
 import MapArea from "./MapArea";
@@ -18,6 +19,7 @@ export default class RoomPage extends Page {
     // 部屋IDは参照の仕方がめんどくさいのでここでメモしておく
     var room_id = this.requests.room_id;
     this.room_id = room_id;
+    
     // 部屋API
     var api = global.APP.api.ietopia.room;
     
@@ -35,11 +37,15 @@ export default class RoomPage extends Page {
       </div>
     `);
     
+    this.room = {};
+    
     api.get(room_id)
     .then(data=>{
       
       console.log( "RoomData" );
       console.log( data );
+      
+      this.room = data;
       
       // 画像リスト
       $roomContents.append(
@@ -79,7 +85,9 @@ export default class RoomPage extends Page {
     `);
     // 電話でお問い合わせボタン
     var $inquiryTelBtn = $inquiryArea.find(".inquiry-tel-btn");
-    
+    $inquiryTelBtn.on("click", () => {
+      new TelModal({bukken: this.room});
+    });
     
     // メールでお問い合わせボタン
     var $inquiryMailBtn = $inquiryArea.find(".inquiry-mail-btn");

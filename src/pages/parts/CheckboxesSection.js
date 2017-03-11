@@ -36,7 +36,7 @@ export default class CheckboxesSection extends Html {
     $removeAllChecks.on("click", ()=>{
       $section.find(":checked").trigger("click");
     });
-    this.$html = $section
+    this.$html = $section;
   }
   buildCheckbox(data) {
     var $checkbox = $(`

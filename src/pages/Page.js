@@ -99,8 +99,8 @@ export default class Page {
         $mainDepth1.animate({left: "0px"});
         $mainDepth0.animate({left: windowWidthPx()}, () => {
           $mainDepth0.remove();
+          this.refreshMainDepth();
         });
-        this.refreshMainDepth();
       }
     } else if ( this.transitionType == "SLIDE_LEFT" ) {
       

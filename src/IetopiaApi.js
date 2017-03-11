@@ -1,7 +1,6 @@
 function ajaxWithSession(params) {
   params.xhrFields = {withCredentials: true};
   params.dataType = "json";
-  
   // params.beforeSend = function(xhr) {
   //   xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
   // };
@@ -45,6 +44,12 @@ class IetopiaMasterApiBase extends IetopiaApi {
   constructor() {
     super();
     this.API_URL_SUFIX = "/master";
+  }
+}
+export class IetopiaMasterAllApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/all");
   }
 }
 export class StationApi extends IetopiaMasterApiBase {
@@ -161,5 +166,9 @@ export class IetopiaRoomApi extends IetopiaApi {
   get(room_id) {
     var url = this.url + "/room/detail";
     return this.request({id: room_id}, "GET", url);
+  }
+  count(params) {
+    var url = this.url + "/room/count";
+    return this.request(params, "GET", url);
   }
 }

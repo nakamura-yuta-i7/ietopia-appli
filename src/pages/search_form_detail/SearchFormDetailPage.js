@@ -6,6 +6,7 @@ import TikunenSection from "../parts/TikunenSection";
 import MensekiSection from "../parts/MensekiSection";
 import EkitohoSection from "../parts/EkitohoSection";
 import KodawariJokenSection from "../parts/KodawariJokenSection";
+import HitCount from "../parts/HitCount";
 
 export default class SearchFormDetailPage extends Page {
   indexAction() {
@@ -14,10 +15,29 @@ export default class SearchFormDetailPage extends Page {
     this.displayHeaderBackButton = true;
     this.displayHeaderLogoS = false;
     
+    this.hitCount = null;
+    
     var $searchForm = $(`
       <form class="search-form">
       </form>
     `);
+    $searchForm.change(()=>{
+      var formQs = $searchForm.serialize();
+      var formParams = global.queryString.parse(formQs);
+      formParams.madori = forceArray(formParams.madori);
+      formParams.menseki = forceArray(formParams.menseki);
+      formParams.kodawari_joken = forceArray(formParams.kodawari_joken);
+      
+      function forceArray(val) {
+        val = typeof val === "undefined" ? [] : val;
+        val = val.length == 0 ? [] : val;
+        val = Array.isArray(val) ? val : [val];
+        return val;
+      }
+      Object.assign(APP.search_history, formParams);
+      
+      this.hitCount.refresh();
+    });
     
     // 間取選択エリア
     var madoriSecrion = new MadoriSection({
@@ -70,24 +90,12 @@ export default class SearchFormDetailPage extends Page {
   }
   postRender() {
     
+    var $parent = this.$main;
+    this.hitCount = new HitCount($parent);
+    
     $(".search_form_detail-page .history-back").on("click", function() {
       
       // 検索条件をローカル変数とAPIサーバー側に保管
-      var formQs = $(".search_form_detail-page form").serialize();
-      var formParams = global.queryString.parse(formQs);
-      formParams.madori = forceArray(formParams.madori);
-      formParams.menseki = forceArray(formParams.menseki);
-      formParams.kodawari_joken = forceArray(formParams.kodawari_joken);
-      
-      function forceArray(val) {
-        val = typeof val === "undefined" ? [] : val;
-        val = val.length == 0 ? [] : val;
-        val = Array.isArray(val) ? val : [val];
-        return val;
-      }
-      
-      Object.assign(APP.search_history, formParams);
-      
       var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(global.APP.search_history) );
       

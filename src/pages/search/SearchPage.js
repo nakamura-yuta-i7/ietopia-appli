@@ -2,8 +2,14 @@ import Page from '../Page';
 import './search.scss';
 import './search-common.scss';
 import { YatinSelectMin, YatinSelectMax } from "../parts/YatinSelect";
+import HitCount from "../parts/HitCount";
 
 export default class SearchPage extends Page {
+  postRender() {
+    var $parent = this.$main;
+    this.hitCount = new HitCount($parent);
+    global.APP.search_page.hit_count_instance = this.hitCount;
+  }
   indexAction() {
     
     this.headerTitle = "検索";
@@ -42,11 +48,6 @@ export default class SearchPage extends Page {
     var $stationInput = $rosenStationSection.find("input[name=station]");
     refreshRosenStationInput($stationInput);
     
-    $rosenStationSection.find(".icon_remove").on("click", function() {
-      global.APP.search_history.rosen = null;
-      global.APP.search_history.station = null;
-      refreshRosenStationInput($stationInput);
-    });
     $searchForm.append( $rosenStationSection );
     
     var $yatinSection = $(`
@@ -65,11 +66,11 @@ export default class SearchPage extends Page {
     `);
     $searchForm.append($yatinSection);
     
-    var selectMin = new YatinSelectMin( global.APP.search_history["yatin-min"] );
-    var selectMax = new YatinSelectMax( global.APP.search_history["yatin-max"] );
+    var $selectMin = new YatinSelectMin( global.APP.search_history["yatin-min"] ).getHtml();
+    var $selectMax = new YatinSelectMax( global.APP.search_history["yatin-max"] ).getHtml();
     
-    $yatinSection.find(".min").append( selectMin.getHtml() );
-    $yatinSection.find(".max").append( selectMax.getHtml() );
+    $yatinSection.find(".min").append( $selectMin );
+    $yatinSection.find(".max").append( $selectMax );
     
     var $codawariJokenSection = $(`
       <section>
@@ -86,14 +87,6 @@ export default class SearchPage extends Page {
         </div>
       </section>
     `);
-    $codawariJokenSection.find(".icon_remove").on("click", function() {
-      global.APP.search_history.tikunensu = "";
-      global.APP.search_history.ekitoho = "";
-      global.APP.search_history.menseki = [];
-      global.APP.search_history.madori = [];
-      global.APP.search_history.kodawari_joken = [];
-      refreshKodawariInput($searchForm.find("input[name=kodawari]"));
-    });
     $searchForm.append( $codawariJokenSection );
     
     var $stationInput = $searchForm.find("input[name=station]");
@@ -120,6 +113,32 @@ export default class SearchPage extends Page {
     
     this.$contents.html( $searchForm );
     
+    
+    // 条件変更したらヒット件数更新
+    $freewordInput.on("change", ()=>{
+      global.APP.search_history.word = $freewordInput.val();
+      this.hitCount.refresh();
+    });
+    $selectMin.on("change", ()=> this.hitCount.refresh() );
+    $selectMax.on("change", ()=> this.hitCount.refresh() );
+    
+    $rosenStationSection.find(".icon_remove").on("click", ()=> {
+      global.APP.search_history.rosen = null;
+      global.APP.search_history.station = null;
+      refreshRosenStationInput($stationInput);
+      this.hitCount.refresh();
+    });
+    $codawariJokenSection.find(".icon_remove").on("click", ()=> {
+      global.APP.search_history.tikunensu = "";
+      global.APP.search_history.ekitoho = "";
+      global.APP.search_history.menseki = [];
+      global.APP.search_history.madori = [];
+      global.APP.search_history.kodawari_joken = [];
+      refreshKodawariInput($searchForm.find("input[name=kodawari]"));
+      this.hitCount.refresh();
+    });
+    
+    
     // 検索ボタンエリア
     var $submitButtonArea = $(`
       <div id="submit-btn-area">
@@ -134,11 +153,10 @@ export default class SearchPage extends Page {
     var $searchButton = $submitButtonArea.find(".btn_search");
     $searchButton.on("click", function() {
       
-      global.APP.search_history.word = $freewordInput.val();
-      
       // 検索条件をローカル変数とAPIサーバー側に保管
-      var api = global.APP.api.ietopia.user.search_history;
       var params = global.APP.search_history;
+      
+      var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(params) );
       
       // 画面切り替え

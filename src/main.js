@@ -13,12 +13,15 @@ global.config = require("./config");
 import IetopiaApi from "./IetopiaApi";
 import { EkitohoApi, TikunensuApi, 
   MensekiApi, MadoriApi, RosenApi, 
-  StationApi, KodawariJokenApi, YatinApi } from "./IetopiaApi";
+  StationApi, KodawariJokenApi, YatinApi, IetopiaMasterAllApi } from "./IetopiaApi";
 import { MeApi, SearchHistoryApi, RoomHistoryApi, FavoriteApi } from "./IetopiaApi";
 import { IetopiaRoomApi } from "./IetopiaApi";
 
 // グローバル変数
 global.APP = {
+  search_page: {
+    hit_count_instance: null,
+  },
   me: null, // ログインした後に入れる
   search_history: null, // 検索条件を変更したり検索した時に入れる
   room_history: null,
@@ -28,6 +31,7 @@ global.APP = {
     ietopia: {
       room: new IetopiaRoomApi(),
       master: {
+        all: new IetopiaMasterAllApi(),
         madori: new MadoriApi(),
         ekitoho: new EkitohoApi(),
         tikunensu: new TikunensuApi(),
@@ -68,10 +72,18 @@ global.renderPage = function (params={}) {
 }
 // 戻るボタン押した時
 window.onpopstate = function(e) {
-  console.log( e );
   // ページ読み込み、描画処理
   var qs = queryString.parse(location.search);
   qs.transitionType = "BACK";
+  
+  console.log("onpopstate");
+  console.log({qs});
+  
+  // if ( qs.page == "search" && qs.action == "index" ) {
+  //   var hitCountInstance = global.APP.search_page.hit_count_instance;
+  //   if ( hitCountInstance ) hitCountInstance.refresh();
+  // }
+  
   global.renderPage(qs);
 }
 // 発生したエラーを最後まで捕捉できなかった場合のエラーハンドリング
@@ -82,26 +94,34 @@ window.onerror = function (msg, file, line, column, err) {
 
 // アプリ起動時
 // if ( IS_PRODUCTION ) {
-if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+function isMobile() {
+  return navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
+}
+if ( isMobile() ) {
   document.addEventListener("deviceready", onDeviceReady, false);
   console.log( "deviceready" );
 } else {
   onDeviceReady();
 }
+
+import UUID from "./utils/uuid";
 function onDeviceReady() {
-  
-  console.log( "koko1" );
+  console.log( "onDeviceReady" );
   
   promise.resolve()
   // .then( IetopiaApi.logout )
   .then( IetopiaApi.isloggedIn )
   .then( isloggedIn => {
-    if ( isloggedIn == false ) return IetopiaApi.login( getUUID() );
+    if ( isloggedIn == false ) return IetopiaApi.login( UUID.get() );
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {
     global.me = me;
-    return loadApi();
+    global.APP.search_history = me.search_history;
+    global.APP.favorite       = me.favorite;
+    var allMaster = APP.api.ietopia.master.all;
+    return allMaster.request()
+    .then( list => global.APP.master = list );
   })
   .then(()=>{
     console.log( "global.APP", global.APP );
@@ -110,46 +130,5 @@ function onDeviceReady() {
   })
   .catch((err)=>{
     throw err;
-  });
-}
-
-function getUUID() {
-  // 端末情報の取得
-  // see: https://docs.monaca.io/ja/reference/cordova_3.5/device/
-  if ( typeof device === "undefined" || ! device.uuid ) {
-    console.log( "NOT APP !!!!" );
-    while ( true ) {
-      //var uuid = prompt("uuid", "test-uuid");
-      var uuid = "test-uuid";
-      if ( uuid.length ) {
-        break;
-      }
-    }
-    console.log( "UUID: " + uuid );
-  } else {
-    console.log( {
-      device: device,
-    } );
-    var uuid = device.uuid;
-  }
-  return uuid;
-}
-
-function loadApi() {
-  return promise.resolve()
-  .then(function() {
-    return APP.api.ietopia.user.search_history.get()
-    .then( params => global.APP.search_history = params );
-  })
-  .then(function() {
-    return APP.api.ietopia.user.favorite.list()
-    .then( list => global.APP.favorite = list );
-  })
-  .then(()=>{
-    var masters = APP.api.ietopia.master;
-    return promise.all(Object.keys(masters).map(key=>{
-      return masters[key].request()
-      .then( list => global.APP.master[key] = list );
-    }));
   });
 }
