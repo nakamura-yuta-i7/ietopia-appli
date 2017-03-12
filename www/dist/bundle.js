@@ -4810,6 +4810,7 @@ class IetopiaRoomApi extends IetopiaApi {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__checkboxes_section_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__checkboxes_section_scss__);
 
 
+var moji = __webpack_require__(208);
 
 class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
   constructor(params={}) {
@@ -4850,12 +4851,10 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
   }
   buildCheckbox(data) {
     var $checkbox = $(`
-      <div class="ui checkbox">
-        <label>
-          <input type="checkbox" name="${this.identifier}" value="${data.value}">
-          ${data.name}
-        </label>
-      </div>
+      <label class="checkbox">
+        <input type="checkbox" name="${this.identifier}" value="${data.value}">
+        <span>${moji(data.name).convert('ZK', 'HK').toString()}</span>
+      </label>
     `);
     // $checkbox.checkbox();
     if ( $.inArray(data.value, this.selectedVals) !== -1 ) {
@@ -4865,6 +4864,8 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = CheckboxesSection;
+
+
 
 
 /***/ }),
@@ -38447,12 +38448,12 @@ class Dispatcher {
 
 /***/ }),
 /* 123 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  //API_BASE_URL: IS_PRODUCTION ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
-  API_BASE_URL: "https://appli.ietopia-services.com",
+  API_BASE_URL:  false ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
+  //API_BASE_URL: "https://appli.ietopia-services.com",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
@@ -40764,6 +40765,8 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_result_scss__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_result_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search_result_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__parts_SortModal__ = __webpack_require__(210);
+
 
 
 
@@ -40786,6 +40789,9 @@ class SearchResultPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* defaul
         </div>`);
     var $countVal = $countDiv.find("#val");
     var $sortButton = $(`<div id="sort-button">並び替え</div>`);
+    $sortButton.on("click", () => {
+      new __WEBPACK_IMPORTED_MODULE_3__parts_SortModal__["a" /* default */]();
+    });
     var $filterButton = $(`<div id="filter-button">絞り込み</div>`);
     $filterButton.on("click", () => {
       renderPage({
@@ -40812,7 +40818,7 @@ class SearchResultPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* defaul
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__special_scss__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__special_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__special_scss__);
 
@@ -40823,28 +40829,30 @@ class SpecialPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     this.headerTitle = "特集";
     var $banners = $(`
       <div class="banners">
-        <div class="banner"><img src="img/special/banner_designers.png"></div>
-        <div class="banner"><img src="img/special/banner_shintiku.png"></div>
-        <div class="banner"><img src="img/special/banner_pet.png"></div>
-        <div class="banner"><img src="img/special/banner_shiki_rei_nashi.png"></div>
-        <div class="banner"><img src="img/special/banner_ekitika.png"></div>
-        <div class="banner"><img src="img/special/banner_jimusho.png"></div>
-        <div class="banner"><img src="img/special/banner_gakki.png"></div>
-        <div class="banner"><img src="img/special/banner_family.png"></div>
+        <div class="banner"><img src="img/special/banner_designers.png" word="デザイナーズ"></div>
+        <div class="banner"><img src="img/special/banner_shintiku.png" word="新築"></div>
+        <div class="banner"><img src="img/special/banner_pet.png" word="ペット相談可"></div>
+        <div class="banner"><img src="img/special/banner_shiki_rei_nashi.png" word="礼金なし 敷金なし"></div>
+        <div class="banner"><img src="img/special/banner_ekitika.png" word="駅近"></div>
+        <div class="banner"><img src="img/special/banner_jimusho.png" word="事務所"></div>
+        <div class="banner"><img src="img/special/banner_gakki.png" word="楽器"></div>
+        <div class="banner"><img src="img/special/banner_family.png" word="ファミリー向け"></div>
       </div>
     `);
-    $banners.on("click", () => {
+    $banners.on("click", function() {
+      global.APP.search_history.word = $(this).find("img").attr("word");
+      
       renderPage({
         page: "search_result",
         transitionType: "SLIDE_LEFT"
       });
     });
     this.$contents.html( $banners );
-    
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = SpecialPage;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 182 */
@@ -41121,6 +41129,9 @@ class RoomItem {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__RoomItem__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__RoomList_scss__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__RoomList_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__RoomList_scss__);
+
 
 
 class RoomList {
@@ -41140,7 +41151,7 @@ class RoomList {
       if ( rooms.length == 0 ) {
         $roomList.append( $(`
           <div class="not-found-search-result">
-            検索条件にヒットする物件がありませんでした。
+            検索条件にヒットする物件は見つかりませんでした。
           </div>
         `) );
       }
@@ -41903,6 +41914,448 @@ class HitCount {
 /* harmony export (immutable) */ __webpack_exports__["a"] = HitCount;
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 204 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 205 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function ToObject(val) {
+	if (val == null) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function ownEnumerableKeys(obj) {
+	var keys = Object.getOwnPropertyNames(obj);
+
+	if (Object.getOwnPropertySymbols) {
+		keys = keys.concat(Object.getOwnPropertySymbols(obj));
+	}
+
+	return keys.filter(function (key) {
+		return propIsEnumerable.call(obj, key);
+	});
+}
+
+module.exports = Object.assign || function (target, source) {
+	var from;
+	var keys;
+	var to = ToObject(target);
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = arguments[s];
+		keys = ownEnumerableKeys(Object(from));
+
+		for (var i = 0; i < keys.length; i++) {
+			to[keys[i]] = from[keys[i]];
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = {
+    'ZE': {start:0xff01, end:0xff5e}, // 全角英数
+    'HE': {start:0x0021, end:0x007e}, // 半角英数
+    'HG': {start:0x3041, end:0x3096}, // ひらがな
+    'KK': {start:0x30a1, end:0x30f6}, // カタカナ
+
+    'HS': {regexp: /(\s|\u00A0)/g, list:['\u0020', '\u00A0']}, // 半角スペース
+    'ZS': {regexp: /(\u3000)/g, list:['　', '　']}, //全角スペース
+
+    'HK': {regexp: /([\uff66-\uff9c]\uff9e)|([\uff8a-\uff8e]\uff9f)|([\uff61-\uff9f])/g, // 半角カナ
+        list: ['｡', '｢', '｣', '､', '･', 'ｦ', 'ｧ', 'ｨ', 'ｩ', 'ｪ', 'ｫ', 'ｬ', 'ｭ', 'ｮ', 'ｯ', 'ｰ', 'ｱ', 'ｲ', 'ｳ', 'ｴ', 'ｵ', 'ｶ', 'ｷ', 'ｸ', 'ｹ', 'ｺ', 'ｻ', 'ｼ', 'ｽ', 'ｾ', 'ｿ', 'ﾀ', 'ﾁ', 'ﾂ', 'ﾃ', 'ﾄ', 'ﾅ', 'ﾆ', 'ﾇ', 'ﾈ', 'ﾉ', 'ﾊ', 'ﾋ', 'ﾌ', 'ﾍ', 'ﾎ', 'ﾏ', 'ﾐ', 'ﾑ', 'ﾒ', 'ﾓ', 'ﾔ', 'ﾕ', 'ﾖ', 'ﾗ', 'ﾘ', 'ﾙ', 'ﾚ', 'ﾛ', 'ﾜ', 'ﾝ', 'ﾞ', 'ﾟ', 'ｦﾞ', 'ｳﾞ', 'ｶﾞ', 'ｷﾞ', 'ｸﾞ', 'ｹﾞ', 'ｺﾞ', 'ｻﾞ', 'ｼﾞ', 'ｽﾞ', 'ｾﾞ', 'ｿﾞ', 'ﾀﾞ', 'ﾁﾞ', 'ﾂﾞ', 'ﾃﾞ', 'ﾄﾞ', 'ﾊﾞ', 'ﾊﾟ', 'ﾋﾞ', 'ﾋﾟ', 'ﾌﾞ', 'ﾌﾟ', 'ﾍﾞ', 'ﾍﾟ', 'ﾎﾞ', 'ﾎﾟ', 'ﾜﾞ']},
+    'ZK': {regexp: /([\u3001-\u30fc])/g,  //全角カナ (半角カナ変換用)
+        list: ['。', '「', '」', '、', '・', 'ヲ', 'ァ', 'ィ', 'ゥ', 'ェ', 'ォ', 'ャ', 'ュ', 'ョ', 'ッ', 'ー', 'ア', 'イ', 'ウ', 'エ', 'オ', 'カ', 'キ', 'ク', 'ケ', 'コ', 'サ', 'シ', 'ス', 'セ', 'ソ', 'タ', 'チ', 'ツ', 'テ', 'ト', 'ナ', 'ニ', 'ヌ', 'ネ', 'ノ', 'ハ', 'ヒ', 'フ', 'ヘ', 'ホ', 'マ', 'ミ', 'ム', 'メ', 'モ', 'ヤ', 'ユ', 'ヨ', 'ラ', 'リ', 'ル', 'レ', 'ロ', 'ワ', 'ン', '゛', '゜', 'ヺ', 'ヴ', 'ガ', 'ギ', 'グ', 'ゲ', 'ゴ', 'ザ', 'ジ', 'ズ', 'ゼ', 'ゾ', 'ダ', 'ヂ', 'ヅ', 'デ', 'ド', 'バ', 'パ', 'ビ', 'ピ', 'ブ', 'プ', 'ベ', 'ペ', 'ボ', 'ポ', 'ヷ']}
+};
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+
+/**
+ * @constructor
+ * @param {object} mojisyu
+ * @param {string} str
+ */
+function Moji(mojisyu, str) {
+    this.origin = str;
+    this._result = this.origin;
+    this._mojisyu = mojisyu;
+}
+
+Moji.prototype.toString = function () {
+    return this._result;
+};
+
+
+/**
+ * convert
+ * 変換の実行
+ *
+ * @param {string} from_syumei 変換前の文字種名
+ * @param {string} to_syumei 変化後の文字種名
+ * @returns {Moji}
+ */
+Moji.prototype.convert = function convert(from_syumei, to_syumei) {
+    var from_mojisyu_body = this._mojisyu[from_syumei];
+    var to_mojisyu_body = this._mojisyu[to_syumei];
+
+    if (this._mojisyuType(from_mojisyu_body) === 'range' && this._mojisyuType(to_mojisyu_body) === 'range') {
+        this._result = this._rangeConvert(from_mojisyu_body, to_mojisyu_body);
+        return this;
+    }
+
+    if (this._mojisyuType(from_mojisyu_body) === 'regexp' && this._mojisyuType(to_mojisyu_body) === 'regexp') {
+        this._result = this._regexpConvert(from_mojisyu_body, to_mojisyu_body);
+        return this;
+    }
+};
+
+/**
+ * _rangeConvert
+ * @param {object} from_syu
+ * @param {object} to_syu
+ * @return {string}
+ * @private
+ */
+Moji.prototype._rangeConvert = function _rangeConvert(from_syu, to_syu) {
+    var distance = to_syu.start - from_syu.start;
+    return this._rangeMap(from_syu, function (moji, is_match, code) {
+        if (is_match) {
+            return String.fromCharCode(code + distance);
+        }
+        return moji;
+    }).join('');
+};
+
+/**
+ * _regexpConvert
+ * @param from_syu
+ * @param to_syu
+ * @return {string}
+ * @private
+ */
+Moji.prototype._regexpConvert = function _regexpConvert(from_syu, to_syu) {
+    return this._regexpMap(from_syu, function (moji, is_match, index) {
+        if (!is_match) {
+            return moji;
+        }
+        return to_syu.list[index];
+    });
+};
+
+
+/**
+ *  filter
+ *  文字種のみに絞込
+ *  @param {string} mojisyu_name 絞り込まれる文字種
+ *  @returns {Moji}
+ */
+Moji.prototype.filter = function filter(mojisyu_name) {
+    var mojisyu_body = this._mojisyu[mojisyu_name];
+
+    if (this._mojisyuType(mojisyu_body) === 'range') {
+        this._result = this._rangeFilter(mojisyu_body);
+        return this;
+    }
+
+    if (this._mojisyuType(mojisyu_body) === 'regexp') {
+        this._result = this._regexpFilter(mojisyu_body);
+        return this;
+    }
+};
+
+/**
+ * _rangeFilter
+ * @param mojisyu
+ * @return {string}
+ * @private
+ */
+Moji.prototype._rangeFilter = function _rangeFilter(mojisyu) {
+    return this._rangeMap(mojisyu, function (moji, is_range) {
+        if (is_range) {
+            return moji;
+        }
+        return '';
+    }).join('');
+};
+
+/**
+ * _regexpFilter
+ * @param mojisyu
+ * @return {string}
+ * @private
+ */
+Moji.prototype._regexpFilter = function _regexpFilter(mojisyu) {
+    var match_mojis = [];
+    this._regexpMap(mojisyu, function (moji, is_match) {
+        if (is_match) {
+            match_mojis.push(moji);
+        }
+    });
+    return match_mojis.join('');
+};
+
+
+/**
+ * reject
+ * 文字種は排除
+ * @param {string} mojisyu_name 排除される文字種
+ * @returns {Moji}
+ */
+Moji.prototype.reject = function reject(mojisyu_name) {
+    var mojisyu_body = this._mojisyu[mojisyu_name];
+
+    if (this._mojisyuType(mojisyu_body) === 'range') {
+        this._result = this._rangeReject(mojisyu_body);
+        return this;
+    }
+
+    if (this._mojisyuType(mojisyu_body) === 'regexp') {
+        this._result = this._regexpReject(mojisyu_body);
+        return this;
+    }
+};
+
+/**
+ * _rangeReject
+ * @param mojisyu
+ * @return {string}
+ * @private
+ */
+Moji.prototype._rangeReject = function _rangeReject(mojisyu) {
+    return this._rangeMap(mojisyu, function (moji, is_range) {
+        if (!is_range) {
+            return moji;
+        }
+        return '';
+    }).join('');
+};
+
+/**
+ * _regexpReject
+ * @param mojisyu
+ * @return {string}
+ * @private
+ */
+Moji.prototype._regexpReject = function _regexpReject(mojisyu) {
+    var reject_moji = this._regexpFilter(mojisyu);
+    return this._result.replace(reject_moji, '');
+};
+
+
+/**
+ * _mojisyuType
+ * 文字種のタイプを判別
+ * range || regexp
+ * @param {mojisyu} mojisyu 文字種
+ * @return {string}
+ */
+Moji.prototype._mojisyuType = function _mojisyuType(mojisyu) {
+    if (mojisyu.start && mojisyu.end) {
+        return 'range';
+    }
+    if (mojisyu.regexp && mojisyu.list) {
+        return 'regexp';
+    }
+
+    return '';
+};
+
+/**
+ * _rangeMap
+ * @param {object} mojisyu - 文字種オブジェクト
+ * @param {function} callback
+ * @return {Array}
+ * @private
+ */
+Moji.prototype._rangeMap = function _rangeMap(mojisyu, callback) {
+    return this._result.split('').map(function (moji) {
+        var code = moji.charCodeAt(0);
+        var is_match = (code >= mojisyu.start && code <= mojisyu.end);
+        return callback.call(this, moji, is_match, code);
+    });
+};
+
+/**
+ * _regexpMap
+ * @param {object} mojisyu - 文字種オブジェクト
+ * @param callback
+ * @return {string}
+ * @private
+ */
+Moji.prototype._regexpMap = function _regexpMap(mojisyu, callback) {
+    return this._result.replace(mojisyu.regexp, function (moji) {
+        var index = mojisyu.list.indexOf(moji);
+        var is_match = index >= 0;
+        return callback.call(this, moji, is_match, index);
+    });
+};
+
+module.exports = Moji;
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Moji = __webpack_require__(207);
+var mojiStr = __webpack_require__(209);
+var _mojisyu = __webpack_require__(206);
+var assign = __webpack_require__(205);
+var mojisyu = assign({}, _mojisyu);
+
+mojiStr.call(Moji.prototype);
+
+var moji = function (str) {
+    return new Moji(mojisyu, str);
+};
+
+moji.addMojisyu = function (syu) {
+    mojisyu = assign(mojisyu, syu);
+};
+
+module.exports = moji;
+
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports) {
+
+function mojiStr() {
+    /**
+     * trim
+     * 行頭、行末の空白を削除
+     */
+    this.trim = function () {
+        this._result = this._result.trim();
+        return this;
+    };
+
+    /**
+     * match
+     * matchした文字列に変更
+     * matchしなければなにもしない
+     * @param {RegExp} regexp
+     */
+    this.match = function(regexp) {
+        var result = this._result.match(regexp);
+
+        if (!result || !regexp) return this;
+
+        this._result = result.toString();
+        return this;
+    };
+
+
+    this.replace = function(regexp, new_str) {
+        this._result = this._result.replace(regexp, new_str);
+        return this;
+    };
+
+    return this;
+}
+
+module.exports = mojiStr;
+
+// slice
+//substr
+//toLocaleLowerCase
+//toLocaleUpperCase
+//toLowerCase
+//toUpperCase
+//trim
+//trimLeft
+//trimRight
+//encodeURIComponent
+//decodeURIComponent
+
+/***/ }),
+/* 210 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Html__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ModalDialog__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SortModal_scss__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SortModal_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__SortModal_scss__);
+
+
+
+
+class SortModal extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
+  constructor(params={}) {
+    super();
+    
+    var selectedVal = global.APP.search_history.sort;
+    
+    var $menu = $select({
+      options: [
+        "賃料の安い順",
+        "面積の広い順",
+        "新着順",
+      ],
+      name: "sort",
+      selectedVal: selectedVal,
+    });
+    
+    var $modalContents = $(`
+      <div class="sort-modal-content">
+        <div class="title">並び替え</div>
+      </div>
+    `);
+    $modalContents.append($menu);
+    
+    var modal = new __WEBPACK_IMPORTED_MODULE_1__ModalDialog__["a" /* default */]($modalContents);
+    modal.open();
+    
+    $menu.on("change", () => {
+      global.APP.search_history.sort = $menu.val();
+      modal.close();
+      
+      // 画面切り替え
+      renderPage({
+        page: "search_result",
+        action: "index",
+      });
+    });
+    this.$html = $modalContents;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = SortModal;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

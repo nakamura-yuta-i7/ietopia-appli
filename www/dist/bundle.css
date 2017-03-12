@@ -446,30 +446,27 @@ textarea {
   line-height: 1.5;
 }
 
-.checkboxes-section .checkboxes .checkbox {
+.checkboxes-section .checkboxes label.checkbox {
   display: inline-block;
   padding: 3px 0px;
 }
 
-.checkboxes-section .checkboxes .checkbox label {
-  display: block;
-}
-
-.checkboxes-section .checkboxes .checkbox label input {
+.checkboxes-section .checkboxes label.checkbox input {
   vertical-align: text-top;
   display: inline-block;
   margin-right: 12px;
 }
 
-.checkboxes-section .checkboxes .ui.checkbox.checked label {
+.checkboxes-section .checkboxes :checked + span {
   color: #F47F00;
+  font-weight: 900;
 }
 
-.checkboxes-section .checkboxes .ui.checkbox {
+.checkboxes-section .checkboxes .checkbox {
   width: 50%;
 }
 
-.checkboxes-section .checkboxes .ui.checkbox label {
+.checkboxes-section .checkboxes .checkbox label {
   color: #4A4A4A;
 }
 .tikunensu-section {
@@ -624,6 +621,57 @@ textarea {
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0045484d', endColorstr='#a8000000',GradientType=0 );
   /* IE6-9 */
+}
+.not-found-search-result {
+  padding: 15px;
+  font-size: 12px;
+  background: #fff;
+  border-radius: 4px;
+  margin: 20px;
+}
+.modal-wrapper {
+  position: fixed;
+  z-index: 9999;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-wrapper .modal-bg-layer {
+  width: 100%;
+  height: 100%;
+  background: #717D90;
+  opacity: 0.5;
+}
+
+.modal-wrapper .modal-contents {
+  position: absolute;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  margin: 0 auto;
+  background: #fff;
+  width: 320px;
+  padding: 30px 20px 20px 20px;
+  text-align: center;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.modal-wrapper .modal-contents .title {
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+.sort-modal-content {
+  margin-bottom: 20px;
+}
+
+.sort-modal-content .title {
+  color: #F47F00;
+  margin-bottom: 20px;
+  font-weight: 900;
 }
 .room-page header .room-sub-menu {
   position: absolute;
@@ -857,40 +905,6 @@ textarea {
 .room-page .inquiry-area .inquiry-mail-btn {
   cursor: pointer;
   float: right;
-}
-.modal-wrapper {
-  position: fixed;
-  z-index: 9999;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-}
-
-.modal-wrapper .modal-bg-layer {
-  width: 100%;
-  height: 100%;
-  background: #717D90;
-  opacity: 0.5;
-}
-
-.modal-wrapper .modal-contents {
-  position: absolute;
-  z-index: 9999;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  margin: 0 auto;
-  background: #fff;
-  width: 320px;
-  padding: 30px 20px 20px 20px;
-  text-align: center;
-  border-radius: 4px;
-}
-
-.modal-wrapper .modal-contents .title {
-  font-size: 17px;
-  margin-bottom: 20px;
 }
 .special-page .contents {
   padding: 16px 13px;

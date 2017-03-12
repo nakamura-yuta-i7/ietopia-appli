@@ -1,4 +1,5 @@
 import RoomItem from "./RoomItem";
+import "./RoomList.scss";
 
 export default class RoomList {
   static findAll(searchParams, $countVal) {
@@ -17,7 +18,7 @@ export default class RoomList {
       if ( rooms.length == 0 ) {
         $roomList.append( $(`
           <div class="not-found-search-result">
-            検索条件にヒットする物件がありませんでした。
+            検索条件にヒットする物件は見つかりませんでした。
           </div>
         `) );
       }

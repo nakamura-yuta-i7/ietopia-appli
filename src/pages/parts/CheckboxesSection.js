@@ -1,5 +1,6 @@
 import Html from "./Html";
 import "./checkboxes_section.scss";
+var moji = require('moji');
 
 export default class CheckboxesSection extends Html {
   constructor(params={}) {
@@ -40,12 +41,10 @@ export default class CheckboxesSection extends Html {
   }
   buildCheckbox(data) {
     var $checkbox = $(`
-      <div class="ui checkbox">
-        <label>
-          <input type="checkbox" name="${this.identifier}" value="${data.value}">
-          ${data.name}
-        </label>
-      </div>
+      <label class="checkbox">
+        <input type="checkbox" name="${this.identifier}" value="${data.value}">
+        <span>${moji(data.name).convert('ZK', 'HK').toString()}</span>
+      </label>
     `);
     // $checkbox.checkbox();
     if ( $.inArray(data.value, this.selectedVals) !== -1 ) {
@@ -54,3 +53,4 @@ export default class CheckboxesSection extends Html {
     return $checkbox;
   }
 }
+

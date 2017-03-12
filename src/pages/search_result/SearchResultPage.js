@@ -1,6 +1,7 @@
 import Page from '../Page';
 import './search_result.scss';
 import RoomList from "../parts/RoomList";
+import SortModal from '../parts/SortModal';
 
 
 export default class SearchResultPage extends Page {
@@ -20,6 +21,9 @@ export default class SearchResultPage extends Page {
         </div>`);
     var $countVal = $countDiv.find("#val");
     var $sortButton = $(`<div id="sort-button">並び替え</div>`);
+    $sortButton.on("click", () => {
+      new SortModal();
+    });
     var $filterButton = $(`<div id="filter-button">絞り込み</div>`);
     $filterButton.on("click", () => {
       renderPage({
