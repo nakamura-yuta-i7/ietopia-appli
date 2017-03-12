@@ -113,7 +113,10 @@ class IetopiaMeApiBase extends IetopiaUserApiBase {
   }
 }
 export class MeApi extends IetopiaMeApiBase {
-  
+  save(data="{}") {
+    var url = this.url + "/save";
+    return this.request(data, "POST", url);
+  }
 }
 export class SearchHistoryApi extends IetopiaMeApiBase {
   constructor() {
@@ -135,6 +138,10 @@ export class RoomHistoryApi extends IetopiaMeApiBase {
   constructor() {
     super();
     this.setApiUrlSufix("/room_history");
+  }
+  save(room_id) {
+    var url = this.url + "/save";
+    return this.request({room_id}, "GET", url);
   }
 }
 export class FavoriteApi extends IetopiaMeApiBase {

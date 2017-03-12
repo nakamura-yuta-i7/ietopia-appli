@@ -15,10 +15,6 @@ export default class InquiryPage extends Page {
       </div>
     `);
     this.$headerOriginalContents = $callTelDiv;
-    $callTelDiv.on("click", () => {
-      // 電話をかける場合のダイアログを表示
-      new TelModal();
-    });
     
     // お問い合わせ説明エリアについて
     var $descriptionArea = $(`
@@ -30,13 +26,53 @@ export default class InquiryPage extends Page {
     this.$contents.append($descriptionArea);
     
     // お問い合わせ物件について
-    if ( this.requests.bukken_id ) {
-      this.$contents.append($(`
-        <section>
-          ここに物件情報を表示します。
-        </section>
-      `));
+    if ( this.requests.room_id ) {
+      var room_id = this.requests.room_id;
+      var $roomInfo = $(`
+        <section class="room-info"></section>
+      `);
+      global.APP.api.ietopia.room.get(room_id)
+      .then( room => {
+        // 物件情報を表示
+        $roomInfo.append( $(`
+          <h3>${room.name}</h3>
+          <img src="${room.gaikan_image_main}" width="100">
+          <div class="info">
+            <div class="yatin">
+              <span class="int">${room.yatin_int / 10000}</span>
+              <span class="manyen">万円</span>
+            </div>
+            <span class="madori">${room.madori}</span>
+            /
+            <span class="senyumenseki">${room.senyumenseki}</span>
+            <div class="kotu_first_line">${room.kotu_first_line}</div>
+          </div>
+        `) )
+        // 電話をかける場合のダイアログを表示
+        $callTelDiv.on("click", () => {
+          new TelModal({bukken:room});
+        });
+      } );
+      this.$contents.append($roomInfo);
+      
+    } else {
+      
+      // 電話をかける場合のダイアログを表示
+      $callTelDiv.on("click", () => {
+        new TelModal();
+      });
     }
+    
+    var $kibou_renraku_jikan_start = $select({
+      name: "kibou_renraku_jikan_start",
+      options: _.range(0,24),
+      selectedVal: APP.me.kibou_renraku_jikan_start
+    });
+    var $kibou_renraku_jikan_end = $select({
+      name: "kibou_renraku_jikan_end",
+      options: _.range(0,24),
+      selectedVal: APP.me.kibou_renraku_jikan_end
+    });
     
     // お問い合わせフォームについて
     var $inquiryForm = $(`
@@ -47,13 +83,13 @@ export default class InquiryPage extends Page {
           <div class="table-cell">
             <label>お名前</label>
             <div class="ui input" style="margin-right:10px;">
-              <input type="text" name="name" placeholder="お名前">
+              <input type="text" name="name" placeholder="お名前" value="${APP.me.name}">
             </div>
           </div>
           <div class="table-cell">
             <label>フリガナ</label>
             <div class="ui input">
-              <input type="text" name="furigana" placeholder="フリガナ">
+              <input type="text" name="furigana" placeholder="フリガナ" value="${APP.me.furigana}">
             </div>
           </div>
         </div>
@@ -61,28 +97,28 @@ export default class InquiryPage extends Page {
         <div class="form-group">
           <label>住所</label>
           <div class="ui input fluid">
-            <input type="text" name="jusho" placeholder="住所: 東京都豊島区 東池袋1丁目2−11 片山ビル4F">
+            <input type="text" name="jusho" placeholder="住所: 東京都豊島区 東池袋1丁目2−11 片山ビル4F" value="${APP.me.jusho}">
           </div>
         </div>
         
         <div class="form-group">
           <label>電話番号</label>
           <div class="ui input fluid">
-            <input type="text" name="tel" placeholder="電話番号: 0120-55-2470">
+            <input type="text" name="tel" placeholder="電話番号: 0120-55-2470" value="${APP.me.tel}">
           </div>
         </div>
         
         <div class="form-group">
           <label>メールアドレス</label>
           <div class="ui input fluid">
-            <input type="text" name="mail" placeholder="メールアドレス: mail@ietopia.jp">
+            <input type="text" name="mail" placeholder="メールアドレス: mail@ietopia.jp" value="${APP.me.mail}">
           </div>
         </div>
         
         <div class="form-group">
           <label>メールアドレス（再入力）</label>
           <div class="ui input fluid">
-            <input type="text" name="mail" placeholder="メールアドレス（再入力）: mail@ietopia.jp">
+            <input type="text" name="mail_retype" placeholder="メールアドレス（再入力）: mail@ietopia.jp" value="${APP.me.mail}">
           </div>
         </div>
         
@@ -104,61 +140,9 @@ export default class InquiryPage extends Page {
               </div>
             </div>
             <div class="table-cell nowrap">
-              <select name="kibou_renraku_jikan_start">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option selected>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-                <option>16</option>
-                <option>17</option>
-                <option>18</option>
-                <option>19</option>
-                <option>20</option>
-                <option>21</option>
-                <option>22</option>
-                <option>23</option>
-                <option>24</option>
-              </select>
+              ${$kibou_renraku_jikan_start.outerHTML()}
               時 〜
-              <select name="kibou_renraku_jikan_end">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-                <option>16</option>
-                <option>17</option>
-                <option>18</option>
-                <option>19</option>
-                <option selected>20</option>
-                <option>21</option>
-                <option>22</option>
-                <option>23</option>
-                <option>24</option>
-              </select>
+              ${$kibou_renraku_jikan_end.outerHTML()}
               時
             </div>
           </div>
@@ -167,12 +151,39 @@ export default class InquiryPage extends Page {
         <div class="form-group">
           <label>備考</label>
           <div class="field">
-            <textarea rows="8" name="note"></textarea>
+            <textarea rows="8" name="note">${global.APP.me.note}</textarea>
           </div>
         </div>
         
       </form>
     `);
+    
+    var $kibouRenrakuHouhouMail = $inquiryForm.find("[value='メール']");
+    $kibouRenrakuHouhouMail.attr("checked", _.includes(global.APP.me.kibou_renraku_houhou, "メール") );
+    var $kibouRenrakuHouhouTel = $inquiryForm.find("[value='電話']");
+    $kibouRenrakuHouhouTel.attr("checked", _.includes(global.APP.me.kibou_renraku_houhou, "電話") );
+    
+    $inquiryForm.on("change", ()=>{
+      var data = global.queryString.parse($inquiryForm.serialize());
+      Object.keys(data).forEach(key=>{
+        if ( key == "kibou_renraku_houhou" ) {
+          if ( !global.is("Array", data["kibou_renraku_houhou"]) ) {
+            data["kibou_renraku_houhou"] = [data["kibou_renraku_houhou"]];
+          }
+        }
+        var value = data[key];
+        if ( global.is("Array", value) ) {
+          value = JSON.stringify(value);
+        }
+        data[key] = value;
+      });
+      global.APP.api.ietopia.user.me.save(data)
+      .then(()=>{
+        return global.APP.api.ietopia.user.me.request();
+      })
+      .then( me => global.APP.me = me );
+    });
+    
     var $inquirySection = $(`<section></section>`);
     $inquirySection.append($inquiryForm);
     // $inquirySection.find(".checkbox").checkbox();

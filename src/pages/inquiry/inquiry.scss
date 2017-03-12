@@ -27,6 +27,37 @@
       color: #E70B18;
     }
   }
+  .room-info {
+
+    font-size: 10px;
+    
+    overflow: hidden;
+    zoom: 1;
+    
+    .date {
+      font-weight: 900;
+      color: #F47F00;
+      margin-bottom: 6px;
+    }
+    h3 {
+      font-size: 11px;
+      margin: 0px;
+      margin-bottom: 6px;
+    }
+    img {
+      float: left;
+    }
+    .info {
+      margin-left: 110px;
+      .yatin {
+        .int {
+          font-size: 13px;
+          font-weight: 900;
+          color: #F47F00;
+        }
+      }
+    }
+  }
   .inquiry-form {
     .kibou-renraku-group {
       .table-cell {

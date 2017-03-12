@@ -2,16 +2,18 @@ import RoomItem from "./RoomItem";
 import "./RoomList.scss";
 
 export default class RoomList {
-  static findAll(searchParams, $countVal) {
+  static findAll(searchParams, $countVal=null) {
+    $(".room-list").remove();
     var $roomList = $(`<div class="room-list"></div>`);
     
     return RoomList.requestList(searchParams)
-    .then( (result) => {
-      var count = result.count;
-      $countVal.html(count);
-      
+    .then( result => {
+      if ( $countVal ) {
+        var count = result.count;
+        $countVal.html(count);
+      }
       var rooms = result.list;
-      rooms.forEach( (room) => {
+      rooms.forEach( room => {
         var $room = RoomItem.createElem(room);
         $roomList.append($room);
       } );

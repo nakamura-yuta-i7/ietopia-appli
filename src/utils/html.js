@@ -20,7 +20,7 @@ global.$select = function(params) {
   })();
   var $select = $html("select", {name, class: classes});
   options.forEach( (data) => {
-    if ( is("String", data) ) {
+    if ( !is("Object", data) ) {
       data = {
         value: data,
         name: data

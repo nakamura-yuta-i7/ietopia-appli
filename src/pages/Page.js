@@ -152,6 +152,9 @@ export default class Page {
     
     $footer.find("li").on("click", function() {
       var page = $(this).attr("class");
+      if ( page == "search" ) {
+        global.APP.search_history.word = "";
+      }
       renderPage({ page: page });
     });
     

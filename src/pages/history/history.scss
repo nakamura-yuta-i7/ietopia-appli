@@ -1,0 +1,34 @@
+.history-page {
+  .item {
+    font-size: 10px;
+    
+    overflow: hidden;
+    zoom: 1;
+    
+    .date {
+      font-weight: 900;
+      color: #F47F00;
+      margin-bottom: 6px;
+    }
+    h3 {
+      font-size: 11px;
+      margin: 0px;
+      margin-bottom: 6px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    img {
+      float: left;
+    }
+    .info {
+      margin-left: 110px;
+      .yatin {
+        .int {
+          font-size: 13px;
+          font-weight: 900;
+          color: #F47F00;
+        }
+      }
+    }
+  }
+}

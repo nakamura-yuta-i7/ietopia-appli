@@ -4562,6 +4562,9 @@ class Page {
     
     $footer.find("li").on("click", function() {
       var page = $(this).attr("class");
+      if ( page == "search" ) {
+        global.APP.search_history.word = "";
+      }
       renderPage({ page: page });
     });
     
@@ -4729,7 +4732,10 @@ class IetopiaMeApiBase extends IetopiaUserApiBase {
   }
 }
 class MeApi extends IetopiaMeApiBase {
-  
+  save(data="{}") {
+    var url = this.url + "/save";
+    return this.request(data, "POST", url);
+  }
 }
 /* harmony export (immutable) */ __webpack_exports__["k"] = MeApi;
 
@@ -4755,6 +4761,10 @@ class RoomHistoryApi extends IetopiaMeApiBase {
   constructor() {
     super();
     this.setApiUrlSufix("/room_history");
+  }
+  save(room_id) {
+    var url = this.url + "/save";
+    return this.request({room_id}, "GET", url);
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["m"] = RoomHistoryApi;
@@ -38448,14 +38458,14 @@ class Dispatcher {
 
 /***/ }),
 /* 123 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  API_BASE_URL:  false ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
-  //API_BASE_URL: "https://appli.ietopia-services.com",
+  //API_BASE_URL: IS_PRODUCTION ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
+  API_BASE_URL: "https://appli.ietopia-services.com",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
-  IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/xjzHWazSb1S2",
+  IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/LPX9EigxCT82",
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
   IETOPIA_GAIYO_URL: "http://www.ietopia.jp/companies?smp=1",
   IETOPIA_TEL: "0120552470",
@@ -38512,7 +38522,7 @@ global.$select = function(params) {
   })();
   var $select = $html("select", {name, class: classes});
   options.forEach( (data) => {
-    if ( is("String", data) ) {
+    if ( !is("Object", data) ) {
       data = {
         value: data,
         name: data
@@ -39574,12 +39584,19 @@ class Router {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__favorite_scss__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__favorite_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__favorite_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__ = __webpack_require__(186);
+
 
 
 
 class FavoritePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
   indexAction() {
     this.headerTitle = "お気に入り"
+    
+    __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__["a" /* default */].findAll({favorite:1})
+    .then( $roomList => {
+      this.$contents.append($roomList);
+    });
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = FavoritePage;
@@ -39590,7 +39607,7 @@ class FavoritePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__history_scss__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__history_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__history_scss__);
 
@@ -39601,10 +39618,49 @@ class HistoryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     this.headerTitle = "履歴"
     this.displayHeaderLogoS = false;
     this.displayHeaderBackButton = true;
+    
+    global.APP.api.ietopia.room.list({history:1})
+    .then( list => {
+      list.list.forEach( room => {
+        
+        var $item = $(`
+          <section class="item">
+            <div class="">
+              <span class="date">${room.history_created_at}</span>
+              <h3>${room.name}</h3>
+              <img src="${room.gaikan_image_main}" width="100">
+              <div class="info">
+                <div class="yatin">
+                  <span class="int">${room.yatin_int / 10000}</span>
+                  <span class="manyen">万円</span>
+                </div>
+                <span class="madori">${room.madori}</span>
+                /
+                <span class="senyumenseki">${room.senyumenseki}</span>
+                <div class="kotu_first_line">${room.kotu_first_line}</div>
+              </div>
+            </div>
+          </section>
+        `);
+        $item.find("h3").on("click", ()=>{
+          
+          // 画面切り替え
+          renderPage({
+            page: "room",
+            transitionType: "SLIDE_LEFT",
+            requests: {
+              room_id: room.id
+            }
+          });
+        });
+        this.$contents.append( $item );
+      });
+    } );
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = HistoryPage;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 165 */
@@ -39632,7 +39688,7 @@ class InfoPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inquiry_scss__ = __webpack_require__(134);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inquiry_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__inquiry_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__parts_TelModal__ = __webpack_require__(198);
@@ -39653,10 +39709,6 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
       </div>
     `);
     this.$headerOriginalContents = $callTelDiv;
-    $callTelDiv.on("click", () => {
-      // 電話をかける場合のダイアログを表示
-      new __WEBPACK_IMPORTED_MODULE_2__parts_TelModal__["a" /* default */]();
-    });
     
     // お問い合わせ説明エリアについて
     var $descriptionArea = $(`
@@ -39668,13 +39720,53 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     this.$contents.append($descriptionArea);
     
     // お問い合わせ物件について
-    if ( this.requests.bukken_id ) {
-      this.$contents.append($(`
-        <section>
-          ここに物件情報を表示します。
-        </section>
-      `));
+    if ( this.requests.room_id ) {
+      var room_id = this.requests.room_id;
+      var $roomInfo = $(`
+        <section class="room-info"></section>
+      `);
+      global.APP.api.ietopia.room.get(room_id)
+      .then( room => {
+        // 物件情報を表示
+        $roomInfo.append( $(`
+          <h3>${room.name}</h3>
+          <img src="${room.gaikan_image_main}" width="100">
+          <div class="info">
+            <div class="yatin">
+              <span class="int">${room.yatin_int / 10000}</span>
+              <span class="manyen">万円</span>
+            </div>
+            <span class="madori">${room.madori}</span>
+            /
+            <span class="senyumenseki">${room.senyumenseki}</span>
+            <div class="kotu_first_line">${room.kotu_first_line}</div>
+          </div>
+        `) )
+        // 電話をかける場合のダイアログを表示
+        $callTelDiv.on("click", () => {
+          new __WEBPACK_IMPORTED_MODULE_2__parts_TelModal__["a" /* default */]({bukken:room});
+        });
+      } );
+      this.$contents.append($roomInfo);
+      
+    } else {
+      
+      // 電話をかける場合のダイアログを表示
+      $callTelDiv.on("click", () => {
+        new __WEBPACK_IMPORTED_MODULE_2__parts_TelModal__["a" /* default */]();
+      });
     }
+    
+    var $kibou_renraku_jikan_start = $select({
+      name: "kibou_renraku_jikan_start",
+      options: _.range(0,24),
+      selectedVal: APP.me.kibou_renraku_jikan_start
+    });
+    var $kibou_renraku_jikan_end = $select({
+      name: "kibou_renraku_jikan_end",
+      options: _.range(0,24),
+      selectedVal: APP.me.kibou_renraku_jikan_end
+    });
     
     // お問い合わせフォームについて
     var $inquiryForm = $(`
@@ -39685,13 +39777,13 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
           <div class="table-cell">
             <label>お名前</label>
             <div class="ui input" style="margin-right:10px;">
-              <input type="text" name="name" placeholder="お名前">
+              <input type="text" name="name" placeholder="お名前" value="${APP.me.name}">
             </div>
           </div>
           <div class="table-cell">
             <label>フリガナ</label>
             <div class="ui input">
-              <input type="text" name="furigana" placeholder="フリガナ">
+              <input type="text" name="furigana" placeholder="フリガナ" value="${APP.me.furigana}">
             </div>
           </div>
         </div>
@@ -39699,28 +39791,28 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
         <div class="form-group">
           <label>住所</label>
           <div class="ui input fluid">
-            <input type="text" name="jusho" placeholder="住所: 東京都豊島区 東池袋1丁目2−11 片山ビル4F">
+            <input type="text" name="jusho" placeholder="住所: 東京都豊島区 東池袋1丁目2−11 片山ビル4F" value="${APP.me.jusho}">
           </div>
         </div>
         
         <div class="form-group">
           <label>電話番号</label>
           <div class="ui input fluid">
-            <input type="text" name="tel" placeholder="電話番号: 0120-55-2470">
+            <input type="text" name="tel" placeholder="電話番号: 0120-55-2470" value="${APP.me.tel}">
           </div>
         </div>
         
         <div class="form-group">
           <label>メールアドレス</label>
           <div class="ui input fluid">
-            <input type="text" name="mail" placeholder="メールアドレス: mail@ietopia.jp">
+            <input type="text" name="mail" placeholder="メールアドレス: mail@ietopia.jp" value="${APP.me.mail}">
           </div>
         </div>
         
         <div class="form-group">
           <label>メールアドレス（再入力）</label>
           <div class="ui input fluid">
-            <input type="text" name="mail" placeholder="メールアドレス（再入力）: mail@ietopia.jp">
+            <input type="text" name="mail_retype" placeholder="メールアドレス（再入力）: mail@ietopia.jp" value="${APP.me.mail}">
           </div>
         </div>
         
@@ -39742,61 +39834,9 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
               </div>
             </div>
             <div class="table-cell nowrap">
-              <select name="kibou_renraku_jikan_start">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option selected>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-                <option>16</option>
-                <option>17</option>
-                <option>18</option>
-                <option>19</option>
-                <option>20</option>
-                <option>21</option>
-                <option>22</option>
-                <option>23</option>
-                <option>24</option>
-              </select>
+              ${$kibou_renraku_jikan_start.outerHTML()}
               時 〜
-              <select name="kibou_renraku_jikan_end">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-                <option>16</option>
-                <option>17</option>
-                <option>18</option>
-                <option>19</option>
-                <option selected>20</option>
-                <option>21</option>
-                <option>22</option>
-                <option>23</option>
-                <option>24</option>
-              </select>
+              ${$kibou_renraku_jikan_end.outerHTML()}
               時
             </div>
           </div>
@@ -39805,12 +39845,39 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
         <div class="form-group">
           <label>備考</label>
           <div class="field">
-            <textarea rows="8" name="note"></textarea>
+            <textarea rows="8" name="note">${global.APP.me.note}</textarea>
           </div>
         </div>
         
       </form>
     `);
+    
+    var $kibouRenrakuHouhouMail = $inquiryForm.find("[value='メール']");
+    $kibouRenrakuHouhouMail.attr("checked", _.includes(global.APP.me.kibou_renraku_houhou, "メール") );
+    var $kibouRenrakuHouhouTel = $inquiryForm.find("[value='電話']");
+    $kibouRenrakuHouhouTel.attr("checked", _.includes(global.APP.me.kibou_renraku_houhou, "電話") );
+    
+    $inquiryForm.on("change", ()=>{
+      var data = global.queryString.parse($inquiryForm.serialize());
+      Object.keys(data).forEach(key=>{
+        if ( key == "kibou_renraku_houhou" ) {
+          if ( !global.is("Array", data["kibou_renraku_houhou"]) ) {
+            data["kibou_renraku_houhou"] = [data["kibou_renraku_houhou"]];
+          }
+        }
+        var value = data[key];
+        if ( global.is("Array", value) ) {
+          value = JSON.stringify(value);
+        }
+        data[key] = value;
+      });
+      global.APP.api.ietopia.user.me.save(data)
+      .then(()=>{
+        return global.APP.api.ietopia.user.me.request();
+      })
+      .then( me => global.APP.me = me );
+    });
+    
     var $inquirySection = $(`<section></section>`);
     $inquirySection.append($inquiryForm);
     // $inquirySection.find(".checkbox").checkbox();
@@ -39847,13 +39914,14 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = InquiryPage;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__kibou_osumai_scss__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__kibou_osumai_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__kibou_osumai_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bluebird__ = __webpack_require__(6);
@@ -39885,26 +39953,43 @@ class KibouOsumaiPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default
       class: "kibou-form",
     });
     
+    $kibouForm.on("change", ()=> {
+      var data = global.queryString.parse($kibouForm.serialize());
+      Object.keys(data).forEach(key=>{
+        var value = data[key];
+        if ( global.is("Array", value) ) {
+          value = JSON.stringify(value);
+        }
+        data[key] = value;
+      });
+      console.log( {data} );
+      global.APP.api.ietopia.user.me.save(data)
+      .then(()=>{
+        return global.APP.api.ietopia.user.me.request();
+      })
+      .then( me => global.APP.me = me );
+    });
+    
     // お客様について
     $kibouForm.append( getUserInfoSection({sex: "男性", age: "30代"}) );
     
     // 家賃について
-    $kibouForm.append( new __WEBPACK_IMPORTED_MODULE_4__parts_YatinSection__["a" /* default */](100000, 150000).getHtml() );
+    $kibouForm.append( new __WEBPACK_IMPORTED_MODULE_4__parts_YatinSection__["a" /* default */](global.APP.me["yatin-min"], global.APP.me["yatin-max"]).getHtml() );
     
     // 間取について
     var madoriSection = new __WEBPACK_IMPORTED_MODULE_5__parts_MadoriSection__["a" /* default */]({
-      selectedVals: ["1K"]
+      selectedVals: global.APP.me.madori
     });
     $kibouForm.append(madoriSection.getHtml());
     
     // 築年数について
-    $kibouForm.append( new __WEBPACK_IMPORTED_MODULE_6__parts_TikunenSection__["a" /* default */](1).getHtml() );
+    $kibouForm.append( new __WEBPACK_IMPORTED_MODULE_6__parts_TikunenSection__["a" /* default */](global.APP.me.tikunensu).getHtml() );
     
     // 備考について
     var $noteSection = $html("section", {}, $(`
         <h2>その他のご希望</h2>
         <div class="ui form">
-          <textarea rows="8" name="note"></textarea>
+          <textarea rows="8" name="other-kibou">${global.APP.me["other-kibou"]}</textarea>
         </div>
     `));
     $kibouForm.append($noteSection);
@@ -39921,15 +40006,15 @@ function getDescriptionArea() {
     <div class="description-area">
       <div class="message">
         お探しのお住いの条件を登録することができます。<br>
-条件にマッチしたお部屋をリアルタイムで受け取ることができたり、お問い合わせいただいた際によりスムーズにご案内することができますので是非ご活用ください。
+条件にマッチしたお部屋をリアルタイムで受け取ることができたり、お問い合わせいただいた際によりスムーズにご案内することができますので是非ご入力ください。
       </div>
     </div>
   `);
 }
 
 function getUserInfoSection(params={}) {
-  var sex = params.sex || ""
-  var age = params.age || ""
+  var sex = global.APP.me.sex;
+  var age = global.APP.me.age;
   var $sexSelect = $select({
     options: [
       {value:"", name:"--"},
@@ -39967,6 +40052,7 @@ function getUserInfoSection(params={}) {
     </section>
   `);
 }
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 168 */
@@ -40012,7 +40098,7 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
         window.open(config.IETOPIA_GOOGLE_MAP_URL, "_blank");
       } },
       { type:"inquiry", action: function() {
-        global.renderPage({page:"inquiry", transitionType: "SLIDE_LEFT"});
+        global.renderPage({page:"inquiry", transitionType: "SLIDE_LEFT", requests: {room_id:""}});
       } },
       { type:"history", action: function() {
         global.renderPage({page:"history", transitionType: "SLIDE_LEFT"});
@@ -40052,23 +40138,72 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__news_scss__ = __webpack_require__(138);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__news_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__news_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bluebird__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bluebird___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_bluebird__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__ = __webpack_require__(186);
 
 
 
 
 class NewsPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
-    indexAction() {
-        this.headerTitle = "新着・おすすめ";
-    }
+  indexAction() {
+    this.headerTitle = "新着・おすすめ";
+    var $switchPanel = $(`
+      <div class="switch-panel">
+        <div class="switch-btn selected new">
+          <span class="title">新着</span>
+          <span class="count">--</span>
+          <span class="ken">件</span>
+        </div>
+        <div class="switch-btn pickup">
+          <span class="title">おすすめ</span>
+          <span class="count">--</span>
+          <span class="ken">件</span>
+        </div>
+      </div>
+    `);
+    this.$main.append($switchPanel);
+    var $newCount = $switchPanel.find(".new .count");
+    var $pickupCount = $switchPanel.find(".pickup .count");
+    
+    getPickupCount()
+    .then( count => $pickupCount.html(count) );
+    
+    __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__["a" /* default */].findAll({new:1}, $newCount)
+    .then( $roomList => {
+      this.$contents.append($roomList);
+    });
+    
+    var $pickupBtn = $switchPanel.find(".pickup");
+    var $newBtn = $switchPanel.find(".new");
+    
+    $pickupBtn.on("click", () => {
+      $newBtn.removeClass("selected");
+      $pickupBtn.addClass("selected");
+      __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__["a" /* default */].findAll({pickup:1})
+      .then( $roomList => {
+        this.$contents.append($roomList);
+      });
+    });
+    
+    $newBtn.on("click", () => {
+      $pickupBtn.removeClass("selected");
+      $newBtn.addClass("selected");
+      __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__["a" /* default */].findAll({new:1})
+      .then( $roomList => {
+        this.$contents.append($roomList);
+      });
+    });
+  }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = NewsPage;
 
+
+function getPickupCount() {
+  return global.APP.api.ietopia.room.count({pickup:1})
+}
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 171 */
@@ -40787,10 +40922,14 @@ class SearchResultPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* defaul
           <span id="val">--</span>
           <span id="ken">件</span>
         </div>`);
-    var $countVal = $countDiv.find("#val");
+    this.$countVal = $countDiv.find("#val");
     var $sortButton = $(`<div id="sort-button">並び替え</div>`);
     $sortButton.on("click", () => {
-      new __WEBPACK_IMPORTED_MODULE_3__parts_SortModal__["a" /* default */]();
+      new __WEBPACK_IMPORTED_MODULE_3__parts_SortModal__["a" /* default */]({
+        callback: () => {
+          this.loadRoomList();
+        },
+      });
     });
     var $filterButton = $(`<div id="filter-button">絞り込み</div>`);
     $filterButton.on("click", () => {
@@ -40803,7 +40942,11 @@ class SearchResultPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* defaul
     this.$headerOriginalContents.append( $sortButton );
     this.$headerOriginalContents.append( $filterButton );
     
-    __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__["a" /* default */].findAll(global.APP.search_history, $countVal)
+    this.loadRoomList();
+  }
+  loadRoomList() {
+    console.log( "loadRoomList" );
+    __WEBPACK_IMPORTED_MODULE_2__parts_RoomList__["a" /* default */].findAll(global.APP.search_history, this.$countVal)
     .then( $roomList => {
       this.$contents.append( $roomList );
     });
@@ -40831,7 +40974,7 @@ class SpecialPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
       <div class="banners">
         <div class="banner"><img src="img/special/banner_designers.png" word="デザイナーズ"></div>
         <div class="banner"><img src="img/special/banner_shintiku.png" word="新築"></div>
-        <div class="banner"><img src="img/special/banner_pet.png" word="ペット相談可"></div>
+        <div class="banner"><img src="img/special/banner_pet.png" word="ペット"></div>
         <div class="banner"><img src="img/special/banner_shiki_rei_nashi.png" word="礼金なし 敷金なし"></div>
         <div class="banner"><img src="img/special/banner_ekitika.png" word="駅近"></div>
         <div class="banner"><img src="img/special/banner_jimusho.png" word="事務所"></div>
@@ -40839,7 +40982,7 @@ class SpecialPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
         <div class="banner"><img src="img/special/banner_family.png" word="ファミリー向け"></div>
       </div>
     `);
-    $banners.on("click", function() {
+    $banners.find(".banner").on("click", function() {
       global.APP.search_history.word = $(this).find("img").attr("word");
       
       renderPage({
@@ -40947,7 +41090,6 @@ global.APP = {
   },
   me: null, // ログインした後に入れる
   search_history: null, // 検索条件を変更したり検索した時に入れる
-  room_history: null,
   favorite: null,
   master: {},
   api: {
@@ -41039,7 +41181,7 @@ function onDeviceReady() {
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {
-    global.me = me;
+    global.APP.me = me;
     global.APP.search_history = me.search_history;
     global.APP.favorite       = me.favorite;
     var allMaster = APP.api.ietopia.master.all;
@@ -41135,16 +41277,18 @@ class RoomItem {
 
 
 class RoomList {
-  static findAll(searchParams, $countVal) {
+  static findAll(searchParams, $countVal=null) {
+    $(".room-list").remove();
     var $roomList = $(`<div class="room-list"></div>`);
     
     return RoomList.requestList(searchParams)
-    .then( (result) => {
-      var count = result.count;
-      $countVal.html(count);
-      
+    .then( result => {
+      if ( $countVal ) {
+        var count = result.count;
+        $countVal.html(count);
+      }
       var rooms = result.list;
-      rooms.forEach( (room) => {
+      rooms.forEach( room => {
         var $room = __WEBPACK_IMPORTED_MODULE_0__RoomItem__["a" /* default */].createElem(room);
         $roomList.append($room);
       } );
@@ -41288,6 +41432,11 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     // エリアに追加
     this.$contents.after( $inquiryArea );
     // お問い合わせエリア: ここまで
+    
+    console.log( "koko!!!" );
+    
+    // 閲覧履歴に登録
+    global.APP.api.ietopia.user.room_history.save(room_id)
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = RoomPage;
@@ -41416,7 +41565,6 @@ class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* de
         $clickedThumImg.addClass(className);
         // クリックした画像がサムネイルエリアの先頭あたりにスクロールして移動するように
         var x = $clickedThumImg.offset().left + ( $thumsArea.scrollLeft() ) - 120;
-        console.log( {x} );
         $thumsArea.animate({scrollLeft: x});
       });
       return $thumImg;
@@ -42312,6 +42460,8 @@ class SortModal extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
   constructor(params={}) {
     super();
     
+    var callback = params.callback || function() {}
+    
     var selectedVal = global.APP.search_history.sort;
     
     var $menu = $select({
@@ -42338,11 +42488,7 @@ class SortModal extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
       global.APP.search_history.sort = $menu.val();
       modal.close();
       
-      // 画面切り替え
-      renderPage({
-        page: "search_result",
-        action: "index",
-      });
+      callback();
     });
     this.$html = $modalContents;
   }

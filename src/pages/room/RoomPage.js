@@ -105,5 +105,10 @@ export default class RoomPage extends Page {
     // エリアに追加
     this.$contents.after( $inquiryArea );
     // お問い合わせエリア: ここまで
+    
+    console.log( "koko!!!" );
+    
+    // 閲覧履歴に登録
+    global.APP.api.ietopia.user.room_history.save(room_id)
   }
 }

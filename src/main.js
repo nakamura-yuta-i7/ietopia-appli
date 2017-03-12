@@ -24,7 +24,6 @@ global.APP = {
   },
   me: null, // ログインした後に入れる
   search_history: null, // 検索条件を変更したり検索した時に入れる
-  room_history: null,
   favorite: null,
   master: {},
   api: {
@@ -116,7 +115,7 @@ function onDeviceReady() {
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {
-    global.me = me;
+    global.APP.me = me;
     global.APP.search_history = me.search_history;
     global.APP.favorite       = me.favorite;
     var allMaster = APP.api.ietopia.master.all;

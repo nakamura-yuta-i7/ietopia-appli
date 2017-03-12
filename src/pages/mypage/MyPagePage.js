@@ -13,7 +13,7 @@ export default class MyPagePage extends Page {
         window.open(config.IETOPIA_GOOGLE_MAP_URL, "_blank");
       } },
       { type:"inquiry", action: function() {
-        global.renderPage({page:"inquiry", transitionType: "SLIDE_LEFT"});
+        global.renderPage({page:"inquiry", transitionType: "SLIDE_LEFT", requests: {room_id:""}});
       } },
       { type:"history", action: function() {
         global.renderPage({page:"history", transitionType: "SLIDE_LEFT"});

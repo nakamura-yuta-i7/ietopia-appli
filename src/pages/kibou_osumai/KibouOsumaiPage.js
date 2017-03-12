@@ -20,26 +20,43 @@ export default class KibouOsumaiPage extends Page {
       class: "kibou-form",
     });
     
+    $kibouForm.on("change", ()=> {
+      var data = global.queryString.parse($kibouForm.serialize());
+      Object.keys(data).forEach(key=>{
+        var value = data[key];
+        if ( global.is("Array", value) ) {
+          value = JSON.stringify(value);
+        }
+        data[key] = value;
+      });
+      console.log( {data} );
+      global.APP.api.ietopia.user.me.save(data)
+      .then(()=>{
+        return global.APP.api.ietopia.user.me.request();
+      })
+      .then( me => global.APP.me = me );
+    });
+    
     // お客様について
     $kibouForm.append( getUserInfoSection({sex: "男性", age: "30代"}) );
     
     // 家賃について
-    $kibouForm.append( new YatinSection(100000, 150000).getHtml() );
+    $kibouForm.append( new YatinSection(global.APP.me["yatin-min"], global.APP.me["yatin-max"]).getHtml() );
     
     // 間取について
     var madoriSection = new MadoriSection({
-      selectedVals: ["1K"]
+      selectedVals: global.APP.me.madori
     });
     $kibouForm.append(madoriSection.getHtml());
     
     // 築年数について
-    $kibouForm.append( new TikunenSection(1).getHtml() );
+    $kibouForm.append( new TikunenSection(global.APP.me.tikunensu).getHtml() );
     
     // 備考について
     var $noteSection = $html("section", {}, $(`
         <h2>その他のご希望</h2>
         <div class="ui form">
-          <textarea rows="8" name="note"></textarea>
+          <textarea rows="8" name="other-kibou">${global.APP.me["other-kibou"]}</textarea>
         </div>
     `));
     $kibouForm.append($noteSection);
@@ -54,15 +71,15 @@ function getDescriptionArea() {
     <div class="description-area">
       <div class="message">
         お探しのお住いの条件を登録することができます。<br>
-条件にマッチしたお部屋をリアルタイムで受け取ることができたり、お問い合わせいただいた際によりスムーズにご案内することができますので是非ご活用ください。
+条件にマッチしたお部屋をリアルタイムで受け取ることができたり、お問い合わせいただいた際によりスムーズにご案内することができますので是非ご入力ください。
       </div>
     </div>
   `);
 }
 
 function getUserInfoSection(params={}) {
-  var sex = params.sex || ""
-  var age = params.age || ""
+  var sex = global.APP.me.sex;
+  var age = global.APP.me.age;
   var $sexSelect = $select({
     options: [
       {value:"", name:"--"},

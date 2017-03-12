@@ -19,10 +19,14 @@ export default class SearchResultPage extends Page {
           <span id="val">--</span>
           <span id="ken">件</span>
         </div>`);
-    var $countVal = $countDiv.find("#val");
+    this.$countVal = $countDiv.find("#val");
     var $sortButton = $(`<div id="sort-button">並び替え</div>`);
     $sortButton.on("click", () => {
-      new SortModal();
+      new SortModal({
+        callback: () => {
+          this.loadRoomList();
+        },
+      });
     });
     var $filterButton = $(`<div id="filter-button">絞り込み</div>`);
     $filterButton.on("click", () => {
@@ -35,7 +39,11 @@ export default class SearchResultPage extends Page {
     this.$headerOriginalContents.append( $sortButton );
     this.$headerOriginalContents.append( $filterButton );
     
-    RoomList.findAll(global.APP.search_history, $countVal)
+    this.loadRoomList();
+  }
+  loadRoomList() {
+    console.log( "loadRoomList" );
+    RoomList.findAll(global.APP.search_history, this.$countVal)
     .then( $roomList => {
       this.$contents.append( $roomList );
     });

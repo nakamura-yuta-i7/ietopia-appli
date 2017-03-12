@@ -1,0 +1,43 @@
+.news-page {
+  .contents {
+    padding-top: 33px;
+  }
+}
+.switch-panel {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  top: 72px;
+  left: 0px;
+  height: 33px;
+  
+  overflow: hidden;
+  zoom: 1;
+  
+  .switch-btn {
+    width: 50%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 6px 0 4px 0;
+    font-weight: 900;
+    font-size: 15px;
+    color: #9B9B9B;
+    background: #F2F2F2;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+    
+    .title {
+      margin-right: 20px;
+      text-decoration: underline;
+    }
+    .ken {
+      font-weight: 100;
+      font-size: 10px;
+    }
+  }
+  .switch-btn.selected {
+    color: #EA0000;
+    background: #FFFFFF;
+  }
+}

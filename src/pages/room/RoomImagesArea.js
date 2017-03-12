@@ -59,7 +59,6 @@ export default class RoomImagesArea extends Html {
         $clickedThumImg.addClass(className);
         // クリックした画像がサムネイルエリアの先頭あたりにスクロールして移動するように
         var x = $clickedThumImg.offset().left + ( $thumsArea.scrollLeft() ) - 120;
-        console.log( {x} );
         $thumsArea.animate({scrollLeft: x});
       });
       return $thumImg;

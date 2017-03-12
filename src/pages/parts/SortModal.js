@@ -6,6 +6,8 @@ export default class SortModal extends Html {
   constructor(params={}) {
     super();
     
+    var callback = params.callback || function() {}
+    
     var selectedVal = global.APP.search_history.sort;
     
     var $menu = $select({
@@ -32,11 +34,7 @@ export default class SortModal extends Html {
       global.APP.search_history.sort = $menu.val();
       modal.close();
       
-      // 画面切り替え
-      renderPage({
-        page: "search_result",
-        action: "index",
-      });
+      callback();
     });
     this.$html = $modalContents;
   }
