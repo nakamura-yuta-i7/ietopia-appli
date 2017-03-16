@@ -8,7 +8,7 @@
     "plugin_settings": {
         "cordova-plugin-crosswalk-webview": {
             "variables": [
-                "XWALK_VERSION=18.48.477.13"
+                "XWALK_VERSION=23.53.589.4"
             ],
             "additional_params": {
                 "arch": "arm"
@@ -21,6 +21,6 @@
         "cordova-custom-config@2.0.3",
         "cordova-plugin-device@1.1.2",
         "ncmb-push-monaca-plugin@2.0.4",
-        "cordova-plugin-crosswalk-webview@1.7.2"
+        "cordova-plugin-crosswalk-webview@2.3.0"
     ]
 }
