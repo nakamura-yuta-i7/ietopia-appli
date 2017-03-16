@@ -8,8 +8,6 @@
   <allow-intent href="itms:*"/>
   <allow-intent href="itms-apps:*"/>
   <preference name="monaca:WebViewEngine" value="crosswalk"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="Orientation" value="default"/>
   <preference name="loglevel" value="DEBUG"/>
   <preference name="AndroidLaunchMode" value="singleTop"/>
   <preference name="ErrorUrl" value=""/>
@@ -94,8 +92,12 @@
   </platform>
   <preference name="WindowsStorePublisherName" value="My Name"/>
   <preference name="WindowsStoreIdentityName" value="1952deed-2dda-3394-182c-d6072b7a6638"/>
+  <preference name="DisallowOverscroll" value="true"/>
   <access origin="*"/>
   <preference name="KeepRunning" value="false"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
-  </widget>
+  <preference name="Orientation" value="portrait"/>
+  <preference name="SplashScreenDelay" value="1"/>
+  <preference name="Fullscreen" value="false"/>
+</widget>

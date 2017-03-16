@@ -9,7 +9,10 @@
         "cordova-plugin-crosswalk-webview": {
             "variables": [
                 "XWALK_VERSION=18.48.477.13"
-            ]
+            ],
+            "additional_params": {
+                "arch": "arm"
+            }
         }
     },
     "external_plugins": [
