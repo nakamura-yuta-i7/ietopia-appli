@@ -98,4 +98,4 @@
   <preference name="KeepRunning" value="false"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
-  <pr
+  </widget>
