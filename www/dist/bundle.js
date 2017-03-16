@@ -4473,7 +4473,7 @@ class Page {
       `);
       
       var $headerBackButton = $header.find(".history-back");
-      $headerBackButton.on("click", () => {
+      $headerBackButton.tappable( () => {
         history.back();
       });
       if ( this.$headerOriginalContents.length ) {
