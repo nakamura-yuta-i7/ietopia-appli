@@ -60,6 +60,8 @@ header {
     z-index: 99;
     // height: $headerHeight;
     position: absolute;
+    height: 72px;
+    box-sizing: border-box;
     top: 0px;
     left: 0px;
     padding-top: 14px + $topPointInHeader;

@@ -77,6 +77,8 @@ header #logo_s img {
 header .history-back {
   z-index: 99;
   position: absolute;
+  height: 72px;
+  box-sizing: border-box;
   top: 0px;
   left: 0px;
   padding-top: 34px;
