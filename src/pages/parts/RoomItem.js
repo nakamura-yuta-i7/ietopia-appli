@@ -40,7 +40,7 @@ export default class RoomItem {
     </div>`);
     $room.append( $kotuDiv );
     // 部屋タップで詳細ページに遷移
-    $room.on("click", () => {
+    $room.tappable( () => {
       
       // 画面切り替え
       renderPage({
