@@ -8,7 +8,7 @@ export default class FavoriteButton extends Html {
         <div class="favorite star">
           <img src="${getfavoriteIconSrc(room_id)}" height="22">
         </div>`);
-    $favoriteBtn.tappable(function() {
+    $favoriteBtn.on("click", function() {
       (function() {
         return hasFavorite(room_id) ?
           global.APP.api.ietopia.user.favorite.delete(room_id) :

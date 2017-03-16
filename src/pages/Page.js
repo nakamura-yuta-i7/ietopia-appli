@@ -63,7 +63,7 @@ export default class Page {
       `);
       
       var $headerBackButton = $header.find(".history-back");
-      $headerBackButton.tappable( () => {
+      $headerBackButton.on("click", () => {
         history.back();
       });
       if ( this.$headerOriginalContents.length ) {
@@ -150,7 +150,7 @@ export default class Page {
       </footer>
     `);
     
-    $footer.find("li").tappable(function() {
+    $footer.find("li").on("click", function() {
       var page = $(this).attr("class");
       if ( page == "search" ) {
         global.APP.search_history.word = "";

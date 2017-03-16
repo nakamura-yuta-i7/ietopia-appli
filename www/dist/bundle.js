@@ -4473,7 +4473,7 @@ class Page {
       `);
       
       var $headerBackButton = $header.find(".history-back");
-      $headerBackButton.tappable( () => {
+      $headerBackButton.on("click", () => {
         history.back();
       });
       if ( this.$headerOriginalContents.length ) {
@@ -4560,7 +4560,7 @@ class Page {
       </footer>
     `);
     
-    $footer.find("li").tappable(function() {
+    $footer.find("li").on("click", function() {
       var page = $(this).attr("class");
       if ( page == "search" ) {
         global.APP.search_history.word = "";
@@ -41248,7 +41248,7 @@ class RoomItem {
     </div>`);
     $room.append( $kotuDiv );
     // 部屋タップで詳細ページに遷移
-    $room.tappable( () => {
+    $room.on("click", () => {
       
       // 画面切り替え
       renderPage({
@@ -41466,7 +41466,7 @@ class FavoriteButton extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
         <div class="favorite star">
           <img src="${getfavoriteIconSrc(room_id)}" height="22">
         </div>`);
-    $favoriteBtn.tappable(function() {
+    $favoriteBtn.on("click", function() {
       (function() {
         return hasFavorite(room_id) ?
           global.APP.api.ietopia.user.favorite.delete(room_id) :
@@ -41555,7 +41555,7 @@ class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* de
       var $thumBigImg = $(`
         <img src="${thumBigUrl}">
       `);
-      $thumImg.tappable(function() {
+      $thumImg.on("click", function() {
         // クリックしたらメイン写真エリアに表示
         $mainImage.html( $thumBigImg );
         // 選択中のサムネイルからクラス削除しクリックしたものにクラスを付与
