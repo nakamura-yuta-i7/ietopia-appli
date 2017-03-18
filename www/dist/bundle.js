@@ -4642,7 +4642,7 @@ class IetopiaApi {
     });
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["o"] = IetopiaApi;
+/* harmony export (immutable) */ __webpack_exports__["p"] = IetopiaApi;
 
 class IetopiaMasterApiBase extends IetopiaApi {
   constructor() {
@@ -4728,6 +4728,20 @@ class IetopiaUserApiBase extends IetopiaApi {
     this.API_URL_SUFIX = "/user";
   }
 }
+class IetopiaUserInquiryApiBase extends IetopiaUserApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/inquiry");
+  }
+}
+class InquiryApi extends IetopiaUserInquiryApiBase {
+  send(data={}) {
+    var url = this.url + "/send";
+    return this.request(data, "POST", url);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["o"] = InquiryApi;
+
 class IetopiaMeApiBase extends IetopiaUserApiBase {
   constructor() {
     super();
@@ -4735,7 +4749,7 @@ class IetopiaMeApiBase extends IetopiaUserApiBase {
   }
 }
 class MeApi extends IetopiaMeApiBase {
-  save(data="{}") {
+  save(data={}) {
     var url = this.url + "/save";
     return this.request(data, "POST", url);
   }
@@ -38471,7 +38485,6 @@ module.exports = {
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
   IETOPIA_GAIYO_URL: "http://www.ietopia.jp/companies?smp=1",
   IETOPIA_TEL: "0120552470",
-  SEARCH_HISTORY_MAX_COUNT: 5,
 }
 
 /***/ }),
@@ -39716,7 +39729,7 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     var $descriptionArea = $(`
       <div class="description">
         お問い合せは、<strong>お電話(上部メニューの電話アイコンをタップ)</strong>、または下記メールフォームより受け付けておりますのでお気軽にお問い合わせください。<br>
-        後日弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てにご連絡させていただきます。
+        弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てに折り返しご連絡させていただきます。
       </div>
     `);
     this.$contents.append($descriptionArea);
@@ -39909,7 +39922,18 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
     `);
     var $submitButton = $submitArea.find(".submit-button");
     $submitButton.on("click", () => {
-      console.log( $inquiryForm.serialize() );
+      var data = queryString.parse( $inquiryForm.serialize() );
+      if ( data.mail != data.mail_retype ) {
+        return alert("メールアドレスのご入力をもう一度お確かめください。");
+      }
+      
+      global.APP.api.ietopia.user.inquiry.send(data)
+      .then(()=>{
+        alert("お問い合わせありがとうございます。弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てに折り返しご連絡させていただきます。");
+      })
+      .catch(()=>{
+        alert("送信が失敗しました。時間を置いてからもう一度お試しください。");
+      })
     });
     this.$contents.append($submitArea);
   }
@@ -41114,6 +41138,7 @@ global.APP = {
         search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* SearchHistoryApi */](),
         room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* RoomHistoryApi */](),
         favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* FavoriteApi */](),
+        inquiry: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["o" /* InquiryApi */](),
       },
     },
   },
@@ -41178,9 +41203,9 @@ function onDeviceReady() {
   
   promise.resolve()
   // .then( IetopiaApi.logout )
-  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["o" /* default */].isloggedIn )
+  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["p" /* default */].isloggedIn )
   .then( isloggedIn => {
-    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["o" /* default */].login( __WEBPACK_IMPORTED_MODULE_8__utils_uuid__["a" /* default */].get() );
+    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["p" /* default */].login( __WEBPACK_IMPORTED_MODULE_8__utils_uuid__["a" /* default */].get() );
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {

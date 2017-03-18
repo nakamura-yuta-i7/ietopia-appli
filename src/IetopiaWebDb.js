@@ -206,9 +206,6 @@ export class SearchHistory extends IetopiaWebDb {
             return result["params_json"];
         });
     }
-    SAVE_MAX_COUNT() {
-        return global.config.SEARCH_HISTORY_MAX_COUNT;
-    }
     saveConditions(conditionParams={}) {
         // 検索条件パラメータを記録
         var value = JSON.stringify( conditionParams )

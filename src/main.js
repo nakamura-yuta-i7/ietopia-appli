@@ -15,7 +15,7 @@ import { EkitohoApi, TikunensuApi,
   MensekiApi, MadoriApi, RosenApi, 
   StationApi, KodawariJokenApi, YatinApi, IetopiaMasterAllApi } from "./IetopiaApi";
 import { MeApi, SearchHistoryApi, RoomHistoryApi, FavoriteApi } from "./IetopiaApi";
-import { IetopiaRoomApi } from "./IetopiaApi";
+import { InquiryApi, IetopiaRoomApi } from "./IetopiaApi";
 
 // グローバル変数
 global.APP = {
@@ -45,6 +45,7 @@ global.APP = {
         search_history: new SearchHistoryApi(),
         room_history: new RoomHistoryApi(),
         favorite: new FavoriteApi(),
+        inquiry: new InquiryApi(),
       },
     },
   },

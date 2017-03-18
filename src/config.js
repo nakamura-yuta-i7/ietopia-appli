@@ -7,5 +7,4 @@ module.exports = {
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
   IETOPIA_GAIYO_URL: "http://www.ietopia.jp/companies?smp=1",
   IETOPIA_TEL: "0120552470",
-  SEARCH_HISTORY_MAX_COUNT: 5,
 }

@@ -20,7 +20,7 @@ export default class InquiryPage extends Page {
     var $descriptionArea = $(`
       <div class="description">
         お問い合せは、<strong>お電話(上部メニューの電話アイコンをタップ)</strong>、または下記メールフォームより受け付けておりますのでお気軽にお問い合わせください。<br>
-        後日弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てにご連絡させていただきます。
+        弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てに折り返しご連絡させていただきます。
       </div>
     `);
     this.$contents.append($descriptionArea);
@@ -213,7 +213,18 @@ export default class InquiryPage extends Page {
     `);
     var $submitButton = $submitArea.find(".submit-button");
     $submitButton.on("click", () => {
-      console.log( $inquiryForm.serialize() );
+      var data = queryString.parse( $inquiryForm.serialize() );
+      if ( data.mail != data.mail_retype ) {
+        return alert("メールアドレスのご入力をもう一度お確かめください。");
+      }
+      
+      global.APP.api.ietopia.user.inquiry.send(data)
+      .then(()=>{
+        alert("お問い合わせありがとうございます。弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てに折り返しご連絡させていただきます。");
+      })
+      .catch(()=>{
+        alert("送信が失敗しました。時間を置いてからもう一度お試しください。");
+      })
     });
     this.$contents.append($submitArea);
   }

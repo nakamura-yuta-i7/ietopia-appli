@@ -106,6 +106,18 @@ class IetopiaUserApiBase extends IetopiaApi {
     this.API_URL_SUFIX = "/user";
   }
 }
+class IetopiaUserInquiryApiBase extends IetopiaUserApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/inquiry");
+  }
+}
+export class InquiryApi extends IetopiaUserInquiryApiBase {
+  send(data={}) {
+    var url = this.url + "/send";
+    return this.request(data, "POST", url);
+  }
+}
 class IetopiaMeApiBase extends IetopiaUserApiBase {
   constructor() {
     super();
@@ -113,7 +125,7 @@ class IetopiaMeApiBase extends IetopiaUserApiBase {
   }
 }
 export class MeApi extends IetopiaMeApiBase {
-  save(data="{}") {
+  save(data={}) {
     var url = this.url + "/save";
     return this.request(data, "POST", url);
   }
