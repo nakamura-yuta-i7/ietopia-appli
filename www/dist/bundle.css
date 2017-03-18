@@ -713,6 +713,11 @@ textarea {
   color: #F47F00;
 }
 
+.room-page .contents .images-area .main-image {
+  height: 284px;
+  background: #000;
+}
+
 .room-page .contents .images-area .main-image img {
   width: 100%;
   display: block;

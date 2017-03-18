@@ -94,23 +94,24 @@ export default class Page {
     if ( this.transitionType == "REPLACE" ) {
       $(".main[depth!=0]").remove();
       
-    } else if ( this.transitionType == "BACK" ) {
-      
-      if ( $(".main").length > 1 ) {
-        // BACKのページ切り替え時
-        $mainDepth1.animate({left: "0px"});
-        $mainDepth0.animate({left: windowWidthPx()}, () => {
-          $mainDepth0.remove();
-          this.refreshMainDepth();
-        });
-      }
     } else if ( this.transitionType == "SLIDE_LEFT" ) {
       
       if ( $(".main").length > 1 ) {
         // REPLACE以外のページ切り替え時
         $mainDepth0.css({left: windowWidthPx()});
         $mainDepth1.animate({left: "-100px"});
-        $mainDepth0.animate({left: "0px"});
+        $mainDepth0.animate({left: "0px"}, 500);
+      }
+      
+    } else if ( this.transitionType == "BACK" ) {
+      
+      if ( $(".main").length > 1 ) {
+        // BACKのページ切り替え時
+        $mainDepth1.animate({left: "0px"});
+        $mainDepth0.animate({left: windowWidthPx()}, 300, null, () => {
+          $mainDepth0.remove();
+          this.refreshMainDepth();
+        });
       }
     }
     this.buildFooter();
