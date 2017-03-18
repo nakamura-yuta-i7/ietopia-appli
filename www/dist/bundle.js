@@ -4444,6 +4444,8 @@ class Page {
     this.$main = $(`<div class="main" depth="${depthTop}"></a>`);
     this.$main.addClass(`${this.page}-page`);
     this.$main.addClass(`${this.action}-action`);
+    this.$main.width( $(window).width() );
+    this.$main.height( $(window).height() );
     // コンテンツ
     this.$contents = $(`
       <div class="contents"></div>
@@ -4455,7 +4457,7 @@ class Page {
       
       var headerLogoS = this.displayHeaderLogoS
         ? `<div id="logo_s">
-            <a href="./"><img src="img/common/header/logo_s.png"></a>
+            <img src="img/common/header/logo_s.png">
           </div>` : ``;
       var headerTitle = this.displayHeaderTitle
         ? `<h1>${this.headerTitle}</h1>` : ``

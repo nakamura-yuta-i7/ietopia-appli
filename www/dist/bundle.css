@@ -4,7 +4,7 @@ html, body {
   color: #4A4A4A;
   height: 100%;
   padding: 0px;
-  height: 0px;
+  margin: 0px;
   font-family: "SF Pro JP", "Apple TP", "SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Apple Legacy Chevron", "Hiragino Kaku Gothic Pro", "\30D2\30E9\30AE\30CE\89D2\30B4   Pro W3", "\30E1\30A4\30EA\30AA", "Meiryo", "\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF", "Helvetica Neue", "Helvetica", "Arial";
 }
 
@@ -332,6 +332,7 @@ textarea {
 }
 
 .search-form .ui.input.station .icon_train img {
+  display: block;
   width: 13px;
 }
 
@@ -397,10 +398,11 @@ textarea {
 .search-form .ui.input.kodawari .icon_list {
   position: absolute;
   left: 18px;
-  top: 14px;
+  top: 18px;
 }
 
 .search-form .ui.input.kodawari .icon_list img {
+  display: block;
   width: 20px;
 }
 .hit-count {

@@ -61,6 +61,7 @@
       left:21px;
       top:16px;
       img {
+        display: block;
         width: 13px;
       }
     }
@@ -124,8 +125,9 @@
     .icon_list {
       position: absolute;
       left: 18px;
-      top: 14px;
+      top: 18px;
       img {
+        display: block;
         width: 20px;
       }
     }
