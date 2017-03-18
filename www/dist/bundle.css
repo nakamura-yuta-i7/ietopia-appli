@@ -183,6 +183,7 @@ footer nav ul li img {
 
 select {
   background: #fff;
+  -webkit-appearance: none;
   border: none;
   padding: 5px;
 }
@@ -346,10 +347,6 @@ textarea {
 
 .search-form #yatin .table .table-cell select {
   width: 100px;
-  padding-left: 10px;
-  text-align: center;
-  text-align: -webkit-center;
-  color: #9A9A9A;
 }
 
 .search-form #yatin .table .table-cell:nth-child(1) {
