@@ -98,7 +98,7 @@ export default class SearchFormDetailPage extends Page {
       // 検索条件をローカル変数とAPIサーバー側に保管
       var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(global.APP.search_history) );
-      
+      console.log( "koko!!!" );
       var $kodawariInput = $(".search-page input[name=kodawari]");
       refreshKodawariInput($kodawariInput);
     });

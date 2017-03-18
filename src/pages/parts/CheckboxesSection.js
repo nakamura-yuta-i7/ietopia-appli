@@ -34,7 +34,7 @@ export default class CheckboxesSection extends Html {
     $checkboxesArea.append($checkboxes);
     $section.append($checkboxesArea);
     var $removeAllChecks = $checkboxes.find(".remove-all-checks");
-    $removeAllChecks.on("click", ()=>{
+    $removeAllChecks.tappable( ()=>{
       $section.find(":checked").trigger("click");
     });
     this.$html = $section;
@@ -46,7 +46,6 @@ export default class CheckboxesSection extends Html {
         <span>${moji(data.name).convert('ZK', 'HK').toString()}</span>
       </label>
     `);
-    // $checkbox.checkbox();
     if ( $.inArray(data.value, this.selectedVals) !== -1 ) {
       $checkbox.find("input").trigger("click");
     }

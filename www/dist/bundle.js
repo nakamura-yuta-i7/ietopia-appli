@@ -4854,7 +4854,7 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
     $checkboxesArea.append($checkboxes);
     $section.append($checkboxesArea);
     var $removeAllChecks = $checkboxes.find(".remove-all-checks");
-    $removeAllChecks.on("click", ()=>{
+    $removeAllChecks.tappable( ()=>{
       $section.find(":checked").trigger("click");
     });
     this.$html = $section;
@@ -4866,7 +4866,6 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
         <span>${moji(data.name).convert('ZK', 'HK').toString()}</span>
       </label>
     `);
-    // $checkbox.checkbox();
     if ( $.inArray(data.value, this.selectedVals) !== -1 ) {
       $checkbox.find("input").trigger("click");
     }
@@ -40762,7 +40761,7 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
       // 検索条件をローカル変数とAPIサーバー側に保管
       var api = global.APP.api.ietopia.user.search_history;
       api.save( JSON.stringify(global.APP.search_history) );
-      
+      console.log( "koko!!!" );
       var $kodawariInput = $(".search-page input[name=kodawari]");
       refreshKodawariInput($kodawariInput);
     });
