@@ -40700,6 +40700,8 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
       Object.assign(APP.search_history, formParams);
       
       this.hitCount.refresh();
+      
+      refreshKodawariInput($(".search-page input[name=kodawari]"));
     });
     
     // 間取選択エリア
@@ -40756,15 +40758,13 @@ class SearchFormDetailPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* de
     var $parent = this.$main;
     this.hitCount = new __WEBPACK_IMPORTED_MODULE_7__parts_HitCount__["a" /* default */]($parent);
     
-    $(".search_form_detail-page .history-back").on("click", function() {
+    // $(".search_form_detail-page .history-back").on("click", function() {
       
-      // 検索条件をローカル変数とAPIサーバー側に保管
-      var api = global.APP.api.ietopia.user.search_history;
-      api.save( JSON.stringify(global.APP.search_history) );
-      console.log( "koko!!!" );
-      var $kodawariInput = $(".search-page input[name=kodawari]");
-      refreshKodawariInput($kodawariInput);
-    });
+    //   // 検索条件をローカル変数とAPIサーバー側に保管
+    //   var api = global.APP.api.ietopia.user.search_history;
+    //   api.save( JSON.stringify(global.APP.search_history) );
+      
+    // });
     
   }
 }
@@ -40815,6 +40815,8 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
       formParams.station = Array.isArray(formParams.station) ? formParams.station : [formParams.station];
       Object.assign(APP.search_history, formParams);
       this.hitCount.refresh();
+      
+      global.refreshRosenStationInput($(".search-page input[name=station]"));
     });
     var $rosenArea = $searchForm.find("#rosen-area");
     var $stationArea = $searchForm.find("#station-area");
@@ -40876,13 +40878,12 @@ class SearchFormStationPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* d
     var $parent = this.$main;
     this.hitCount = new __WEBPACK_IMPORTED_MODULE_5__parts_HitCount__["a" /* default */]($parent);
 
-    $(".search_form_station-page .history-back").on("click", function() {
+    // $(".search_form_station-page .history-back").on("click", function() {
       
-      var api = global.APP.api.ietopia.user.search_history;
-      api.save( JSON.stringify(global.APP.search_history) );
+    //   var api = global.APP.api.ietopia.user.search_history;
+    //   api.save( JSON.stringify(global.APP.search_history) );
       
-      global.refreshRosenStationInput($(".search-page input[name=station]"));
-    });
+    // });
     
   }
 }

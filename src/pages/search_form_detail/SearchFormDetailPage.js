@@ -37,6 +37,8 @@ export default class SearchFormDetailPage extends Page {
       Object.assign(APP.search_history, formParams);
       
       this.hitCount.refresh();
+      
+      refreshKodawariInput($(".search-page input[name=kodawari]"));
     });
     
     // 間取選択エリア
@@ -93,15 +95,13 @@ export default class SearchFormDetailPage extends Page {
     var $parent = this.$main;
     this.hitCount = new HitCount($parent);
     
-    $(".search_form_detail-page .history-back").on("click", function() {
+    // $(".search_form_detail-page .history-back").on("click", function() {
       
-      // 検索条件をローカル変数とAPIサーバー側に保管
-      var api = global.APP.api.ietopia.user.search_history;
-      api.save( JSON.stringify(global.APP.search_history) );
-      console.log( "koko!!!" );
-      var $kodawariInput = $(".search-page input[name=kodawari]");
-      refreshKodawariInput($kodawariInput);
-    });
+    //   // 検索条件をローカル変数とAPIサーバー側に保管
+    //   var api = global.APP.api.ietopia.user.search_history;
+    //   api.save( JSON.stringify(global.APP.search_history) );
+      
+    // });
     
   }
 }

@@ -28,6 +28,8 @@ export default class SearchFormStationPage extends Page {
       formParams.station = Array.isArray(formParams.station) ? formParams.station : [formParams.station];
       Object.assign(APP.search_history, formParams);
       this.hitCount.refresh();
+      
+      global.refreshRosenStationInput($(".search-page input[name=station]"));
     });
     var $rosenArea = $searchForm.find("#rosen-area");
     var $stationArea = $searchForm.find("#station-area");
@@ -89,13 +91,12 @@ export default class SearchFormStationPage extends Page {
     var $parent = this.$main;
     this.hitCount = new HitCount($parent);
 
-    $(".search_form_station-page .history-back").on("click", function() {
+    // $(".search_form_station-page .history-back").on("click", function() {
       
-      var api = global.APP.api.ietopia.user.search_history;
-      api.save( JSON.stringify(global.APP.search_history) );
+    //   var api = global.APP.api.ietopia.user.search_history;
+    //   api.save( JSON.stringify(global.APP.search_history) );
       
-      global.refreshRosenStationInput($(".search-page input[name=station]"));
-    });
+    // });
     
   }
 }
