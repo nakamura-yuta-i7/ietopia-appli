@@ -85,8 +85,13 @@ header {
   height: $contentsHeight;
   background: #FFF1E1;
   overflow: auto;
+  
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
+  
+  // 画面がandroidでチラ付く問題の解消となるか
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 footer {
   position: fixed;
