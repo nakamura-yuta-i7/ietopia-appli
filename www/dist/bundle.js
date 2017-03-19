@@ -4447,19 +4447,19 @@ class Page {
     this.$main.width( $(window).width() );
     this.$main.height( $(window).height() );
     
-    // メインパネルはスワイプで戻るボタンを押した事にする
-    this.$main.swipe( {
-      // Generic swipe handler for all directions
-      // (全方向の汎用スワイプハンドラ)
-      swipe: (event, direction, distance, duration, fingerCount, fingerData) => {
-        console.log( {event, direction, distance, duration, fingerCount, fingerData} );
-        if ( direction == "right" ) {
-          this.$main.find(".history-back").trigger("click");
-        }
-      },
-      // Default is 75px, set to 0 for demo so any distance triggers swipe
-      threshold: 100
-    });
+    // // メインパネルはスワイプで戻るボタンを押した事にする
+    // this.$main.swipe( {
+    //   // Generic swipe handler for all directions
+    //   // (全方向の汎用スワイプハンドラ)
+    //   swipe: (event, direction, distance, duration, fingerCount, fingerData) => {
+    //     console.log( {event, direction, distance, duration, fingerCount, fingerData} );
+    //     if ( direction == "right" ) {
+    //       this.$main.find(".history-back").trigger("click");
+    //     }
+    //   },
+    //   // Default is 75px, set to 0 for demo so any distance triggers swipe
+    //   threshold: 100
+    // });
     
     
     // コンテンツ
@@ -38502,8 +38502,8 @@ class Dispatcher {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  //API_BASE_URL: "http://0.0.0.0:8888",
-  API_BASE_URL: "https://appli.ietopia-services.com",
+  API_BASE_URL: "http://0.0.0.0:8888",
+  //API_BASE_URL: "https://appli.ietopia-services.com",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/LPX9EigxCT82",
   IETOPIA_PRIVACY_POLICY_URL: "http://www.ietopia.jp/pages/privacy?smp=1",
@@ -41639,6 +41639,7 @@ class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* de
     super();
     var gaikan_images = data.gaikan_images || [];
     var naikan_images = data.naikan_images || [];
+    var imageTotalCount = gaikan_images.length + naikan_images.length;
     
     var image_first = gaikan_images.length ? 
       (function() {
@@ -41668,6 +41669,13 @@ class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* de
     `);
     $imagesArea.append($mainImage);
     $imagesArea.append($thumsArea);
+    
+    // 写真カウンター
+    var $counter = $(`<div class="counter">
+      <span class="current">${1}</span>/<span class="total">${imageTotalCount}</span>
+    </div>`);
+    var $currentNumber = $counter.find(".current");
+    $imagesArea.append($counter);
     
     // メイン写真はスワイプで切替可能
     $mainImage.swipe( {
@@ -41711,6 +41719,15 @@ class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* de
         // クリックした画像がサムネイルエリアの先頭あたりにスクロールして移動するように
         var x = $clickedThumImg.offset().left + ( $thumsArea.scrollLeft() ) - 120;
         $thumsArea.animate({scrollLeft: x});
+        
+        // 表示している画像の枚数カウンターを更新
+        var currentNumber = 0;
+        $thumsArea.find(".thum").each(function() {
+          currentNumber++;
+          if ( $(this).hasClass("selected") ) {
+            $currentNumber.text(currentNumber);
+          }
+        });
       });
       return $thumImg;
     });

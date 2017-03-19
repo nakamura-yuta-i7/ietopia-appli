@@ -724,6 +724,38 @@ textarea {
   color: #F47F00;
 }
 
+.room-page .contents .images-area {
+  position: relative;
+}
+
+.room-page .contents .images-area .counter {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #000;
+  opacity: 0.3;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 6px;
+  padding-bottom: 4px;
+  line-height: 1;
+  border-radius: 100px;
+  z-index: 20;
+}
+
+.room-page .contents .images-area .counter span {
+  color: #fff;
+  opacity: 1;
+}
+
+.room-page .contents .images-area .counter span .count {
+  opacity: 1;
+}
+
+.room-page .contents .images-area .counter span .total {
+  opacity: 0.3;
+}
+
 .room-page .contents .images-area .main-image {
   background: #000;
 }
@@ -731,6 +763,7 @@ textarea {
 .room-page .contents .images-area .main-image img {
   width: 100%;
   display: block;
+  min-height: 250px;
 }
 
 .room-page .contents .images-area .thums-area {

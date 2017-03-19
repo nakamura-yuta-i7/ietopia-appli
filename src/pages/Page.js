@@ -37,19 +37,19 @@ export default class Page {
     this.$main.width( $(window).width() );
     this.$main.height( $(window).height() );
     
-    // メインパネルはスワイプで戻るボタンを押した事にする
-    this.$main.swipe( {
-      // Generic swipe handler for all directions
-      // (全方向の汎用スワイプハンドラ)
-      swipe: (event, direction, distance, duration, fingerCount, fingerData) => {
-        console.log( {event, direction, distance, duration, fingerCount, fingerData} );
-        if ( direction == "right" ) {
-          this.$main.find(".history-back").trigger("click");
-        }
-      },
-      // Default is 75px, set to 0 for demo so any distance triggers swipe
-      threshold: 100
-    });
+    // // メインパネルはスワイプで戻るボタンを押した事にする
+    // this.$main.swipe( {
+    //   // Generic swipe handler for all directions
+    //   // (全方向の汎用スワイプハンドラ)
+    //   swipe: (event, direction, distance, duration, fingerCount, fingerData) => {
+    //     console.log( {event, direction, distance, duration, fingerCount, fingerData} );
+    //     if ( direction == "right" ) {
+    //       this.$main.find(".history-back").trigger("click");
+    //     }
+    //   },
+    //   // Default is 75px, set to 0 for demo so any distance triggers swipe
+    //   threshold: 100
+    // });
     
     
     // コンテンツ

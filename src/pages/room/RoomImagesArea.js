@@ -4,6 +4,7 @@ export default class RoomImagesArea extends Html {
     super();
     var gaikan_images = data.gaikan_images || [];
     var naikan_images = data.naikan_images || [];
+    var imageTotalCount = gaikan_images.length + naikan_images.length;
     
     var image_first = gaikan_images.length ? 
       (function() {
@@ -33,6 +34,13 @@ export default class RoomImagesArea extends Html {
     `);
     $imagesArea.append($mainImage);
     $imagesArea.append($thumsArea);
+    
+    // 写真カウンター
+    var $counter = $(`<div class="counter">
+      <span class="current">${1}</span>/<span class="total">${imageTotalCount}</span>
+    </div>`);
+    var $currentNumber = $counter.find(".current");
+    $imagesArea.append($counter);
     
     // メイン写真はスワイプで切替可能
     $mainImage.swipe( {
@@ -76,6 +84,15 @@ export default class RoomImagesArea extends Html {
         // クリックした画像がサムネイルエリアの先頭あたりにスクロールして移動するように
         var x = $clickedThumImg.offset().left + ( $thumsArea.scrollLeft() ) - 120;
         $thumsArea.animate({scrollLeft: x});
+        
+        // 表示している画像の枚数カウンターを更新
+        var currentNumber = 0;
+        $thumsArea.find(".thum").each(function() {
+          currentNumber++;
+          if ( $(this).hasClass("selected") ) {
+            $currentNumber.text(currentNumber);
+          }
+        });
       });
       return $thumImg;
     });
