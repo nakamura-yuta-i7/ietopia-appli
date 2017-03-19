@@ -6,10 +6,11 @@
     "xcode_version": "7",
     "cordova_version": "6.2",
     "plugin_settings": {
+        "cordova-plugin-inappbrowser": {
+            "variables": []
+        },
         "cordova-plugin-crosswalk-webview": {
-            "variables": [
-                "XWALK_VERSION=23.53.589.4"
-            ],
+            "variables": [],
             "additional_params": {
                 "arch": "arm"
             }
@@ -21,6 +22,7 @@
         "cordova-custom-config@2.0.3",
         "cordova-plugin-device@1.1.2",
         "ncmb-push-monaca-plugin@2.0.4",
-        "cordova-plugin-crosswalk-webview@2.3.0"
+        "cordova-plugin-crosswalk-webview@2.3.0",
+        "cordova-plugin-inappbrowser@1.7.0"
     ]
 }
