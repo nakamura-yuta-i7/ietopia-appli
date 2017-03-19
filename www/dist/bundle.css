@@ -818,15 +818,21 @@ textarea {
   position: relative;
 }
 
+.room-page .contents .map-area iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+
 .room-page .contents .map-area #map {
   position: absolute;
   z-index: 10;
   width: 100%;
-  height: 320px;
+  height: 250px;
 }
 
 .room-page .contents .map-area #street-view {
-  height: 320px;
+  height: 250px;
 }
 
 .room-page .contents .setubi-joken-area {

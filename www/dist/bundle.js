@@ -41410,9 +41410,9 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
       $roomContents.append(
         new __WEBPACK_IMPORTED_MODULE_5__MainDataArea__["a" /* default */](data).getHtml() );
       
-      // // 地図エリア
-      // $roomContents.append(
-      //   new MapArea(data).getHtml() );
+      // 地図エリア
+      $roomContents.append(
+        new __WEBPACK_IMPORTED_MODULE_6__MapArea__["a" /* default */](data).getHtml() );
       
       // 担当者からのコメント
       // 設備・条件
@@ -41745,11 +41745,13 @@ class MapArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default *
     
     var $map = $(`
       <div id="map">
+        <iframe src="./map.html?type=map&shozaiti=${shozaiti}"></iframe>
       </div>
     `);
     
     var $streetView = $(`
       <div id="street-view">
+        <iframe src="./map.html?type=streetview&shozaiti=${shozaiti}"></iframe>
       </div>
     `);
     
@@ -41774,36 +41776,36 @@ class MapArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default *
     
     this.$html = $mapArea;
     
-    setTimeout(function() {
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: {lat: -34.397, lng: 150.644}
-      });
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({address: shozaiti}, function(results, status) {
-        if ( status === google.maps.GeocoderStatus.OK ) {
-          var fenway = results[0].geometry.location;
-          map.setCenter(fenway);
-          var marker = new google.maps.Marker({
-            map: map,
-            position: fenway
-          });
-          var streetView = document.getElementById('street-view');
-          var panorama = new google.maps.StreetViewPanorama(
-            streetView, {
-            position: fenway,
-            pov: {
-              heading: 34,
-              pitch: 10
-            }
-          });
-          // $(streetView).hide();
-        }
-      });
-    }, 1000);
+    // setTimeout(function() {
+    //   var map = new google.maps.Map(document.getElementById('map'), {
+    //     zoom: 15,
+    //     center: {lat: -34.397, lng: 150.644}
+    //   });
+    //   var geocoder = new google.maps.Geocoder();
+    //   geocoder.geocode({address: shozaiti}, function(results, status) {
+    //     if ( status === google.maps.GeocoderStatus.OK ) {
+    //       var fenway = results[0].geometry.location;
+    //       map.setCenter(fenway);
+    //       var marker = new google.maps.Marker({
+    //         map: map,
+    //         position: fenway
+    //       });
+    //       var streetView = document.getElementById('street-view');
+    //       var panorama = new google.maps.StreetViewPanorama(
+    //         streetView, {
+    //         position: fenway,
+    //         pov: {
+    //           heading: 34,
+    //           pitch: 10
+    //         }
+    //       });
+    //       // $(streetView).hide();
+    //     }
+    //   });
+    // }, 1000);
   }
 }
-/* unused harmony export default */
+/* harmony export (immutable) */ __webpack_exports__["a"] = MapArea;
 
 
 /***/ }),
