@@ -55,9 +55,9 @@ export default class RoomPage extends Page {
       $roomContents.append(
         new MainDataArea(data).getHtml() );
       
-      // 地図エリア
-      $roomContents.append(
-        new MapArea(data).getHtml() );
+      // // 地図エリア
+      // $roomContents.append(
+      //   new MapArea(data).getHtml() );
       
       // 担当者からのコメント
       // 設備・条件

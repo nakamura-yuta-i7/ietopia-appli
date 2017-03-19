@@ -41410,9 +41410,9 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
       $roomContents.append(
         new __WEBPACK_IMPORTED_MODULE_5__MainDataArea__["a" /* default */](data).getHtml() );
       
-      // 地図エリア
-      $roomContents.append(
-        new __WEBPACK_IMPORTED_MODULE_6__MapArea__["a" /* default */](data).getHtml() );
+      // // 地図エリア
+      // $roomContents.append(
+      //   new MapArea(data).getHtml() );
       
       // 担当者からのコメント
       // 設備・条件
@@ -41803,7 +41803,7 @@ class MapArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* default *
     }, 1000);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = MapArea;
+/* unused harmony export default */
 
 
 /***/ }),
