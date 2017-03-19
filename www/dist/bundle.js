@@ -4642,7 +4642,7 @@ class IetopiaApi {
     });
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["p"] = IetopiaApi;
+/* harmony export (immutable) */ __webpack_exports__["q"] = IetopiaApi;
 
 class IetopiaMasterApiBase extends IetopiaApi {
   constructor() {
@@ -4722,6 +4722,14 @@ class YatinApi extends IetopiaMasterApiBase {
 }
 /* harmony export (immutable) */ __webpack_exports__["j"] = YatinApi;
 
+class NewsApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/news");
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["k"] = NewsApi;
+
 class IetopiaUserApiBase extends IetopiaApi {
   constructor() {
     super();
@@ -4740,7 +4748,7 @@ class InquiryApi extends IetopiaUserInquiryApiBase {
     return this.request(data, "POST", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["o"] = InquiryApi;
+/* harmony export (immutable) */ __webpack_exports__["p"] = InquiryApi;
 
 class IetopiaMeApiBase extends IetopiaUserApiBase {
   constructor() {
@@ -4754,7 +4762,7 @@ class MeApi extends IetopiaMeApiBase {
     return this.request(data, "POST", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["k"] = MeApi;
+/* harmony export (immutable) */ __webpack_exports__["l"] = MeApi;
 
 class SearchHistoryApi extends IetopiaMeApiBase {
   constructor() {
@@ -4772,7 +4780,7 @@ class SearchHistoryApi extends IetopiaMeApiBase {
     return this.request({params_json}, "POST", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["l"] = SearchHistoryApi;
+/* harmony export (immutable) */ __webpack_exports__["m"] = SearchHistoryApi;
 
 class RoomHistoryApi extends IetopiaMeApiBase {
   constructor() {
@@ -4784,7 +4792,7 @@ class RoomHistoryApi extends IetopiaMeApiBase {
     return this.request({room_id}, "GET", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["m"] = RoomHistoryApi;
+/* harmony export (immutable) */ __webpack_exports__["n"] = RoomHistoryApi;
 
 class FavoriteApi extends IetopiaMeApiBase {
   constructor() {
@@ -4804,7 +4812,7 @@ class FavoriteApi extends IetopiaMeApiBase {
     return this.request({room_id}, "GET", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["n"] = FavoriteApi;
+/* harmony export (immutable) */ __webpack_exports__["o"] = FavoriteApi;
 
 class IetopiaRoomApi extends IetopiaApi {
   constructor() {
@@ -39640,7 +39648,7 @@ class HistoryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
         
         var $item = $(`
           <section class="item">
-            <div class="">
+            <div class="body">
               <span class="date">${room.history_created_at}</span>
               <h3>${room.name}</h3>
               <img src="${room.gaikan_image_main}" width="100">
@@ -39682,7 +39690,7 @@ class HistoryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Page__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__info_scss__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__info_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__info_scss__);
 
@@ -39693,10 +39701,36 @@ class InfoPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
     this.headerTitle = "お知らせ"
     this.displayHeaderLogoS = false;
     this.displayHeaderBackButton = true;
+    
+    var api = global.APP.api.ietopia.master.news;
+    api.request()
+    .then(list=>{
+      
+      if ( list.length == 0 ) {
+        this.$contents.append( $(`
+          <section>
+            <div class="body">お知らせは現在ありません。</div>
+          </section>
+        `) );
+      } else {
+        list.forEach(data=>{
+          var $section = $(`
+            <section>
+              <div class="date">${data.created_at}</div>
+              <div class="title">${data.title}</div>
+              <div class="body">${data.body}</div>
+            </section>
+          `);
+          this.$contents.append($section);
+        });
+      }
+      
+    });
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = InfoPage;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
 /* 166 */
@@ -41132,13 +41166,14 @@ global.APP = {
         station: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["h" /* StationApi */](),
         kodawari_joken: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["i" /* KodawariJokenApi */](),
         yatin: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["j" /* YatinApi */](),
+        news: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["k" /* NewsApi */](),
       },
       user: {
-        me: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["k" /* MeApi */](),
-        search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* SearchHistoryApi */](),
-        room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* RoomHistoryApi */](),
-        favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* FavoriteApi */](),
-        inquiry: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["o" /* InquiryApi */](),
+        me: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* MeApi */](),
+        search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* SearchHistoryApi */](),
+        room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* RoomHistoryApi */](),
+        favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["o" /* FavoriteApi */](),
+        inquiry: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["p" /* InquiryApi */](),
       },
     },
   },
@@ -41203,9 +41238,9 @@ function onDeviceReady() {
   
   promise.resolve()
   // .then( IetopiaApi.logout )
-  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["p" /* default */].isloggedIn )
+  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["q" /* default */].isloggedIn )
   .then( isloggedIn => {
-    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["p" /* default */].login( __WEBPACK_IMPORTED_MODULE_8__utils_uuid__["a" /* default */].get() );
+    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["q" /* default */].login( __WEBPACK_IMPORTED_MODULE_8__utils_uuid__["a" /* default */].get() );
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {
@@ -41240,7 +41275,7 @@ class RoomItem {
   // 部屋要素を構築
   static createElem(room) {
     // 部屋
-    var $room = $(`<div class="room">`);
+    var $room = $(`<div class="room" room_id=${room.id}>`);
     // 外観写真
     var $gaikanImage = ( () => {
       var gaikanImageMainUrl = room.gaikan_images.count == 0 ?
@@ -41507,6 +41542,7 @@ class FavoriteButton extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
       .then(()=>{
         var src = getfavoriteIconSrc(room_id);
         $(this).find("img").attr("src", src);
+        toggleRoomListFavoriteIcon(room_id);
       });
       return false;
     });
@@ -41515,6 +41551,10 @@ class FavoriteButton extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = FavoriteButton;
 
+function toggleRoomListFavoriteIcon(room_id) {
+  var $star = $(".room-list").find(`[room_id=${room_id}]`).find(".favorite.star img");
+  $star.attr("src", getfavoriteIconSrc(room_id) );
+}
 function getfavoriteIconSrc(room_id) {
   var found = hasFavorite(room_id);
   var name = found ? "icon_star_on" : "icon_star_off";

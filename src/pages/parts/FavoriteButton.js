@@ -21,11 +21,16 @@ export default class FavoriteButton extends Html {
       .then(()=>{
         var src = getfavoriteIconSrc(room_id);
         $(this).find("img").attr("src", src);
+        toggleRoomListFavoriteIcon(room_id);
       });
       return false;
     });
     this.$html = $favoriteBtn;
   }
+}
+function toggleRoomListFavoriteIcon(room_id) {
+  var $star = $(".room-list").find(`[room_id=${room_id}]`).find(".favorite.star img");
+  $star.attr("src", getfavoriteIconSrc(room_id) );
 }
 function getfavoriteIconSrc(room_id) {
   var found = hasFavorite(room_id);

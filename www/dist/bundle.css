@@ -674,6 +674,10 @@ textarea {
   margin-bottom: 20px;
   font-weight: 900;
 }
+
+.sort-modal-content select {
+  border: 2px solid #DEDEDF;
+}
 .room-page header .room-sub-menu {
   position: absolute;
   top: 20px;
@@ -1147,6 +1151,14 @@ textarea {
   zoom: 1;
 }
 
+.history-page .item .body {
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px;
+  overflow: hidden;
+  zoom: 1;
+}
+
 .history-page .item .date {
   font-weight: 900;
   color: #F47F00;
@@ -1227,6 +1239,26 @@ textarea {
 .kibou_osumai-page .kibou-form .yatin-section .kara {
   margin: 0 10px;
   font-weight: 900;
+}
+.info-page section {
+  font-size: 12px;
+}
+
+.info-page section .date {
+  font-weight: 900;
+  color: #F47F00;
+  margin-bottom: 3px;
+}
+
+.info-page section .title {
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.info-page section .body {
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px;
 }
 
 /*# sourceMappingURL=bundle.css.map*/

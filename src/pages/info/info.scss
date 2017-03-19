@@ -1,0 +1,19 @@
+.info-page {
+  section {
+    font-size: 12px;
+    .date {
+      font-weight: 900;
+      color: #F47F00;
+      margin-bottom: 3px;
+    }
+    .title {
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+    .body {
+      background: #fff;
+      border-radius: 4px;
+      padding: 12px;
+    }
+  }
+}

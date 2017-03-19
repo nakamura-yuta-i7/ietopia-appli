@@ -100,6 +100,12 @@ export class YatinApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/yatin");
   }
 }
+export class NewsApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/news");
+  }
+}
 class IetopiaUserApiBase extends IetopiaApi {
   constructor() {
     super();

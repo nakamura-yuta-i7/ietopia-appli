@@ -13,7 +13,7 @@ export default class HistoryPage extends Page {
         
         var $item = $(`
           <section class="item">
-            <div class="">
+            <div class="body">
               <span class="date">${room.history_created_at}</span>
               <h3>${room.name}</h3>
               <img src="${room.gaikan_image_main}" width="100">

@@ -4,7 +4,7 @@ export default class RoomItem {
   // 部屋要素を構築
   static createElem(room) {
     // 部屋
-    var $room = $(`<div class="room">`);
+    var $room = $(`<div class="room" room_id=${room.id}>`);
     // 外観写真
     var $gaikanImage = ( () => {
       var gaikanImageMainUrl = room.gaikan_images.count == 0 ?
