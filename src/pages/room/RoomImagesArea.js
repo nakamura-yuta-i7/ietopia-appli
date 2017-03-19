@@ -34,6 +34,22 @@ export default class RoomImagesArea extends Html {
     $imagesArea.append($mainImage);
     $imagesArea.append($thumsArea);
     
+    // メイン写真はスワイプで切替可能
+    $mainImage.swipe( {
+      // Generic swipe handler for all directions
+      // (全方向の汎用スワイプハンドラ)
+      swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+        console.log( {event, direction, distance, duration, fingerCount, fingerData} );
+        if ( direction == "left" ) {
+          $thumsArea.find(".selected").next().trigger("click");
+        } else {
+          $thumsArea.find(".selected").prev().trigger("click");
+        }
+      },
+      // Default is 75px, set to 0 for demo so any distance triggers swipe
+      threshold: 75
+    });
+    
     // サムネイル写真一覧は外観＆内観
     var i = 0;
     var thumImgs = _.concat(gaikan_images, naikan_images).map(imgObj=>{

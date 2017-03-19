@@ -4446,6 +4446,22 @@ class Page {
     this.$main.addClass(`${this.action}-action`);
     this.$main.width( $(window).width() );
     this.$main.height( $(window).height() );
+    
+    // メインパネルはスワイプで戻るボタンを押した事にする
+    this.$main.swipe( {
+      // Generic swipe handler for all directions
+      // (全方向の汎用スワイプハンドラ)
+      swipe: (event, direction, distance, duration, fingerCount, fingerData) => {
+        console.log( {event, direction, distance, duration, fingerCount, fingerData} );
+        if ( direction == "right" ) {
+          this.$main.find(".history-back").trigger("click");
+        }
+      },
+      // Default is 75px, set to 0 for demo so any distance triggers swipe
+      threshold: 100
+    });
+    
+    
     // コンテンツ
     this.$contents = $(`
       <div class="contents"></div>
@@ -38486,7 +38502,7 @@ class Dispatcher {
 
 // 家とぴあAPI:基点URL
 module.exports = {
-  //API_BASE_URL: IS_PRODUCTION ? "https://appli.ietopia-services.com" : "http://0.0.0.0:8888",
+  //API_BASE_URL: "http://0.0.0.0:8888",
   API_BASE_URL: "https://appli.ietopia-services.com",
   IETOPIA_LINE_AT_URL: "https://line.me/R/ti/p/%40faw4681t",
   IETOPIA_GOOGLE_MAP_URL: "https://goo.gl/maps/LPX9EigxCT82",
@@ -41340,29 +41356,73 @@ class RoomItem {
 
 
 class RoomList {
+  
+  static get PAGING_COUNT() {
+    return 50;
+  }
+  
   static findAll(searchParams, $countVal=null) {
     $(".room-list").remove();
     var $roomList = $(`<div class="room-list"></div>`);
+    searchParams.offset = 0;
+    searchParams.limit = RoomList.PAGING_COUNT;
     
     return RoomList.requestList(searchParams)
     .then( result => {
-      if ( $countVal ) {
-        var count = result.count;
-        $countVal.html(count);
-      }
+      var totalCount = parseInt(result.count);
+      var loadedCount = parseInt(result.list.length);
       var rooms = result.list;
-      rooms.forEach( room => {
-        var $room = __WEBPACK_IMPORTED_MODULE_0__RoomItem__["a" /* default */].createElem(room);
-        $roomList.append($room);
-      } );
-      if ( rooms.length == 0 ) {
+      
+      if ( $countVal ) {
+        $countVal.html(totalCount);
+      }
+      
+      if ( totalCount == 0 ) {
+        
         $roomList.append( $(`
           <div class="not-found-search-result">
             検索条件にヒットする物件は見つかりませんでした。
           </div>
         `) );
+        
+      } else {
+        
+        addRooms(rooms);
+        if ( totalCount > RoomList.PAGING_COUNT ) {
+          $roomList.append(createGoNextPageElem());
+        }
+        
       }
       return $roomList;
+      
+      function addRooms(rooms) {
+        rooms.forEach( room => {
+          var $room = __WEBPACK_IMPORTED_MODULE_0__RoomItem__["a" /* default */].createElem(room);
+          $roomList.append($room);
+        } );
+      }
+      function createGoNextPageElem() {
+        var $goNextPage = $(`
+          <div class="goto-next-page">
+            次の${RoomList.PAGING_COUNT}件を表示 ( ${totalCount}件中 ${loadedCount}件を表示中 )
+          </div>
+        `);
+        $goNextPage.on("click", function() {
+          
+          searchParams.offset += RoomList.PAGING_COUNT;
+          RoomList.requestList(searchParams)
+          .then( result => {
+            loadedCount += parseInt(result.list.length);
+            addRooms(result.list);
+            console.log( {totalCount, loadedCount} );
+            if ( totalCount > loadedCount ) {
+              $roomList.append(createGoNextPageElem());
+            }
+            $goNextPage.remove();
+          } );
+        });
+        return $goNextPage;
+      }
     } );
   }
   static requestList(searchParams) {
@@ -41370,6 +41430,7 @@ class RoomList {
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = RoomList;
+
 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
@@ -41607,6 +41668,22 @@ class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* de
     `);
     $imagesArea.append($mainImage);
     $imagesArea.append($thumsArea);
+    
+    // メイン写真はスワイプで切替可能
+    $mainImage.swipe( {
+      // Generic swipe handler for all directions
+      // (全方向の汎用スワイプハンドラ)
+      swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+        console.log( {event, direction, distance, duration, fingerCount, fingerData} );
+        if ( direction == "left" ) {
+          $thumsArea.find(".selected").next().trigger("click");
+        } else {
+          $thumsArea.find(".selected").prev().trigger("click");
+        }
+      },
+      // Default is 75px, set to 0 for demo so any distance triggers swipe
+      threshold: 75
+    });
     
     // サムネイル写真一覧は外観＆内観
     var i = 0;
