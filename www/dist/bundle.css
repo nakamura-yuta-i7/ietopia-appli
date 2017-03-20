@@ -129,6 +129,7 @@ header .history-back span {
   overflow-scrolling: touch;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  overflow: hidden;
 }
 
 footer {

@@ -104,6 +104,7 @@ header {
   // 画面がandroidでチラ付く問題の解消となるか
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
+  overflow:hidden;
 }
 footer {
   position: fixed;
