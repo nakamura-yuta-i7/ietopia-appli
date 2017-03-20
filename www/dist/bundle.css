@@ -43,6 +43,18 @@ html, body {
   height: 100%;
 }
 
+#swipe-to-back {
+  position: fixed;
+  top: 72px;
+  height: calc( 100% - 72px - 56px);
+  width: 20px;
+  z-index: 99px;
+}
+
+#swipe-to-back.touch {
+  width: 150px;
+}
+
 header {
   position: absolute;
   top: 0;

@@ -52,6 +52,28 @@ global.APP = {
   },
 };
 
+
+$(function() {
+  $("#swipe-to-back").bind("touchstart mousedown", function() {
+    console.log( "touchstart" );
+    $(this).addClass("touch");
+  });
+  $("#swipe-to-back").bind("touchend mouseup", function() {
+    console.log( "touchend" );
+    $(this).removeClass("touch");
+  });
+  $("#swipe-to-back").swipe({
+    swipe: (event, direction, distance, duration, fingerCount, fingerData) => {
+      console.log( {event, direction, distance, duration, fingerCount, fingerData} );
+      if ( direction == "right" ) {
+        $(".history-back").trigger("click");
+      }
+    },
+    threshold: 40
+  });
+});
+
+
 import Dispatcher from "./Dispatcher";
 import queryString from 'query-string';
 global.queryString = queryString;
