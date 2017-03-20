@@ -65,8 +65,9 @@ $(function() {
   $("#swipe-to-back").swipe({
     swipe: (event, direction, distance, duration, fingerCount, fingerData) => {
       console.log( {event, direction, distance, duration, fingerCount, fingerData} );
+      console.log( {direction} );
       if ( direction == "right" ) {
-        $(".history-back").trigger("click");
+        history.back();
       }
     },
     threshold: 0
