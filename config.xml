@@ -93,7 +93,7 @@
   <preference name="WindowsStoreIdentityName" value="1952deed-2dda-3394-182c-d6072b7a6638"/>
   <preference name="DisallowOverscroll" value="true"/>
   <access origin="*"/>
-  <preference name="KeepRunning" value="false"/>
+  <preference name="KeepRunning" value="true"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="Orientation" value="portrait"/>
