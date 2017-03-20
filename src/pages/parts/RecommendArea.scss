@@ -9,11 +9,14 @@ section.recommend_area-section {
     padding: 0px;
     
     input[type=checkbox] {
-      display: none !important;
+      // position: absolute;
+      // top: 10px;
+      // left: 10px;
+      display: none;
     }
     label.checkbox {
       width: 33%;
-      
+      position: relative;
       
       span {
         display: block;
@@ -27,6 +30,10 @@ section.recommend_area-section {
         box-sizing: border-box;
         background: #fff;
         margin: 0px 8px 3px 0px;
+        
+        overflow:hidden;
+        user-select: none;
+        
       }
       :checked + span {
         border: 1px solid #F47F00;

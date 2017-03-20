@@ -477,11 +477,12 @@ section.recommend_area-section .recommend_area-checkboxes {
 }
 
 section.recommend_area-section .recommend_area-checkboxes input[type=checkbox] {
-  display: none !important;
+  display: none;
 }
 
 section.recommend_area-section .recommend_area-checkboxes label.checkbox {
   width: 33%;
+  position: relative;
 }
 
 section.recommend_area-section .recommend_area-checkboxes label.checkbox span {
@@ -496,6 +497,11 @@ section.recommend_area-section .recommend_area-checkboxes label.checkbox span {
   box-sizing: border-box;
   background: #fff;
   margin: 0px 8px 3px 0px;
+  overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 section.recommend_area-section .recommend_area-checkboxes label.checkbox :checked + span {
