@@ -37,6 +37,7 @@ html, body {
   height: calc( 100% - 72px - 56px);
   width: 20px;
   z-index: 99px;
+  user-select: none;
 }
 #swipe-to-back.touch {
   width: 150px;
