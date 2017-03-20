@@ -41212,7 +41212,7 @@ $(function() {
         $(".history-back").trigger("click");
       }
     },
-    threshold: 40
+    threshold: 0
   });
 });
 
