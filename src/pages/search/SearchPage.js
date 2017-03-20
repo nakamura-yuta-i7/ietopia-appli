@@ -1,6 +1,7 @@
 import Page from '../Page';
 import './search.scss';
 import './search-common.scss';
+import RecommendArea from "../parts/RecommendArea";
 import { YatinSelectMin, YatinSelectMax } from "../parts/YatinSelect";
 import HitCount from "../parts/HitCount";
 
@@ -110,6 +111,19 @@ export default class SearchPage extends Page {
       return false;
     });
     refreshKodawariInput($kodawariInput);
+    
+    
+    // おすすめエリア
+    var $recommendArea = new RecommendArea({
+      selectedVals: global.APP.search_history.recommend_area,
+    }).getHtml();
+    $recommendArea.on("change", ()=>{
+      var data = queryString.parse( $recommendArea.find("[name=recommend_area]").serialize() );
+      global.APP.search_history.recommend_area = data["recommend_area"];
+      this.hitCount.refresh();
+    });
+    $searchForm.append( $recommendArea );
+    
     
     this.$contents.html( $searchForm );
     

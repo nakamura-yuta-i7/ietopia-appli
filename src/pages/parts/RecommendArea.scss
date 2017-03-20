@@ -1,0 +1,41 @@
+section.recommend_area-section {
+  
+  h2 {
+    margin-bottom: 0px;
+  }
+  
+  .recommend_area-checkboxes {
+    background: transparent;
+    padding: 0px;
+    
+    input[type=checkbox] {
+      display: none !important;
+    }
+    label.checkbox {
+      width: 33%;
+      
+      
+      span {
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        border: 1px solid #DBDBDB;
+        line-height: 1;
+        padding: 10px;
+        padding-bottom: 8px;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background: #fff;
+        margin: 0px 8px 3px 0px;
+      }
+      :checked + span {
+        border: 1px solid #F47F00;
+      }
+    }
+    label:nth-child(3n+1) {
+      span {
+        margin-right: 0px;
+      }
+    }
+  }
+}

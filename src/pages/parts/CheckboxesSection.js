@@ -10,6 +10,7 @@ export default class CheckboxesSection extends Html {
     this.identifier = identifier;
     this.apiResult = params.apiResult || "";
     this.selectedVals = params.selectedVals || []
+    this.selectedVals = is("Array", this.selectedVals) ? this.selectedVals : [this.selectedVals];
     
     var $section = $(`
       <section class="checkboxes-section ${identifier}-section">

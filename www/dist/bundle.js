@@ -4658,7 +4658,7 @@ class IetopiaApi {
     });
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["q"] = IetopiaApi;
+/* harmony export (immutable) */ __webpack_exports__["r"] = IetopiaApi;
 
 class IetopiaMasterApiBase extends IetopiaApi {
   constructor() {
@@ -4746,6 +4746,14 @@ class NewsApi extends IetopiaMasterApiBase {
 }
 /* harmony export (immutable) */ __webpack_exports__["k"] = NewsApi;
 
+class RecommendAreaApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/recommend_area");
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["l"] = RecommendAreaApi;
+
 class IetopiaUserApiBase extends IetopiaApi {
   constructor() {
     super();
@@ -4764,7 +4772,7 @@ class InquiryApi extends IetopiaUserInquiryApiBase {
     return this.request(data, "POST", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["p"] = InquiryApi;
+/* harmony export (immutable) */ __webpack_exports__["q"] = InquiryApi;
 
 class IetopiaMeApiBase extends IetopiaUserApiBase {
   constructor() {
@@ -4778,7 +4786,7 @@ class MeApi extends IetopiaMeApiBase {
     return this.request(data, "POST", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["l"] = MeApi;
+/* harmony export (immutable) */ __webpack_exports__["m"] = MeApi;
 
 class SearchHistoryApi extends IetopiaMeApiBase {
   constructor() {
@@ -4796,7 +4804,7 @@ class SearchHistoryApi extends IetopiaMeApiBase {
     return this.request({params_json}, "POST", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["m"] = SearchHistoryApi;
+/* harmony export (immutable) */ __webpack_exports__["n"] = SearchHistoryApi;
 
 class RoomHistoryApi extends IetopiaMeApiBase {
   constructor() {
@@ -4808,7 +4816,7 @@ class RoomHistoryApi extends IetopiaMeApiBase {
     return this.request({room_id}, "GET", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["n"] = RoomHistoryApi;
+/* harmony export (immutable) */ __webpack_exports__["o"] = RoomHistoryApi;
 
 class FavoriteApi extends IetopiaMeApiBase {
   constructor() {
@@ -4828,7 +4836,7 @@ class FavoriteApi extends IetopiaMeApiBase {
     return this.request({room_id}, "GET", url);
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["o"] = FavoriteApi;
+/* harmony export (immutable) */ __webpack_exports__["p"] = FavoriteApi;
 
 class IetopiaRoomApi extends IetopiaApi {
   constructor() {
@@ -4871,6 +4879,7 @@ class CheckboxesSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* defau
     this.identifier = identifier;
     this.apiResult = params.apiResult || "";
     this.selectedVals = params.selectedVals || []
+    this.selectedVals = is("Array", this.selectedVals) ? this.selectedVals : [this.selectedVals];
     
     var $section = $(`
       <section class="checkboxes-section ${identifier}-section">
@@ -40491,8 +40500,10 @@ class YatinSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search_common_scss__ = __webpack_require__(145);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search_common_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__search_common_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__parts_HitCount__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__parts_RecommendArea__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__parts_YatinSelect__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__parts_HitCount__ = __webpack_require__(203);
+
 
 
 
@@ -40502,7 +40513,7 @@ class YatinSection extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */
 class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
   postRender() {
     var $parent = this.$main;
-    this.hitCount = new __WEBPACK_IMPORTED_MODULE_4__parts_HitCount__["a" /* default */]($parent);
+    this.hitCount = new __WEBPACK_IMPORTED_MODULE_5__parts_HitCount__["a" /* default */]($parent);
     global.APP.search_page.hit_count_instance = this.hitCount;
   }
   indexAction() {
@@ -40561,8 +40572,8 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     `);
     $searchForm.append($yatinSection);
     
-    var $selectMin = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["a" /* YatinSelectMin */]( global.APP.search_history["yatin-min"] ).getHtml();
-    var $selectMax = new __WEBPACK_IMPORTED_MODULE_3__parts_YatinSelect__["b" /* YatinSelectMax */]( global.APP.search_history["yatin-max"] ).getHtml();
+    var $selectMin = new __WEBPACK_IMPORTED_MODULE_4__parts_YatinSelect__["a" /* YatinSelectMin */]( global.APP.search_history["yatin-min"] ).getHtml();
+    var $selectMax = new __WEBPACK_IMPORTED_MODULE_4__parts_YatinSelect__["b" /* YatinSelectMax */]( global.APP.search_history["yatin-max"] ).getHtml();
     
     $yatinSection.find(".min").append( $selectMin );
     $yatinSection.find(".max").append( $selectMax );
@@ -40605,6 +40616,19 @@ class SearchPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
       return false;
     });
     refreshKodawariInput($kodawariInput);
+    
+    
+    // おすすめエリア
+    var $recommendArea = new __WEBPACK_IMPORTED_MODULE_3__parts_RecommendArea__["a" /* default */]({
+      selectedVals: global.APP.search_history.recommend_area,
+    }).getHtml();
+    $recommendArea.on("change", ()=>{
+      var data = queryString.parse( $recommendArea.find("[name=recommend_area]").serialize() );
+      global.APP.search_history.recommend_area = data["recommend_area"];
+      this.hitCount.refresh();
+    });
+    $searchForm.append( $recommendArea );
+    
     
     this.$contents.html( $searchForm );
     
@@ -41183,13 +41207,14 @@ global.APP = {
         kodawari_joken: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["i" /* KodawariJokenApi */](),
         yatin: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["j" /* YatinApi */](),
         news: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["k" /* NewsApi */](),
+        recommend_area: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* RecommendAreaApi */](),
       },
       user: {
-        me: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["l" /* MeApi */](),
-        search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* SearchHistoryApi */](),
-        room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* RoomHistoryApi */](),
-        favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["o" /* FavoriteApi */](),
-        inquiry: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["p" /* InquiryApi */](),
+        me: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["m" /* MeApi */](),
+        search_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["n" /* SearchHistoryApi */](),
+        room_history: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["o" /* RoomHistoryApi */](),
+        favorite: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["p" /* FavoriteApi */](),
+        inquiry: new __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["q" /* InquiryApi */](),
       },
     },
   },
@@ -41277,9 +41302,9 @@ function onDeviceReady() {
   
   promise.resolve()
   // .then( IetopiaApi.logout )
-  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["q" /* default */].isloggedIn )
+  .then( __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["r" /* default */].isloggedIn )
   .then( isloggedIn => {
-    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["q" /* default */].login( __WEBPACK_IMPORTED_MODULE_8__utils_uuid__["a" /* default */].get() );
+    if ( isloggedIn == false ) return __WEBPACK_IMPORTED_MODULE_5__IetopiaApi__["r" /* default */].login( __WEBPACK_IMPORTED_MODULE_8__utils_uuid__["a" /* default */].get() );
     return global.APP.api.ietopia.user.me.request();
   })
   .then( me => {
@@ -41486,7 +41511,7 @@ class RoomPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] {
   indexAction() {
     // ヘッダーパネルの設定
     this.headerTitle = "物件詳細";
-    this.headerBackButtonText = `一覧`
+    this.headerBackButtonText = `戻る`
     this.displayHeaderBackButton = true;
     this.displayHeaderLogoS = false;
     
@@ -41713,8 +41738,7 @@ class RoomImagesArea extends __WEBPACK_IMPORTED_MODULE_0__parts_Html__["a" /* de
             $thumsArea.find(".selected").prev().trigger("click");
           }
         },
-        // Default is 75px, set to 0 for demo so any distance triggers swipe
-        threshold: 75
+        threshold: 30
       });
     }
     
@@ -42688,6 +42712,38 @@ class SortModal extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default */] {
 
 /***/ }),
 /* 211 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 212 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CheckboxesSection__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__RecommendArea_scss__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__RecommendArea_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__RecommendArea_scss__);
+
+
+
+class RecommendArea extends __WEBPACK_IMPORTED_MODULE_0__CheckboxesSection__["a" /* default */] {
+  constructor(params={}) {
+    var selectedVals = params.selectedVals || []
+    
+    var title = "おすすめエリア";
+    var identifier = "recommend_area";
+    var apiResult = global.APP.master.recommend_area;
+    
+    super({selectedVals, title, identifier, apiResult});
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = RecommendArea;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 213 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

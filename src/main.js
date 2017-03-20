@@ -15,7 +15,7 @@ import { EkitohoApi, TikunensuApi,
   MensekiApi, MadoriApi, RosenApi, 
   StationApi, KodawariJokenApi, YatinApi, IetopiaMasterAllApi } from "./IetopiaApi";
 import { MeApi, SearchHistoryApi, RoomHistoryApi, FavoriteApi } from "./IetopiaApi";
-import { InquiryApi, IetopiaRoomApi, NewsApi } from "./IetopiaApi";
+import { InquiryApi, IetopiaRoomApi, NewsApi, RecommendAreaApi } from "./IetopiaApi";
 
 // グローバル変数
 global.APP = {
@@ -40,6 +40,7 @@ global.APP = {
         kodawari_joken: new KodawariJokenApi(),
         yatin: new YatinApi(),
         news: new NewsApi(),
+        recommend_area: new RecommendAreaApi(),
       },
       user: {
         me: new MeApi(),

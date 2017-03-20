@@ -12,7 +12,7 @@ export default class RoomPage extends Page {
   indexAction() {
     // ヘッダーパネルの設定
     this.headerTitle = "物件詳細";
-    this.headerBackButtonText = `一覧`
+    this.headerBackButtonText = `戻る`
     this.displayHeaderBackButton = true;
     this.displayHeaderLogoS = false;
     

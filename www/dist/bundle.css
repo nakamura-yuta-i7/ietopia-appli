@@ -425,32 +425,6 @@ textarea {
   display: block;
   width: 20px;
 }
-.hit-count {
-  position: absolute;
-  z-index: 99;
-  top: 33px;
-  right: 15px;
-  color: #fff;
-  font-size: 12px;
-  line-height: 1.3;
-}
-
-.hit-count .data {
-  text-align: center;
-}
-
-.hit-count .data .value {
-  font-weight: 900;
-}
-.search_form_detail-page .search_form_conditions_submit_button {
-  display: table;
-  margin: 0 0 0 auto;
-  cursor: pointer;
-}
-
-.search_form_detail-page .kodawari_joken-section label {
-  font-size: 12px;
-}
 .checkboxes-section .remove-all-checks {
   padding: 5px 0px;
   text-align: right;
@@ -492,6 +466,70 @@ textarea {
 
 .checkboxes-section .checkboxes .checkbox label {
   color: #4A4A4A;
+}
+section.recommend_area-section h2 {
+  margin-bottom: 0px;
+}
+
+section.recommend_area-section .recommend_area-checkboxes {
+  background: transparent;
+  padding: 0px;
+}
+
+section.recommend_area-section .recommend_area-checkboxes input[type=checkbox] {
+  display: none !important;
+}
+
+section.recommend_area-section .recommend_area-checkboxes label.checkbox {
+  width: 33%;
+}
+
+section.recommend_area-section .recommend_area-checkboxes label.checkbox span {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #DBDBDB;
+  line-height: 1;
+  padding: 10px;
+  padding-bottom: 8px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #fff;
+  margin: 0px 8px 3px 0px;
+}
+
+section.recommend_area-section .recommend_area-checkboxes label.checkbox :checked + span {
+  border: 1px solid #F47F00;
+}
+
+section.recommend_area-section .recommend_area-checkboxes label:nth-child(3n+1) span {
+  margin-right: 0px;
+}
+.hit-count {
+  position: absolute;
+  z-index: 99;
+  top: 33px;
+  right: 15px;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.hit-count .data {
+  text-align: center;
+}
+
+.hit-count .data .value {
+  font-weight: 900;
+}
+.search_form_detail-page .search_form_conditions_submit_button {
+  display: table;
+  margin: 0 0 0 auto;
+  cursor: pointer;
+}
+
+.search_form_detail-page .kodawari_joken-section label {
+  font-size: 12px;
 }
 .tikunensu-section {
   text-align: center;
@@ -730,6 +768,7 @@ textarea {
 .room-page .contents {
   background: #fff;
   font-size: 11px;
+  padding-bottom: calc( 62px - 14px);
 }
 
 .room-page .contents h2 {

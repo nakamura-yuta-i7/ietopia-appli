@@ -106,6 +106,12 @@ export class NewsApi extends IetopiaMasterApiBase {
     this.setApiUrlSufix("/news");
   }
 }
+export class RecommendAreaApi extends IetopiaMasterApiBase {
+  constructor() {
+    super();
+    this.setApiUrlSufix("/recommend_area");
+  }
+}
 class IetopiaUserApiBase extends IetopiaApi {
   constructor() {
     super();
