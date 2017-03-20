@@ -611,6 +611,12 @@ section.recommend_area-section .recommend_area-checkboxes label:nth-child(3n+1) 
   cursor: pointer;
 }
 
+.room-list {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
 .room-list .room {
   height: 247px;
   overflow: hidden;

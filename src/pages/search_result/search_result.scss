@@ -40,6 +40,11 @@
   }
 }
 .room-list {
+  
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  overflow:hidden;
+  
   .room {
     height: 247px;
     overflow: hidden;
