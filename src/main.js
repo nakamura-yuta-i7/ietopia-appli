@@ -152,8 +152,47 @@ function onDeviceReady() {
     console.log( "global.APP", global.APP );
     console.log( "IS_PRODUCTION", IS_PRODUCTION );
     global.renderPage();
+    
+    if ( window.NCMB ) {
+      setPushNotificationHandler();
+      setDeviceToken();
+      
+      var timerId = setInterval(function() {
+        var installationId = getInstallationId();
+        console.log({installationId});
+        if ( installationId ) clearInterval(timerId);
+      }, 3000);
+    }
+    
   })
   .catch((err)=>{
     throw err;
+  });
+}
+
+function setPushNotificationHandler() {
+  // プッシュ通知受信時のコールバックを登録します
+  window.NCMB.monaca.setHandler(function(jsonData){
+    // 送信時に指定したJSONが引数として渡されます 
+    alert("callback :::" + JSON.stringify(jsonData));
+  });
+}
+function setDeviceToken() {
+  // デバイストークンを取得してinstallation登録が行われます
+  // ※ aplication_key,client_keyはニフティクラウドmobile backendから発行されたkeyに置き換えてください
+  // ※ sender_idは【GCMとの連携に必要な準備】で作成したProjectのProject Numberを入力してください
+  window.NCMB.monaca.setDeviceToken(
+    // aplication_key
+    "742390256da53e7e1b1c00e98071641d9e18705b9ea6dd8e00ea2a9ca93ac067",
+    // client_key
+    "9c7caf2e4e9137b554f45436dae80e6943b88935934b999c471b7f6cffedd0e5",
+    // sender_id
+    "208112135877"
+  );
+}
+function getInstallationId() {
+  // 登録されたinstallationのobjectIdを取得します。
+  window.NCMB.monaca.getInstallationId(function(id) {
+    alert("installationID is: " + id);
   });
 }
