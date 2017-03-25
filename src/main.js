@@ -191,12 +191,14 @@ function saveInstallationId() {
     window.NCMB.monaca.getInstallationId(function(id) {
       if ( id ) {
         stopInterval();
-        var data = global.APP.me;
-        if ( data.installation_id ) {
+        if ( global.APP.me.installation_id ) {
           // 既に一度登録されていたなら何もしない
           return;
         }
-        data.installation_id = id;
+        var data = {
+          uuid: global.APP.me.uuid,
+          installation_id: id,
+        };
         global.APP.api.ietopia.user.me.save(data)
         .then( () => global.APP.api.ietopia.user.me.request() )
         .then( me => global.APP.me = me );
