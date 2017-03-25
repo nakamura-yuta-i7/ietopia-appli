@@ -11,6 +11,9 @@
     }
   }
   .kibou-form {
+    select {
+      width: 80px;
+    }
     .okyakusama-ni-tuite {
       .table {
         margin: 0 auto;
@@ -18,7 +21,7 @@
         .table-cell {
           &:nth-child(1) {
             text-align: right;
-            width: 30%;
+            width: 35%;
           }
           width: 40%;
           label {

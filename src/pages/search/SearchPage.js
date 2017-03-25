@@ -19,6 +19,8 @@ export default class SearchPage extends Page {
       </form>
     `);
     
+    
+    // フリーワード
     var $freewordSection = $(`
       <section>
         <div class="description text-right">マンション・アパート名、全文から検索</div>
@@ -29,28 +31,10 @@ export default class SearchPage extends Page {
     `);
     var $freewordInput = $freewordSection.find("input");
     $freewordInput.val( global.APP.search_history.word );
-    
     $searchForm.append( $freewordSection );
     
-    var $rosenStationSection = $(`
-      <section>
-        <h2>路線・駅</h2>
-        <div class="ui left icon input station">
-          <input type="text" name="station" placeholder="指定なし" readonly="readonly">
-          <div class="icon_train">
-            <img src="img/common/form/icon_train.png">
-          </div>
-          <div class="icon_remove">
-            <img src="img/common/form/icon_remove.png">
-          </div>
-        </div>
-      </section>
-    `);
-    var $stationInput = $rosenStationSection.find("input[name=station]");
-    refreshRosenStationInput($stationInput);
     
-    $searchForm.append( $rosenStationSection );
-    
+    // 家賃
     var $yatinSection = $(`
       <section id="yatin">
         <h2>￥ 家賃</h2>
@@ -66,16 +50,16 @@ export default class SearchPage extends Page {
       </section>
     `);
     $searchForm.append($yatinSection);
-    
     var $selectMin = new YatinSelectMin( global.APP.search_history["yatin-min"] ).getHtml();
     var $selectMax = new YatinSelectMax( global.APP.search_history["yatin-max"] ).getHtml();
-    
     $yatinSection.find(".min").append( $selectMin );
     $yatinSection.find(".max").append( $selectMax );
     
+    
+    // 間取・こだわり条件
     var $codawariJokenSection = $(`
       <section>
-        <h2>条件・こだわり</h2>
+        <h2>間取・その他こだわり条件</h2>
         <div class="description">間取や面積、駅徒歩、設備などこだわりポイントを指定</div>
         <div class="ui left icon input kodawari">
           <input type="text" name="kodawari" placeholder="指定なし" readonly="readonly">
@@ -89,17 +73,6 @@ export default class SearchPage extends Page {
       </section>
     `);
     $searchForm.append( $codawariJokenSection );
-    
-    var $stationInput = $searchForm.find("input[name=station]");
-    $stationInput.click(function() {
-      $(this).blur();
-      renderPage({
-        page: "search_form_station",
-        transitionType: "SLIDE_LEFT"
-      });
-      return false;
-    });
-    
     // こだわり条件選択画面に遷移
     var $kodawariInput = $searchForm.find("input[name=kodawari]");
     $kodawariInput.click(function() {
@@ -123,6 +96,36 @@ export default class SearchPage extends Page {
       this.hitCount.refresh();
     });
     $searchForm.append( $recommendArea );
+    
+    
+    // 路線・駅
+    var $rosenStationSection = $(`
+      <section>
+        <h2>路線・駅</h2>
+        <div class="ui left icon input station">
+          <input type="text" name="station" placeholder="指定なし" readonly="readonly">
+          <div class="icon_train">
+            <img src="img/common/form/icon_train.png">
+          </div>
+          <div class="icon_remove">
+            <img src="img/common/form/icon_remove.png">
+          </div>
+        </div>
+      </section>
+    `);
+    $searchForm.append( $rosenStationSection );
+    var $stationInput = $rosenStationSection.find("input[name=station]");
+    refreshRosenStationInput($stationInput);
+    // 駅・路線選択画面に遷移
+    var $stationInput = $searchForm.find("input[name=station]");
+    $stationInput.click(function() {
+      $(this).blur();
+      renderPage({
+        page: "search_form_station",
+        transitionType: "SLIDE_LEFT"
+      });
+      return false;
+    });
     
     
     this.$contents.html( $searchForm );

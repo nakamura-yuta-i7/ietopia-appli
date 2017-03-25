@@ -492,12 +492,12 @@ section.recommend_area-section .recommend_area-checkboxes label.checkbox span {
   font-size: 12px;
   border: 1px solid #DBDBDB;
   line-height: 1;
-  padding: 10px;
-  padding-bottom: 8px;
+  padding: 6px;
+  padding-bottom: 4px;
   border-radius: 4px;
   box-sizing: border-box;
   background: #fff;
-  margin: 0px 8px 3px 0px;
+  margin: 0px 8px 1px 0px;
   overflow: hidden;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -1315,6 +1315,10 @@ section.recommend_area-section .recommend_area-checkboxes label:nth-child(3n+1) 
   line-height: 1.5;
 }
 
+.kibou_osumai-page .kibou-form select {
+  width: 80px;
+}
+
 .kibou_osumai-page .kibou-form .okyakusama-ni-tuite .table {
   margin: 0 auto;
   margin-bottom: 12px;
@@ -1326,7 +1330,7 @@ section.recommend_area-section .recommend_area-checkboxes label:nth-child(3n+1) 
 
 .kibou_osumai-page .kibou-form .okyakusama-ni-tuite .table .table-cell:nth-child(1) {
   text-align: right;
-  width: 30%;
+  width: 35%;
 }
 
 .kibou_osumai-page .kibou-form .okyakusama-ni-tuite .table .table-cell label {
