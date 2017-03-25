@@ -153,17 +153,12 @@ function onDeviceReady() {
     console.log( "IS_PRODUCTION", IS_PRODUCTION );
     global.renderPage();
     
+    // NiftyMobileBackendサービス: 端末登録等 ここから
     if ( window.NCMB ) {
       setPushNotificationHandler();
       setDeviceToken();
-      
-      var timerId = setInterval(function() {
-        var installationId = getInstallationId();
-        console.log({installationId});
-        if ( installationId ) clearInterval(timerId);
-      }, 3000);
+      saveInstallationId();
     }
-    
   })
   .catch((err)=>{
     throw err;
@@ -174,7 +169,7 @@ function setPushNotificationHandler() {
   // プッシュ通知受信時のコールバックを登録します
   window.NCMB.monaca.setHandler(function(jsonData){
     // 送信時に指定したJSONが引数として渡されます 
-    alert("callback :::" + JSON.stringify(jsonData));
+    // alert("callback :::" + JSON.stringify(jsonData));
   });
 }
 function setDeviceToken() {
@@ -190,9 +185,23 @@ function setDeviceToken() {
     "208112135877"
   );
 }
-function getInstallationId() {
-  // 登録されたinstallationのobjectIdを取得します。
-  window.NCMB.monaca.getInstallationId(function(id) {
-    alert("installationID is: " + id);
-  });
+function saveInstallationId() {
+  var timerId = setInterval(function() {
+    // 登録されたinstallationのobjectIdを取得します。
+    window.NCMB.monaca.getInstallationId(function(id) {
+      if ( id ) {
+        stopInterval();
+        var data = global.APP.me;
+        if ( data.installation_id ) {
+          // 既に一度登録されていたなら何もしない
+          return;
+        }
+        data.installation_id = id;
+        global.APP.api.ietopia.user.me.save(data)
+        .then( () => global.APP.api.ietopia.user.me.request() )
+        .then( me => global.APP.me = me );
+      }
+    });
+  }, 1000 * 10 );
+  function stopInterval() { clearInterval(timerId); }
 }
