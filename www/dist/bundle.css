@@ -1380,5 +1380,21 @@ section.recommend_area-section .recommend_area-checkboxes label:nth-child(3n+1) 
   border-radius: 4px;
   padding: 12px;
 }
+.kiyaku-page h2 {
+  padding-top: 1em;
+  font-size: 12px;
+  text-align: left;
+}
+
+.kiyaku-page .contents {
+  font-size: 11px;
+}
+
+.kiyaku-page .honbun-wrapper {
+  margin: 10px;
+  background: #fff;
+  border-radius: 4px;
+  padding: 0px 10px 10px 10px;
+}
 
 /*# sourceMappingURL=bundle.css.map*/
