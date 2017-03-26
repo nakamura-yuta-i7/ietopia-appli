@@ -5008,10 +5008,13 @@ class RoomList {
       }
       
       if ( totalCount == 0 ) {
-        
+        var message = "検索条件にヒットする物件は見つかりませんでした。";
+        if ( searchParams.favorite ) {
+          message = "お気に入りに登録した物件がありません。";
+        }
         $roomList.append( $(`
           <div class="not-found-search-result">
-            検索条件にヒットする物件は見つかりませんでした。
+            ${message}
           </div>
         `) );
         
