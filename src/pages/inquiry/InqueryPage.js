@@ -25,9 +25,11 @@ export default class InquiryPage extends Page {
     `);
     this.$contents.append($descriptionArea);
     
+    var requestRoomId = this.requests.room_id;
+    
     // お問い合わせ物件について
-    if ( this.requests.room_id ) {
-      var room_id = this.requests.room_id;
+    if ( requestRoomId ) {
+      var room_id = requestRoomId;
       var $roomInfo = $(`
         <section class="room-info"></section>
       `);
@@ -217,7 +219,10 @@ export default class InquiryPage extends Page {
       if ( data.mail != data.mail_retype ) {
         return alert("メールアドレスのご入力をもう一度お確かめください。");
       }
-      
+      if ( requestRoomId ) {
+        // 物件からのお問い合わせの場合、情報追加
+        data.room_id = requestRoomId;
+      }
       global.APP.api.ietopia.user.inquiry.send(data)
       .then(()=>{
         alert("お問い合わせありがとうございます。弊社の担当者よりご入力いただいたお電話番号又はメールアドレス宛てに折り返しご連絡させていただきます。");

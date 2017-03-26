@@ -129,6 +129,10 @@ export class InquiryApi extends IetopiaUserInquiryApiBase {
     var url = this.url + "/send";
     return this.request(data, "POST", url);
   }
+  callTel(data={}) {
+    var url = this.url + "/call";
+    return this.request(data, "POST", url);
+  }
 }
 class IetopiaMeApiBase extends IetopiaUserApiBase {
   constructor() {
