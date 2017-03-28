@@ -1,14 +1,12 @@
 {
     "plugins": [
-        "mobi.monaca.plugins.Monaca"
+        "mobi.monaca.plugins.Monaca",
+        "mobi.monaca.plugins.WebIntent@1.0.0"
     ],
     "framework_version": "3.5",
     "xcode_version": "7",
     "cordova_version": "6.2",
     "plugin_settings": {
-        "cordova-plugin-inappbrowser": {
-            "variables": []
-        },
         "cordova-plugin-crosswalk-webview": {
             "variables": [],
             "additional_params": {
@@ -21,7 +19,6 @@
         "cordova-custom-config@2.0.3",
         "cordova-plugin-device@1.1.2",
         "ncmb-push-monaca-plugin@2.0.4",
-        "cordova-plugin-crosswalk-webview@2.1.0",
-        "cordova-plugin-inappbrowser@1.7.0"
+        "cordova-plugin-crosswalk-webview@2.1.0"
     ]
 }
