@@ -7,9 +7,7 @@ export default class MyPagePage extends Page {
     var $menus = $(`<div class="menus"></div>`);
     var menus = [
       { type:"line", action: function() {
-        // window.open(config.IETOPIA_LINE_AT_URL);
-        window.open("https://line.me/R/ti/p/%40faw4681t");
-        return;
+        window.open(config.IETOPIA_LINE_AT_URL, "_blank");
       } },
       { type:"map", action: function() {
         window.open(config.IETOPIA_GOOGLE_MAP_URL, "_blank");

@@ -4580,6 +4580,10 @@ class Page {
     `);
     
     $footer.find("li").on("click", function() {
+      
+      window.open("https://line.me/R/ti/p/%40faw4681t");
+      return;
+      
       var page = $(this).attr("class");
       if ( page == "search" ) {
         global.APP.search_history.word = "";
@@ -41007,9 +41011,7 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     var $menus = $(`<div class="menus"></div>`);
     var menus = [
       { type:"line", action: function() {
-        // window.open(config.IETOPIA_LINE_AT_URL);
-        window.open("https://line.me/R/ti/p/%40faw4681t");
-        return;
+        window.open(config.IETOPIA_LINE_AT_URL, "_blank");
       } },
       { type:"map", action: function() {
         window.open(config.IETOPIA_GOOGLE_MAP_URL, "_blank");
