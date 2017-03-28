@@ -4580,10 +4580,6 @@ class Page {
     `);
     
     $footer.find("li").on("click", function() {
-      
-      window.open("https://line.me/R/ti/p/%40faw4681t");
-      return;
-      
       var page = $(this).attr("class");
       if ( page == "search" ) {
         global.APP.search_history.word = "";
