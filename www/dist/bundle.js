@@ -41007,7 +41007,9 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     var $menus = $(`<div class="menus"></div>`);
     var menus = [
       { type:"line", action: function() {
-        window.open(config.IETOPIA_LINE_AT_URL);
+        // window.open(config.IETOPIA_LINE_AT_URL);
+        window.open("https://line.me/R/ti/p/%40faw4681t");
+        return;
       } },
       { type:"map", action: function() {
         window.open(config.IETOPIA_GOOGLE_MAP_URL, "_blank");
