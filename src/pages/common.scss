@@ -92,6 +92,14 @@ header {
 #header-under-space {
   height: $headerHeight;
 }
+.favorite-page .contents,
+.news-page .contents,
+.search_result-page .contents {
+  position: fixed;
+  top: $headerHeight;
+  left: 0px;
+  width: 100%;
+}
 .contents {
   box-sizing: border-box;
   height: $contentsHeight;

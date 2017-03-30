@@ -4526,6 +4526,7 @@ class Page {
         // REPLACE以外のページ切り替え時
         $mainDepth0.css({left: windowWidthPx()});
         $mainDepth1.animate({left: "-100px"});
+        $mainDepth1.find(".contents").animate({left: "-100px"});
         $mainDepth0.animate({left: "0px"}, 500);
       }
       
@@ -4534,6 +4535,7 @@ class Page {
       if ( $(".main").length > 1 ) {
         // BACKのページ切り替え時
         $mainDepth1.animate({left: "0px"});
+        $mainDepth1.find(".contents").animate({left: "0px"});
         $mainDepth0.animate({left: windowWidthPx()}, 300, null, () => {
           $mainDepth0.remove();
           this.refreshMainDepth();

@@ -120,6 +120,15 @@ header .history-back span {
   height: 72px;
 }
 
+.favorite-page .contents,
+.news-page .contents,
+.search_result-page .contents {
+  position: fixed;
+  top: 72px;
+  left: 0px;
+  width: 100%;
+}
+
 .contents {
   box-sizing: border-box;
   height: calc( 100% - 72px - 56px);
