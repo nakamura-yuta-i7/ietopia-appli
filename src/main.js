@@ -124,6 +124,7 @@ function isMobile() {
 }
 if ( isMobile() ) {
   document.addEventListener("deviceready", onDeviceReady, false);
+  window.open = cordova.InAppBrowser.open;
   console.log( "deviceready" );
 } else {
   onDeviceReady();

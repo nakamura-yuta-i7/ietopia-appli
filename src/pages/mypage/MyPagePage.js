@@ -7,10 +7,10 @@ export default class MyPagePage extends Page {
     var $menus = $(`<div class="menus"></div>`);
     var menus = [
       { type:"line", action: function() {
-        window.open(config.IETOPIA_LINE_AT_URL, "_blank");
+        window.open(config.IETOPIA_LINE_AT_URL, "_system");
       } },
       { type:"map", action: function() {
-        window.open(config.IETOPIA_GOOGLE_MAP_URL, "_blank");
+        window.open(config.IETOPIA_GOOGLE_MAP_URL, "_system");
       } },
       { type:"inquiry", action: function() {
         global.renderPage({page:"inquiry", transitionType: "SLIDE_LEFT", requests: {room_id:""}});
@@ -28,10 +28,10 @@ export default class MyPagePage extends Page {
         global.renderPage({page:"kiyaku", transitionType: "SLIDE_LEFT"});
       } },
       { type:"privacy_policy", action: function() {
-        window.open(config.IETOPIA_PRIVACY_POLICY_URL, "_blank");
+        window.open(config.IETOPIA_PRIVACY_POLICY_URL, "_system");
       } },
       { type:"gaiyou", action: function() {
-        window.open(config.IETOPIA_GAIYO_URL, "_blank");
+        window.open(config.IETOPIA_GAIYO_URL, "_system");
       } },
     ];
     menus.forEach( (data) => {

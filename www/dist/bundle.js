@@ -41007,10 +41007,10 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     var $menus = $(`<div class="menus"></div>`);
     var menus = [
       { type:"line", action: function() {
-        window.open(config.IETOPIA_LINE_AT_URL, "_blank");
+        window.open(config.IETOPIA_LINE_AT_URL, "_system");
       } },
       { type:"map", action: function() {
-        window.open(config.IETOPIA_GOOGLE_MAP_URL, "_blank");
+        window.open(config.IETOPIA_GOOGLE_MAP_URL, "_system");
       } },
       { type:"inquiry", action: function() {
         global.renderPage({page:"inquiry", transitionType: "SLIDE_LEFT", requests: {room_id:""}});
@@ -41028,10 +41028,10 @@ class MyPagePage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
         global.renderPage({page:"kiyaku", transitionType: "SLIDE_LEFT"});
       } },
       { type:"privacy_policy", action: function() {
-        window.open(config.IETOPIA_PRIVACY_POLICY_URL, "_blank");
+        window.open(config.IETOPIA_PRIVACY_POLICY_URL, "_system");
       } },
       { type:"gaiyou", action: function() {
-        window.open(config.IETOPIA_GAIYO_URL, "_blank");
+        window.open(config.IETOPIA_GAIYO_URL, "_system");
       } },
     ];
     menus.forEach( (data) => {
@@ -42831,6 +42831,7 @@ function isMobile() {
 }
 if ( isMobile() ) {
   document.addEventListener("deviceready", onDeviceReady, false);
+  window.open = cordova.InAppBrowser.open;
   console.log( "deviceready" );
 } else {
   onDeviceReady();
