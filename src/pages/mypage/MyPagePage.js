@@ -28,10 +28,10 @@ export default class MyPagePage extends Page {
         global.renderPage({page:"kiyaku", transitionType: "SLIDE_LEFT"});
       } },
       { type:"privacy_policy", action: function() {
-        window.open(config.IETOPIA_PRIVACY_POLICY_URL, "_system");
+        window.open(config.IETOPIA_PRIVACY_POLICY_URL, "_blank");
       } },
       { type:"gaiyou", action: function() {
-        window.open(config.IETOPIA_GAIYO_URL, "_system");
+        window.open(config.IETOPIA_GAIYO_URL, "_blank");
       } },
     ];
     menus.forEach( (data) => {
