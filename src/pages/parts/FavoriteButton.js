@@ -10,6 +10,7 @@ export default class FavoriteButton extends Html {
         </div>`);
     $favoriteBtn.on("click", function() {
       (function() {
+        toggleRoomListFavoriteIcon(room_id);
         return hasFavorite(room_id) ?
           global.APP.api.ietopia.user.favorite.delete(room_id) :
           global.APP.api.ietopia.user.favorite.save(room_id)
@@ -21,7 +22,6 @@ export default class FavoriteButton extends Html {
       .then(()=>{
         var src = getfavoriteIconSrc(room_id);
         $(this).find("img").attr("src", src);
-        toggleRoomListFavoriteIcon(room_id);
       });
       return false;
     });

@@ -21438,6 +21438,7 @@ class FavoriteButton extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
         </div>`);
     $favoriteBtn.on("click", function() {
       (function() {
+        toggleRoomListFavoriteIcon(room_id);
         return hasFavorite(room_id) ?
           global.APP.api.ietopia.user.favorite.delete(room_id) :
           global.APP.api.ietopia.user.favorite.save(room_id)
@@ -21449,7 +21450,6 @@ class FavoriteButton extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
       .then(()=>{
         var src = getfavoriteIconSrc(room_id);
         $(this).find("img").attr("src", src);
-        toggleRoomListFavoriteIcon(room_id);
       });
       return false;
     });
