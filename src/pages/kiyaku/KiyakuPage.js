@@ -85,7 +85,7 @@ export default class KiyakuPage extends Page {
     <br>
     
     問合せ先：株式会社サクラス：ユーザーサポート担当<br>
-    メールアドレス：<br>
+    メールアドレス： info@ietopia.jp<br>
     
     <h2>第13条（広告等）</h2>
     

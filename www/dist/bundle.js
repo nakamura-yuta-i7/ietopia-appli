@@ -21438,7 +21438,6 @@ class FavoriteButton extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
         </div>`);
     $favoriteBtn.on("click", function() {
       (function() {
-        toggleRoomListFavoriteIcon(room_id);
         return hasFavorite(room_id) ?
           global.APP.api.ietopia.user.favorite.delete(room_id) :
           global.APP.api.ietopia.user.favorite.save(room_id)
@@ -21450,6 +21449,7 @@ class FavoriteButton extends __WEBPACK_IMPORTED_MODULE_0__Html__["a" /* default 
       .then(()=>{
         var src = getfavoriteIconSrc(room_id);
         $(this).find("img").attr("src", src);
+        toggleRoomListFavoriteIcon(room_id);
       });
       return false;
     });
@@ -40970,7 +40970,7 @@ class KiyakuPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     <br>
     
     問合せ先：株式会社サクラス：ユーザーサポート担当<br>
-    メールアドレス：<br>
+    メールアドレス： info@ietopia.jp<br>
     
     <h2>第13条（広告等）</h2>
     

@@ -1389,6 +1389,12 @@ section.recommend_area-section .recommend_area-checkboxes label:nth-child(3n+1) 
   border-radius: 4px;
   padding: 12px;
 }
+
+.info-page section .body a {
+  text-decoration: underline;
+  color: #185ACD;
+  cursor: pointer;
+}
 .kiyaku-page h2 {
   padding-top: 1em;
   font-size: 12px;
