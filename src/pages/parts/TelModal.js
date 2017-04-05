@@ -30,7 +30,17 @@ export default class TelModal extends Html {
     
     var $telButton = $modalContents.find(".call-tel");
     $telButton.on("click", () => {
-      location.href = `tel:${config.IETOPIA_TEL}`;
+      
+      if ( isAndroid() ) {
+        window.plugins.webintent.startActivity({
+            action: window.plugins.webintent.ACTION_VIEW,
+            url: 'tel: ' + config.IETOPIA_TEL },
+            function() {},
+            function() {alert('Failed to open URL via Android Intent')}
+        );
+      } else {
+        location.href = `tel:${config.IETOPIA_TEL}`;
+      }
       
       var data = {};
       if ( requestRoomId ) {
@@ -46,4 +56,8 @@ export default class TelModal extends Html {
     });
     this.$html = $modalContents;
   }
+}
+
+function isAndroid() {
+    return navigator.userAgent.match(/(Android)/);
 }
