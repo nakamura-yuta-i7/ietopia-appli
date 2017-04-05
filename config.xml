@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="jp.ietopia.appli" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" id="jp.ietopia.appli" version="1.0.1">
   <name>家とぴあ</name>
   <description>Made with Monaca (http://monaca.mobi)</description>
   <author/>
@@ -87,17 +87,17 @@
   </platform>
   <preference name="WindowsStorePublisherName" value="My Name"/>
   <preference name="WindowsStoreIdentityName" value="1952deed-2dda-3394-182c-d6072b7a6638"/>
-  <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
-  <preference name="AutoHideSplashScreen" value="true"/>
-  <preference name="FadeSplashScreen" value="false"/>
-  <preference name="ShowSplashScreenSpinner" value="false"/>
-  <preference name="EnableViewportScale" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <access origin="*"/>
   <preference name="KeepRunning" value="true"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="Orientation" value="portrait"/>
   <preference name="SplashScreenDelay" value="0"/>
   <preference name="Fullscreen" value="false"/>
+  <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
+  <preference name="AutoHideSplashScreen" value="true"/>
+  <preference name="FadeSplashScreen" value="false"/>
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <access origin="*"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="EnableViewportScale" value="false"/>
 </widget>
