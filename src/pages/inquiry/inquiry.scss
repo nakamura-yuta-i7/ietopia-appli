@@ -59,6 +59,11 @@
     }
   }
   .inquiry-form {
+    .require {
+      line-height: 1;
+      vertical-align: baseline;
+      color: coral;
+    }
     .kibou-renraku-group {
       .table-cell {
         select {

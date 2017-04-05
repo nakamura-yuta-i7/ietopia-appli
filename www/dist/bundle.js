@@ -40582,7 +40582,7 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
         
         <div class="table w100per form-group namae">
           <div class="table-cell">
-            <label>お名前</label>
+            <label>お名前 <span class="require">＊</span></label>
             <div class="ui input" style="margin-right:10px;">
               <input type="text" name="name" placeholder="お名前" value="${APP.me.name}">
             </div>
@@ -40610,14 +40610,14 @@ class InquiryPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */]
         </div>
         
         <div class="form-group">
-          <label>メールアドレス</label>
+          <label>メールアドレス <span class="require">＊</span></label>
           <div class="ui input fluid">
             <input type="text" name="mail" placeholder="メールアドレス: mail@ietopia.jp" value="${APP.me.mail}">
           </div>
         </div>
         
         <div class="form-group">
-          <label>メールアドレス（再入力）</label>
+          <label>メールアドレス（再入力） <span class="require">＊</span></label>
           <div class="ui input fluid">
             <input type="text" name="mail_retype" placeholder="メールアドレス（再入力）: mail@ietopia.jp" value="${APP.me.mail}">
           </div>
@@ -40895,7 +40895,7 @@ class KiyakuPage extends __WEBPACK_IMPORTED_MODULE_0__Page__["a" /* default */] 
     var $honbun = $(`
     <h2>第1条（適用）</h2>
     
-    1. 家トピアご利用規約（以下「本規約」といいます。）は、株式会社サクラス（以下「当社」といいます。）が運営する不動産・住宅に関するスマートフォン専用情報サイト「家トピア」（以下「本サイト」といいます。以下、本サイト上で提供される各種サービスも含むものとします。）を利用するすべてのユーザーに適用されるものとし、ユーザーは、本規約に同意のうえ本サイトを利用するものとします。<br>
+    1. 家とぴあご利用規約（以下「本規約」といいます。）は、株式会社サクラス（以下「当社」といいます。）が運営する不動産・住宅に関するスマートフォン専用情報サイト「家とぴあ」（以下「本サイト」といいます。以下、本サイト上で提供される各種サービスも含むものとします。）を利用するすべてのユーザーに適用されるものとし、ユーザーは、本規約に同意のうえ本サイトを利用するものとします。<br>
     <br>
     2. 当社が、本サイトで提示する諸注意等(以下「諸注意等」といいます。）が存在する場合には、諸注意等はそれぞれ本規約の一部構成するものとします。<br>
     <br>

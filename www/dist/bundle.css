@@ -1186,6 +1186,12 @@ section.recommend_area-section .recommend_area-checkboxes label:nth-child(3n+1) 
   color: #F47F00;
 }
 
+.inquiry-page .inquiry-form .require {
+  line-height: 1;
+  vertical-align: baseline;
+  color: coral;
+}
+
 .inquiry-page .inquiry-form .kibou-renraku-group .table-cell {
   text-align: center;
   vertical-align: middle;

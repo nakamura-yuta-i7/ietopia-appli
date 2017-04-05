@@ -83,7 +83,7 @@ export default class InquiryPage extends Page {
         
         <div class="table w100per form-group namae">
           <div class="table-cell">
-            <label>お名前</label>
+            <label>お名前 <span class="require">＊</span></label>
             <div class="ui input" style="margin-right:10px;">
               <input type="text" name="name" placeholder="お名前" value="${APP.me.name}">
             </div>
@@ -111,14 +111,14 @@ export default class InquiryPage extends Page {
         </div>
         
         <div class="form-group">
-          <label>メールアドレス</label>
+          <label>メールアドレス <span class="require">＊</span></label>
           <div class="ui input fluid">
             <input type="text" name="mail" placeholder="メールアドレス: mail@ietopia.jp" value="${APP.me.mail}">
           </div>
         </div>
         
         <div class="form-group">
-          <label>メールアドレス（再入力）</label>
+          <label>メールアドレス（再入力） <span class="require">＊</span></label>
           <div class="ui input fluid">
             <input type="text" name="mail_retype" placeholder="メールアドレス（再入力）: mail@ietopia.jp" value="${APP.me.mail}">
           </div>
